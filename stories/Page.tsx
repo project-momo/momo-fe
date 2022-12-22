@@ -13,7 +13,7 @@ export const Page: React.VFC = () => {
   return (
     <article>
       <Header
-        user={user}
+        user={false}
         onLogin={() => setUser({ name: 'Jane Doe' })}
         goMypage={() => setUser}
       />

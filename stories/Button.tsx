@@ -1,6 +1,8 @@
 import React from 'react';
-import './button.css';
-
+import styles from './button.module.css';
+type Props = {
+  className?: string
+}
 interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
@@ -28,7 +30,7 @@ interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({
+export const Button= ({
   disabled = false,
   size,
   backgroundColor,
@@ -36,17 +38,17 @@ export const Button = ({
   label,
   ...props
 }: ButtonProps) => {
-  const mode = disabled ?  'storybook-button--disabled': 'storybook-button--primary';
+  const mode = disabled ?  styles.storybook_button__disabled : styles.storybook_button__primary;
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
+      className={[styles.storybook_button, styles[`storybook_button__${size}`], mode].join(' ')}
       style={{ backgroundColor }}
       disabled ={disabled}
       {...props}
     >
 
-     {priceLabel ?<> <span className='price'>{priceLabel}</span>  원 <br/> 결제하고 시작하기 </>: label }
+     {priceLabel ?<> <span className={styles.price}>{priceLabel}</span>  원 <br/> 결제하고 시작하기 </>: label }
     </button>
   );
 };

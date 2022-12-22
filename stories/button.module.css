@@ -1,5 +1,4 @@
-.storybook-button {
-  font-family: 'IBM Plex Sans KR', 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.storybook_button {
   width: 100%;
   border: 0;
   border-radius: 8px;
@@ -8,35 +7,35 @@
   line-height: 1;
 
 }
-.storybook-button--primary {
+.storybook_button__primary {
   color: white;
   background-color: #444BFF;
   font-weight: 700;
 }
-.storybook-button--disabled {
+.storybook_button__disabled {
   background-color: lightgray;
   cursor:default;
 
   font-weight: 400;
   font-size: 16px;
 }
-.storybook-button .price {
+.storybook_button .price {
   font-size: 20px;
   font-weight: 700;
 }
-.storybook-button--bigBold {
+.storybook_button__bigBold {
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
   padding: 14px 0;
 }
-.storybook-button--bigThin {
+.storybook_button__bigThin {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
   padding: 14px 0;
 }
-.storybook-button--smallBold {
+.storybook_button__smallBold {
   font-weight: 700;
   font-size: 16px;
   padding:  8px 0;
