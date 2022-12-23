@@ -11,7 +11,6 @@ export const ContentLayout = styled.div`
    justify-content: center;
 `
 export const CenterSectionr = styled.section`
-    background-color: white;
     width: 790px;
     height: 500px;
     margin: 20px 10px;
@@ -19,7 +18,6 @@ export const CenterSectionr = styled.section`
 `
 
 export const RightSection = styled.section`
-    background-color: white;
     width: 270px;
     height: 500px;
     margin: 20px;
