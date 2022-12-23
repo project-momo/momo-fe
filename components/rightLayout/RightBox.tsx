@@ -12,16 +12,18 @@ export const RightBox = ({
    children
 }:RightBoxProps) => {
    return (
-      <>
+      <Wrap>
       <RightSubTitle label={label} imgLink={imgLink}/>
       <Box>
         {children}
       </Box>
          
-      </>
+      </Wrap>
    );
 };
-
+const Wrap = styled.div`
+   margin-top: 26px;
+`
 const Box = styled.div`
    background-color: white;
    width: 270px;
