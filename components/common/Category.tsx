@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -34,53 +35,53 @@ const Category = () => {
       <Layout>
          <Ul>
             <Li>
-               <a href='/test' className='active'>
+            <a href='/test' className='active'>
                   <img src='./../../assets/images/icon_lifestyle.png' />
                   <p>전체</p>
                </a>
             </Li>
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img />
                   <p>라이프스타일</p>
-               </a>
+               </Link>
             </Li>
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img src='./../../assets/images/icon_lifestyle.png'/>
                   <p>미디어</p>
-               </a>
+               </Link>
             </Li>
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img src='./../../assets/images/icon_lifestyle.png'/>
                   <p>미디어</p>
-               </a>
+               </Link>
             </Li>
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img src='./../../assets/images/icon_lifestyle.png'/>
                   <p>미디어</p>
-               </a>
+               </Link>
             </Li>
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img src='./../../assets/images/icon_lifestyle.png'/>
                   <p>미디어</p>
-               </a>
+               </Link>
             </Li>
 
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img src='./../../assets/images/icon_lifestyle.png'/>
                   <p>미디어</p>
-               </a>
+               </Link>
             </Li>
             <Li>
-               <a className=''>
+               <Link href="#" className=''>
                   <img src='./../../assets/images/icon_lifestyle.png'/>
                   <p>미디어</p>
-               </a>
+               </Link>
             </Li>
          </Ul>
       </Layout>
