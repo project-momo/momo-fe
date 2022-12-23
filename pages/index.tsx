@@ -21,7 +21,7 @@ const Home: NextPage = () => {
           {/* 경우가 2개 가능한데 어떤걸로 써야될지는 테스트 해보고 결정해야겠네요 */}
           <Link href="/Test">폴더 안 페이지 클릭</Link>
           <Link href="/test2">같은 경로 페이지 클릭</Link>
-          <Link href="/content/create">같은 경로 페이지 클릭</Link>
+          <Link href="/content/create">모임 등록</Link>
         </RightSection>
       </ContentLayout>
     </GrayLayout>
