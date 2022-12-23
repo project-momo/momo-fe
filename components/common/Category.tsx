@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+// import Image from 'next/image'
+import IconAll from './../../assets/images/icon_all.svg'
+import IconLifestyle from './../../assets/images/icon_lifestyle.svg'
+import IconMedia from './../../assets/images/icon_media.svg'
+import IconEdu from './../../assets/images/icon_edu.svg'
 
 const Layout = styled.div`
    width: 277px;
@@ -17,6 +22,7 @@ const Ul = styled.ul`
 const Li = styled.li`
  a{
    display: flex;
+   align-items: center;
    padding: 10px 20px;
    border-radius: 50px;
    cursor: pointer;
@@ -36,50 +42,50 @@ const Category = () => {
          <Ul>
             <Li>
             <a href='/test' className='active'>
-                  <img src='./../../assets/images/icon_lifestyle.png' />
+                  <img src={IconAll} alt="All" />
                   <p>전체</p>
                </a>
             </Li>
             <Li>
                <Link href="#" className=''>
-                  <img />
+               <img src={IconLifestyle} alt="Lifestyle" />
                   <p>라이프스타일</p>
                </Link>
             </Li>
             <Li>
                <Link href="#" className=''>
-                  <img src='./../../assets/images/icon_lifestyle.png'/>
+               <img src={IconEdu} alt="edu" />
+                  <p>교육</p>
+               </Link>
+            </Li>
+            <Li>
+               <Link href="#" className=''>
+               <img src={IconAll} alt="All" />
                   <p>미디어</p>
                </Link>
             </Li>
             <Li>
                <Link href="#" className=''>
-                  <img src='./../../assets/images/icon_lifestyle.png'/>
+               <img src={IconAll} alt="All" />
                   <p>미디어</p>
                </Link>
             </Li>
             <Li>
                <Link href="#" className=''>
-                  <img src='./../../assets/images/icon_lifestyle.png'/>
-                  <p>미디어</p>
-               </Link>
-            </Li>
-            <Li>
-               <Link href="#" className=''>
-                  <img src='./../../assets/images/icon_lifestyle.png'/>
+               <img src={IconAll} alt="All" />
                   <p>미디어</p>
                </Link>
             </Li>
 
             <Li>
                <Link href="#" className=''>
-                  <img src='./../../assets/images/icon_lifestyle.png'/>
+               <img src={IconAll} alt="All" />
                   <p>미디어</p>
                </Link>
             </Li>
             <Li>
                <Link href="#" className=''>
-                  <img src='./../../assets/images/icon_lifestyle.png'/>
+               <img src={IconAll} alt="All" />
                   <p>미디어</p>
                </Link>
             </Li>
