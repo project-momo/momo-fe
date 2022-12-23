@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import iconLifestyle from './../../public/images/icon_lifestyle.png'
 
 const Layout = styled.div`
    width: 277px;
    background-color: white;
-   height: calc(100vh - 105px);
+   height: auto;
    border-radius: 15px;
    box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.1);
    overflow-y: auto;
+   margin: 20px;
 `
 const Ul = styled.ul`
    padding: 30px 18px;
@@ -35,10 +35,10 @@ const Category = () => {
       <Layout>
          <Ul>
             <Li>
-               <Link href="#" className='active'>
+            <a href='/test' className='active'>
                   <img src='./../../assets/images/icon_lifestyle.png' />
                   <p>전체</p>
-               </Link>
+               </a>
             </Li>
             <Li>
                <Link href="#" className=''>
