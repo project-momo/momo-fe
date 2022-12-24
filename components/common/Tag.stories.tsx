@@ -20,11 +20,4 @@ const Template: ComponentStory<typeof Tag> = (args) => <Tag {...args} />;
 export const BasicTag = Template.bind({});
 BasicTag.args = {
    label: '멘토링',
-  active : false
-};
-
-export const ActiveTag = Template.bind({});
-ActiveTag.args = {
-   label: '멘토링',
-   active : true
 };
