@@ -10,6 +10,7 @@ body {
 a {
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
@@ -97,4 +98,5 @@ th {
 button {
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
