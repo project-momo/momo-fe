@@ -45,7 +45,7 @@ display: inline-block;
    font-size: 16px;
    padding : 5px 10px;
    border-radius: 30px;
-   margin: 30px 10px 15px 0;
+   margin: 15px 10px 15px 0;
    cursor: pointer;
    transition:background-color 0.3s;
    &.active{

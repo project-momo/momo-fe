@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <GrayLayout>
          <ContentLayout>
-            <Header/>
+            <Header isLogin={false}/>
             <Component {...pageProps} />
          </ContentLayout>
          </GrayLayout>

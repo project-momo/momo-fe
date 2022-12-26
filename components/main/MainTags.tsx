@@ -23,6 +23,8 @@ const MainTagWrap = styled.div`
    display: flex;
    justify-content: space-between;
    align-items: center;
+   margin-top: 15px;
+   flex-wrap: wrap;
 `
 const Tags = styled.ul`
    display: flex;
