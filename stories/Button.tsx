@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './button.module.css';
 type Props = {
-  className?: string
-}
+  className?: string;
+};
 interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
-   disabled?: boolean;
+  disabled?: boolean;
   /**
    * What background color to use
    */
@@ -23,14 +23,14 @@ interface ButtonProps {
   /**
    * Optional click handler
    */
-   priceLabel: string
+  priceLabel?: string;
   onClick?: () => void;
 }
 
 /**
  * Primary UI component for user interaction
  */
-export const Button= ({
+export const Button = ({
   disabled = false,
   size,
   backgroundColor,
@@ -38,17 +38,30 @@ export const Button= ({
   label,
   ...props
 }: ButtonProps) => {
-  const mode = disabled ?  styles.storybook_button__disabled : styles.storybook_button__primary;
+  const mode = disabled
+    ? styles.storybook_button__disabled
+    : styles.storybook_button__primary;
   return (
     <button
       type="button"
-      className={[styles.storybook_button, styles[`storybook_button__${size}`], mode].join(' ')}
+      className={[
+        styles.storybook_button,
+        styles[`storybook_button__${size}`],
+        mode,
+      ].join(' ')}
       style={{ backgroundColor }}
-      disabled ={disabled}
+      disabled={disabled}
       {...props}
     >
-
-     {priceLabel ?<> <span className={styles.price}>{priceLabel}</span>  원 <br/> 결제하고 시작하기 </>: label }
+      {priceLabel ? (
+        <>
+          {' '}
+          <span className={styles.price}>{priceLabel}</span> 원 <br /> 결제하고
+          시작하기{' '}
+        </>
+      ) : (
+        label
+      )}
     </button>
   );
 };

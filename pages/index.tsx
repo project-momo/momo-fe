@@ -6,18 +6,17 @@ import Link from 'next/link';
 
 const Home: NextPage = () => {
   return (
-       <>
-         <Category />
-         <CenterSection>
-            <Title label='라이프 스타일'/>
-         </CenterSection>
-         <RightSection>
-            <Link href="/mypage">
-               마이페이지
-            </Link>
-         </RightSection>
-      </>
-    );
+    <>
+        <Category />
+        <CenterSectionr>
+          <Title label="라이프 스타일" />
+        </CenterSectionr>
+        <RightSection>
+          <Link href="/mypage">마이페이지</Link>
+          <Link href="/content/create">모임 등록</Link>
+        </RightSection>
+    </>
+  );
 };
 
 export default Home;
