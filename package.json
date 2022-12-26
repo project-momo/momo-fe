@@ -11,6 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@types/react-datepicker": "^4.8.0",
     "@types/styled-components": "^5.1.26",
     "next": "^13.0.7",
     "next-images": "^1.8.4",
