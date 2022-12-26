@@ -10,11 +10,16 @@ body {
 a {
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 * {
   box-sizing: border-box;
   color: black;
+}
+
+button{
+  cursor: pointer;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -97,4 +102,5 @@ th {
 button {
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
