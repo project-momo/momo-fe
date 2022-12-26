@@ -12,7 +12,7 @@ export const ContentLayout = styled.div`
    display: flex;
    justify-content: center;
 `
-export const CenterSectionr = styled.section`
+export const CenterSection = styled.section`
     width: 790px;
     height: 500px;
     margin: 20px 10px;

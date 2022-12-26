@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { mainTagList } from '../../atoms';
 
 interface TagProps {
    label : string
-   onClick?: () => void;
+   onClick?: (e: React.MouseEvent) => void;
 } 
 
 export const Tag = ({
    label,
    ...props
 }:TagProps) => {
-   const [active, setActive] = useState(false)
+   const [tags, setTags] = useRecoilState(mainTagList)
+
    const Toggle = () => {
       setActive(!active)
+    
+      if(tags.includes(label)) {
+         const newTag = tags.filter(el => el !== label)
+         setTags(newTag)
+      } else {
+         setTags(tags.concat(label))
+      }
+      console.log('스프레드',[...tags])
    }
+
+   const isActive= () =>{
+     return tags.includes(label)
+   }
+
+   const [active, setActive] = useState(isActive)
+
+   console.log('왜..',tags)
    return (
       <TagCompo onClick={Toggle} className={active ? 'active' : ''} {...props} >
          {label}
