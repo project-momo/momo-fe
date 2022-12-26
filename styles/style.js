@@ -6,21 +6,21 @@ export const GrayLayout = styled.div`
 `;
 
 export const ContentLayout = styled.div`
+  max-width: 1600px;
+  margin: 55px auto 0;
+  display: flex;
+  justify-content: center;
+`;
 
-   max-width: 1600px;
-   margin: 55px auto 0;
-   display: flex;
-   justify-content: center;
-`
 export const CenterSection = styled.section`
-    width: 790px;
-    height: 500px;
-    margin: 20px 10px;
-    flex:1;
-`
+  width: 790px;
+  height: 500px;
+  margin: 20px 10px;
+  /* flex: 1; */
+`;
 
 export const RightSection = styled.section`
-    width: 270px;
-    height: 500px;
-    margin: 20px;
-`
+  width: 270px;
+  height: 500px;
+  margin: 20px;
+`;
