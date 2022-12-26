@@ -5,7 +5,6 @@
   cursor: pointer;
   display: inline-block;
   line-height: 1;
-
 }
 .storybook_button__primary {
   color: white;
@@ -22,6 +21,7 @@
 .storybook_button .price {
   font-size: 20px;
   font-weight: 700;
+  color: white;
 }
 .storybook_button__bigBold {
   font-size: 16px;
