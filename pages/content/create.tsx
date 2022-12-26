@@ -2,8 +2,74 @@ import { Title } from '../../components/common/Title';
 import { CenterSectionr, ContentLayout, GrayLayout } from '../../styles/style';
 import styled from 'styled-components';
 import { Button } from '../../stories/Button';
+import { useEffect, useState } from 'react';
 
 const Create = () => {
+  const [category, setCategory] = useState('라이프스타일');
+  const [tags, setTags] = useState<string[]>([]);
+
+  // 카테고리
+  const onClickCategory = (selectedCategory: string) => {
+    setCategory(selectedCategory);
+  };
+
+  // 태그
+  const onClickTag = (selectedTag: string) => {
+    if (tags.includes(selectedTag)) {
+      setTags([...tags.filter((tag) => tag !== selectedTag)]);
+    } else {
+      setTags([...tags, selectedTag]);
+    }
+  };
+
+  // 날짜
+  const now = new Date();
+  const [startScheduleForm, setStartScheduleForm] = useState({
+    year: now.getFullYear().toString(),
+    month: now.getMonth().toString(),
+    day: now.getDay().toString(),
+  });
+  const [endScheduleForm, setEndScheduleForm] = useState({
+    year: now.getFullYear().toString(),
+    month: now.getMonth().toString(),
+    day: now.getDay().toString(),
+  });
+
+  let years = [];
+  for (let y = now.getFullYear(); y <= now.getFullYear() + 10; y++) {
+    years.push(y.toString());
+  }
+
+  let months = [];
+  for (let m = 1; m <= 12; m++) {
+    if (m < 10) {
+      months.push('0' + m.toString());
+    } else {
+      months.push(m.toString());
+    }
+  }
+
+  let days = [];
+  let date = new Date(
+    Number(startScheduleForm.year),
+    Number(startScheduleForm.month),
+    0,
+  ).getDate();
+  for (let d = 1; d <= date; d++) {
+    if (d < 10) {
+      days.push('0' + d.toString());
+    } else {
+      days.push(d.toString());
+    }
+  }
+
+  useEffect(() => {
+    console.log('카테고리', category);
+    console.log('태그', tags);
+    console.log('시작 날짜', startScheduleForm);
+    console.log('종료 날짜', endScheduleForm);
+  }, [category, tags, startScheduleForm]);
+
   return (
     <GrayLayout>
       <ContentLayout>
@@ -17,14 +83,54 @@ const Create = () => {
                 <span>카테고리를 선택해주세요</span>
               </ContentTitle>
               <Categorys>
-                <li>라이프스타일</li>
-                <li>디자인</li>
-                <li>미디어</li>
-                <li>개발</li>
-                <li>교육</li>
-                <li>금융</li>
-                <li>소셜</li>
-                <li>인공지능</li>
+                <li
+                  onClick={() => onClickCategory('라이프스타일')}
+                  className={category === '라이프스타일' ? 'selected' : ''}
+                >
+                  라이프스타일
+                </li>
+                <li
+                  onClick={() => onClickCategory('디자인')}
+                  className={category === '디자인' ? 'selected' : ''}
+                >
+                  디자인
+                </li>
+                <li
+                  onClick={() => onClickCategory('미디어')}
+                  className={category === '미디어' ? 'selected' : ''}
+                >
+                  미디어
+                </li>
+                <li
+                  onClick={() => onClickCategory('개발')}
+                  className={category === '개발' ? 'selected' : ''}
+                >
+                  개발
+                </li>
+                <li
+                  onClick={() => onClickCategory('교육')}
+                  className={category === '교육' ? 'selected' : ''}
+                >
+                  교육
+                </li>
+                <li
+                  onClick={() => onClickCategory('금융')}
+                  className={category === '금융' ? 'selected' : ''}
+                >
+                  금융
+                </li>
+                <li
+                  onClick={() => onClickCategory('소셜')}
+                  className={category === '소셜' ? 'selected' : ''}
+                >
+                  소셜
+                </li>
+                <li
+                  onClick={() => onClickCategory('인공지능')}
+                  className={category === '인공지능' ? 'selected' : ''}
+                >
+                  인공지능
+                </li>
               </Categorys>
             </Li>
             <Li>
@@ -45,12 +151,42 @@ const Create = () => {
                 <span>1개 이상 선택 해주세요.</span>
               </ContentTitle>
               <Tags>
-                <Tag>멘토링</Tag>
-                <Tag>온라인</Tag>
-                <Tag>오프라인모임</Tag>
-                <Tag>스터디</Tag>
-                <Tag>모임</Tag>
-                <Tag>5인이상</Tag>
+                <li
+                  onClick={() => onClickTag('멘토링')}
+                  className={tags.includes('멘토링') ? 'selected' : ''}
+                >
+                  멘토링
+                </li>
+                <li
+                  onClick={() => onClickTag('온라인')}
+                  className={tags.includes('온라인') ? 'selected' : ''}
+                >
+                  온라인
+                </li>
+                <li
+                  onClick={() => onClickTag('오프라인모임')}
+                  className={tags.includes('오프라인모임') ? 'selected' : ''}
+                >
+                  오프라인모임
+                </li>
+                <li
+                  onClick={() => onClickTag('스터디')}
+                  className={tags.includes('스터디') ? 'selected' : ''}
+                >
+                  스터디
+                </li>
+                <li
+                  onClick={() => onClickTag('모임')}
+                  className={tags.includes('모임') ? 'selected' : ''}
+                >
+                  모임
+                </li>
+                <li
+                  onClick={() => onClickTag('5인이상')}
+                  className={tags.includes('5인이상') ? 'selected' : ''}
+                >
+                  5인이상
+                </li>
               </Tags>
             </Li>
             <Li>
@@ -74,8 +210,7 @@ const Create = () => {
               </ContentTitle>
               <RadioButtons>
                 <label>
-                  <input type="radio" name="schedule" id="one" checked /> 하루
-                  일정
+                  <input type="radio" name="schedule" id="one" /> 하루 일정
                 </label>
                 <label>
                   <input type="radio" name="schedule" id="regular" /> 정기 일정
@@ -84,31 +219,194 @@ const Create = () => {
                   <input type="radio" name="schedule" id="free" /> 자유 일정
                 </label>
               </RadioButtons>
+              {/* 하루 일정 */}
               <Selects>
-                <Select>
-                  <option value="2022">2022</option>
-                </Select>
-                <Select>
-                  <option value="12">12</option>
-                </Select>
-                <Select>
-                  <option value="23">23</option>
-                </Select>
+                <select
+                  value={startScheduleForm.year}
+                  onChange={(e) =>
+                    setStartScheduleForm({
+                      ...startScheduleForm,
+                      year: e.target.value,
+                    })
+                  }
+                >
+                  {years.map((year) => (
+                    <option value={year} key={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={startScheduleForm.month}
+                  onChange={(e) =>
+                    setStartScheduleForm({
+                      ...startScheduleForm,
+                      month: e.target.value,
+                    })
+                  }
+                >
+                  {months.map((month) => (
+                    <option value={month} key={month}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={startScheduleForm.day}
+                  onChange={(e) =>
+                    setStartScheduleForm({
+                      ...startScheduleForm,
+                      day: e.target.value,
+                    })
+                  }
+                >
+                  {days.map((day) => (
+                    <option value={day} key={day}>
+                      {day}
+                    </option>
+                  ))}
+                </select>
               </Selects>
+              {/* 정기 일정 */}
+              <SelectsContainer>
+                <Selects>
+                  <select
+                    value={startScheduleForm.year}
+                    onChange={(e) =>
+                      setStartScheduleForm({
+                        ...startScheduleForm,
+                        year: e.target.value,
+                      })
+                    }
+                  >
+                    {years.map((year) => (
+                      <option value={year} key={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={startScheduleForm.month}
+                    onChange={(e) =>
+                      setStartScheduleForm({
+                        ...startScheduleForm,
+                        month: e.target.value,
+                      })
+                    }
+                  >
+                    {months.map((month) => (
+                      <option value={month} key={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={startScheduleForm.day}
+                    onChange={(e) =>
+                      setStartScheduleForm({
+                        ...startScheduleForm,
+                        day: e.target.value,
+                      })
+                    }
+                  >
+                    {days.map((day) => (
+                      <option value={day} key={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </select>
+                </Selects>
+                <Wave>~</Wave>
+                <Selects>
+                  <select
+                    value={endScheduleForm.year}
+                    onChange={(e) =>
+                      setEndScheduleForm({
+                        ...endScheduleForm,
+                        year: e.target.value,
+                      })
+                    }
+                  >
+                    {years.map((year) => (
+                      <option value={year} key={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={endScheduleForm.month}
+                    onChange={(e) =>
+                      setEndScheduleForm({
+                        ...endScheduleForm,
+                        month: e.target.value,
+                      })
+                    }
+                  >
+                    {months.map((month) => (
+                      <option value={month} key={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={endScheduleForm.day}
+                    onChange={(e) =>
+                      setEndScheduleForm({
+                        ...endScheduleForm,
+                        day: e.target.value,
+                      })
+                    }
+                  >
+                    {days.map((day) => (
+                      <option value={day} key={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </select>
+                </Selects>
+              </SelectsContainer>
+              <RadioButtons>
+                <label>
+                  <input type="checkbox" name="day" id="one" /> 월
+                </label>
+                <label>
+                  <input type="checkbox" name="day" id="regular" /> 화
+                </label>
+                <label>
+                  <input type="checkbox" name="day" id="free" /> 수
+                </label>
+                <label>
+                  <input type="checkbox" name="day" id="free" /> 목
+                </label>
+                <label>
+                  <input type="checkbox" name="day" id="free" /> 금
+                </label>
+                <label>
+                  <input type="checkbox" name="day" id="free" /> 토
+                </label>
+                <label>
+                  <input type="checkbox" name="day" id="free" /> 일
+                </label>
+              </RadioButtons>
+              {/* 자유 일정 */}
             </Li>
             <Li>
               <ContentTitle>
                 <span>시간 설정</span>
               </ContentTitle>
-              <Selects>
-                <Select>
-                  <option value="2022">17:00</option>
-                </Select>
+              <SelectsContainer>
+                <Selects>
+                  <select>
+                    <option value="2022">17:00</option>
+                  </select>
+                </Selects>
                 <Wave>~</Wave>
-                <Select>
-                  <option value="23">18:00</option>
-                </Select>
-              </Selects>
+                <Selects>
+                  <select>
+                    <option value="23">18:00</option>
+                  </select>
+                </Selects>
+              </SelectsContainer>
             </Li>
             <Li>
               <ContentTitle>
@@ -116,8 +414,7 @@ const Create = () => {
               </ContentTitle>
               <RadioButtons>
                 <label>
-                  <input type="radio" name="price" id="one" checked /> 시간당
-                  가격
+                  <input type="radio" name="price" id="one" /> 시간당 가격
                   <PriceInput />
                 </label>
                 <label>
@@ -130,9 +427,6 @@ const Create = () => {
             <Li>
               <ContentTitle>
                 <span>전달사항</span>
-                <span>
-                  개인 정보 보호를 위해 정확한 주소를 입력하지 마세요.
-                </span>
               </ContentTitle>
               <Input placeholder="모임 신청 전 전달 해야 할 사항이 있다면 적어 주세요." />
             </Li>
@@ -174,11 +468,16 @@ const ContentTitle = styled.div`
 const Categorys = styled.ul`
   background-color: #f0f0f0;
   border-radius: 15px;
-  padding: 30px;
+  padding: 20px 30px;
   display: flex;
   flex-wrap: wrap;
-  li {
+  > li {
     width: 50%;
+    margin: 8px 0;
+    cursor: pointer;
+    &.selected {
+      color: #444bff;
+    }
   }
 `;
 
@@ -209,13 +508,18 @@ const Tags = styled.ul`
   border-radius: 15px;
   padding: 20px 30px;
   display: flex;
+  > li {
+    padding: 7px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    &.selected {
+      background-color: #d4e6ff;
+      color: #6a6ff2;
+    }
+  }
   > li:not(:last-child) {
     margin-right: 15px;
   }
-`;
-
-const Tag = styled.li`
-  cursor: pointer;
 `;
 
 const RadioButtons = styled.div`
@@ -225,21 +529,24 @@ const RadioButtons = styled.div`
   }
 `;
 
+const SelectsContainer = styled.div`
+  display: flex;
+`;
+
 const Selects = styled.div`
+  > select {
+    background-color: #f5f5f5;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+  }
   > select:not(:last-child) {
     margin-right: 15px;
   }
 `;
 
-const Select = styled.select`
-  background-color: #f5f5f5;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-`;
-
 const Wave = styled.span`
-  margin-right: 15px;
+  margin: 0 15px;
 `;
 
 const PriceInput = styled.input`
