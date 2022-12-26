@@ -14,21 +14,15 @@ const Home: NextPage = () => {
   return (
     <>
         <Category />
-        <CenterSectionr>
+        <CenterSection>
           <Title label="라이프 스타일" />
           <MainTags/>
           <MainList/>
-        </CenterSectionr>
+        </CenterSection>
         <RightSection>
             <RightBox label='실시간 핫한 모임' imgLink={IconHot} children={
             <RankList/>}/>
             <RightBox label='알려드립니다!' imgLink={IconNotice} children={null}/>
-            {/* <Link href="/Test">
-               폴더 안 페이지 클릭
-            </Link>
-            <Link href="/test2">
-               같은 경로 페이지 클릭
-            </Link> */}
          </RightSection>
     </>
   );

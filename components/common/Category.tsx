@@ -42,7 +42,7 @@ export const Category = () => {
          <Ul>
             <Li>
 
-            <a href='/test' className='active'>
+               <Link href='/test' className='active'>
                   <img src={IconAll} alt="All" />
                   <p>전체</p>
                </Link>
