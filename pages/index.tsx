@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import {CenterSection,RightSection} from '../styles/style';
+import {CenterSection ,RightSection} from '../styles/style';
 import Category from '../components/common/Category';
 import { Title } from '../components/common/Title';
 import Link from 'next/link';
@@ -19,11 +19,11 @@ const Home: NextPage = () => {
   return (
     <>
         <Category />
-        <CenterSectionr>
+        <CenterSection>
           <Title label="라이프 스타일" />
           <MainTags/>
           <MainList/>
-        </CenterSectionr>
+        </CenterSection>
         <RightSection>
             <RightBox label='실시간 핫한 모임' imgLink={IconHot} children={
             <RankList/>}/>

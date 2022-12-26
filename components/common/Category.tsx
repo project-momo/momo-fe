@@ -45,7 +45,7 @@ export const Category = () => {
             <a href='/test' className='active'>
                   <img src={IconAll} alt="All" />
                   <p>전체</p>
-               </Link>
+               </a>
             </Li>
             <Li>
                <Link href="#" className=''>
