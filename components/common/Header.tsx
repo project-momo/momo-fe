@@ -25,7 +25,7 @@ const Header = ({isLogin}:LoginProps) => {
           <H>웹사이트 이름</H>
         </div>
         <Input id='Search'/>
-        <FloatingSearch >
+        <FloatingSearch  htmlFor='Search' >
           <FloatingSearchicon htmlFor='Search' background={IconSearch}></FloatingSearchicon>
           <FloatingSearchLabel htmlFor='Search'>검색하기</FloatingSearchLabel>
         </FloatingSearch>
@@ -76,7 +76,7 @@ const H = styled.h1`
   color: #ECECEC;
 ` 
 
-const FloatingSearch =styled.div`
+const FloatingSearch =styled.label`
 height: 34px;
 width:340px;
 position: absolute;

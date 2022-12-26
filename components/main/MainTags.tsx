@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SubTitle } from '../common/SubTitle';
 import { Tag } from '../common/Tag';
 
 const MainTags = () => {
+  
 
+   const labelList = ['멘토링', '온라인', '오프라인모임', '스터디', '모임', '5인이상']
    return (
       <MainTagWrap>
          <SubTitle label='지금 올라오는 모임' labelMore=''/>
          <Tags>
-            <Tag label='멘토링'/>
-            <Tag label='온라인'/>
-            <Tag label='오프라인모임'/>
-            <Tag label='스터디'/>
-            <Tag label='모임'/>
-            <Tag label='5인이상'/>
+           { labelList.map((el,idx) => <Tag label={el} />)}
          </Tags>
       </MainTagWrap>
    );
