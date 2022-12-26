@@ -1,5 +1,10 @@
 import type { NextPage } from 'next';
-import {GrayLayout,ContentLayout,CenterSectionr,RightSection} from '../styles/style';
+import {
+  GrayLayout,
+  ContentLayout,
+  CenterSectionr,
+  RightSection,
+} from '../styles/style';
 import Category from '../components/common/Category';
 import { Title } from '../components/common/Title';
 import Link from 'next/link';
@@ -33,7 +38,7 @@ const Home: NextPage = () => {
          </RightSection>
          </ContentLayout>
       </GrayLayout>
-    );
+    )
 };
 
 export default Home;
