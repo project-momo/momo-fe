@@ -6,6 +6,7 @@ export const GrayLayout = styled.div`
 `;
 
 export const ContentLayout = styled.div`
+
    max-width: 1600px;
    margin: 55px auto 0;
    display: flex;
