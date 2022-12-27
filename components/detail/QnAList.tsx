@@ -8,14 +8,14 @@ const QnAList = () => {
   return (
     <QnaUl>
       <FirstLi>
-        <CommentWarp>
+        <FirstList>
           <User>
             <UserImg userimg={UserImage}>userImg</UserImg>
             <UserName>유저이름</UserName>
             <Time>시간전</Time>
           </User>
           <Comment>너무 어렵습니다. 몇시간 정도가 적당할까요?</Comment>
-        </CommentWarp>
+        </FirstList>
         <SecondUl>
           <CommentWarp>
             <User>
@@ -36,14 +36,14 @@ const QnAList = () => {
         </SecondUl>
       </FirstLi>
       <FirstLi>
-        <CommentWarp>
+        <FirstList>
           <User>
             <UserImg userimg={UserImage}>userImg</UserImg>
             <UserName>유저이름</UserName>
             <Time>시간전</Time>
           </User>
           <Comment>너무 어렵습니다. 몇시간 정도가 적당할까요?</Comment>
-        </CommentWarp>
+        </FirstList>
         <SecondUl>
           <CommentWarp>
             <User>
@@ -76,6 +76,9 @@ const FirstLi = styled.li`
   margin-bottom: 15px;
 `;
 const CommentWarp = styled.li`
+  margin-bottom: 8px;
+`;
+const FirstList = styled.div`
   margin-bottom: 8px;
 `;
 const User = styled.div`

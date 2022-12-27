@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import QnAList from './QnAList';
-
-const Qna = () => {
+interface QnaToggleProps {
+  open: boolean;
+}
+const Qna = ({ open }: QnaToggleProps) => {
   return (
     <>
-      <QnaWrap>
+      <QnaWrap open={open}>
         <QnAList />
       </QnaWrap>
     </>
@@ -14,7 +16,10 @@ const Qna = () => {
 
 export default Qna;
 
-const QnaWrap = styled.div`
-  margin-bottom: 40px;
-  padding: 12px 0;
+const QnaWrap = styled.div<{ open: boolean }>`
+  margin-top: 12px;
+  margin-bottom: 35px;
+  transition: 0.5s;
+  max-height: ${(p) => (p.open ? '99999999px' : '0')};
+  overflow: hidden;
 `;
