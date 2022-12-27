@@ -8,17 +8,15 @@ export default {
    component: ModalBtn,
    argTypes: {
       mainBtnLabel: {
-       name: 'mainBtnLabel',
-       type : {name : 'string'}
-    }
-   },
- } as ComponentMeta<typeof ModalBtn>;
+         name: 'mainBtnLabel',
+         type: { name: 'string' }
+      }
+   }
+} as ComponentMeta<typeof ModalBtn>;
 
-
-const Template: ComponentStory<typeof ModalBtn> = (args) => <ModalBtn {...args} />;
+const Template: ComponentStory<typeof ModalBtn> = args => <ModalBtn {...args} />;
 
 export const ModalButton = Template.bind({});
 ModalButton.args = {
-   mainBtnLabel : '모임 확인하기'
+   mainBtnLabel: '모임 확인하기'
 };
-
