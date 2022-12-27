@@ -2,38 +2,100 @@ import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import styled from 'styled-components';
 import { Button } from '../../stories/Button';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 // date picker
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 
+export interface MeetingType {
+  category: string;
+  title: string;
+  content: string;
+  tags: string[];
+  location: { address1: string; address2: string }[];
+  dateTime: {
+    datepolicy: string;
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+    dates: string[];
+  };
+  priceInfo: {
+    pricePolicy: string;
+    price: number;
+  };
+  notice: string;
+}
+
 const Create = () => {
   const oneDateRef = useRef<HTMLDivElement>(null);
-  const regularDateRef = useRef<HTMLDivElement>(null);
+  const periodDateRef = useRef<HTMLDivElement>(null);
   const freeDateRef = useRef<HTMLDivElement>(null);
 
-  const timePriceRef = useRef<HTMLInputElement>(null);
-  const dayPriceRef = useRef<HTMLInputElement>(null);
+  const hourPriceRef = useRef<HTMLInputElement>(null);
+  const onePriceRef = useRef<HTMLInputElement>(null);
 
   const [category, setCategory] = useState('라이프스타일');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [address1, setAddress1] = useState('');
+  const [address2, setAddress2] = useState('');
+  const [pricePolicy, setPricePolicy] = useState('');
+  const [hourPrice, setHourPrice] = useState(0);
+  const [onePrice, setOnePrice] = useState(0);
+  const [notice, setNotice] = useState('');
 
-  const [datePolicy, setDatePolicy] = useState('one');
+  const [datePolicy, setDatePolicy] = useState('ONE_DAY');
   const [date, setDate] = useState<any>(new Date());
   const [startDate, setStartDate] = useState<any>(new Date());
   const [endDate, setEndDate] = useState<any>(startDate);
-  const [dates, setDates] = useState<any>([new Date()]);
-
+  const [dayWeeks, setDayWeeks] = useState<number[]>([]);
+  const [dates, setDates] = useState<any>([]);
   const [startTime, setStartTime] = useState<any>(
     new Date().setHours(0, 0, 0, 0),
   );
   const [endTime, setEndTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
 
-  // 카테고리
-  const onClickCategory = (selectedCategory: string) => {
-    setCategory(selectedCategory);
-  };
+  useEffect(() => {
+    console.log('카테고리', category);
+    console.log('타이틀', title);
+    console.log('내용', content);
+    console.log('태그', tags);
+    console.log('주소', address1, address2);
+    console.log('일정 설정', datePolicy);
+    console.log('하루 일정', date);
+    console.log('정기 일정', startDate, endDate);
+    console.log('요일', dayWeeks);
+    console.log('자유 일정', dates);
+    console.log('시간', startTime, endTime);
+    console.log('가격 설정', pricePolicy);
+    console.log('가격', hourPrice);
+    console.log('가격', onePrice);
+
+    console.log('전달사항', notice);
+  }, [
+    category,
+    title,
+    content,
+    tags,
+    address1,
+    address2,
+    datePolicy,
+    date,
+    startDate,
+    endDate,
+    dayWeeks,
+    dates,
+    startTime,
+    endTime,
+    pricePolicy,
+    hourPrice,
+    onePrice,
+    notice,
+  ]);
 
   // 태그
   const onClickTag = (selectedTag: string) => {
@@ -47,53 +109,52 @@ const Create = () => {
   // 날짜
   useEffect(() => {
     if (!oneDateRef.current) return;
-    if (!regularDateRef.current) return;
+    if (!periodDateRef.current) return;
     if (!freeDateRef.current) return;
 
-    if (datePolicy === 'one') {
+    if (datePolicy === 'ONE_DAY') {
       oneDateRef.current.style.display = 'block';
-      regularDateRef.current.style.display = 'none';
+      periodDateRef.current.style.display = 'none';
       freeDateRef.current.style.display = 'none';
     }
-    if (datePolicy === 'regular') {
+    if (datePolicy === 'PERIOD') {
       oneDateRef.current.style.display = 'none';
-      regularDateRef.current.style.display = 'block';
+      periodDateRef.current.style.display = 'block';
       freeDateRef.current.style.display = 'none';
     }
-    if (datePolicy === 'free') {
+    if (datePolicy === 'FREE') {
       oneDateRef.current.style.display = 'none';
-      regularDateRef.current.style.display = 'none';
+      periodDateRef.current.style.display = 'none';
       freeDateRef.current.style.display = 'block';
     }
   }, [datePolicy]);
 
-  // 가격
-  const onDisabled = (value: any) => {
-    if (!dayPriceRef.current) return;
-    if (!timePriceRef.current) return;
-
-    if (value === 'time') {
-      timePriceRef.current.disabled = false;
-      dayPriceRef.current.disabled = true;
-      dayPriceRef.current.value = '';
+  const onCheckDayWeeks = (checkedDayWeeks: number) => {
+    if (dayWeeks.includes(checkedDayWeeks)) {
+      setDayWeeks([
+        ...dayWeeks.filter((dayWeek) => dayWeek !== checkedDayWeeks),
+      ]);
     } else {
-      timePriceRef.current.disabled = true;
-      dayPriceRef.current.disabled = false;
-      timePriceRef.current.value = '';
+      setDayWeeks([...dayWeeks, checkedDayWeeks]);
     }
   };
 
-  useEffect(() => {
-    console.log('카테고리', category);
-    console.log('태그', tags);
-    console.log('하루 일정', date);
-    console.log('정기 일정', [startDate, endDate]);
-    console.log('자유 일정', dates);
-    console.log('시간', startTime, endTime);
-  }, [category, tags, date, startDate, endDate, dates, startTime, endTime]);
+  // 가격
+  const onDisabled = (value: any) => {
+    if (!hourPriceRef.current) return;
+    if (!onePriceRef.current) return;
+
+    if (value === 'HOUR') {
+      hourPriceRef.current.disabled = false;
+      onePriceRef.current.disabled = true;
+    } else {
+      hourPriceRef.current.disabled = true;
+      onePriceRef.current.disabled = false;
+    }
+  };
 
   return (
-    <>
+    <div>
       <CenterSection>
         <Title label="모임 만들기" />
         <SubTitle>지금 올라오는 모임</SubTitle>
@@ -105,49 +166,49 @@ const Create = () => {
             </ContentTitle>
             <Categorys>
               <li
-                onClick={() => onClickCategory('라이프스타일')}
+                onClick={() => setCategory('라이프스타일')}
                 className={category === '라이프스타일' ? 'selected' : ''}
               >
                 라이프스타일
               </li>
               <li
-                onClick={() => onClickCategory('디자인')}
+                onClick={() => setCategory('디자인')}
                 className={category === '디자인' ? 'selected' : ''}
               >
                 디자인
               </li>
               <li
-                onClick={() => onClickCategory('미디어')}
+                onClick={() => setCategory('미디어')}
                 className={category === '미디어' ? 'selected' : ''}
               >
                 미디어
               </li>
               <li
-                onClick={() => onClickCategory('개발')}
+                onClick={() => setCategory('개발')}
                 className={category === '개발' ? 'selected' : ''}
               >
                 개발
               </li>
               <li
-                onClick={() => onClickCategory('교육')}
+                onClick={() => setCategory('교육')}
                 className={category === '교육' ? 'selected' : ''}
               >
                 교육
               </li>
               <li
-                onClick={() => onClickCategory('금융')}
+                onClick={() => setCategory('금융')}
                 className={category === '금융' ? 'selected' : ''}
               >
                 금융
               </li>
               <li
-                onClick={() => onClickCategory('소셜')}
+                onClick={() => setCategory('소셜')}
                 className={category === '소셜' ? 'selected' : ''}
               >
                 소셜
               </li>
               <li
-                onClick={() => onClickCategory('인공지능')}
+                onClick={() => setCategory('인공지능')}
                 className={category === '인공지능' ? 'selected' : ''}
               >
                 인공지능
@@ -158,13 +219,21 @@ const Create = () => {
             <ContentTitle>
               <span>제목</span>
             </ContentTitle>
-            <Input placeholder="모임 제목을 입력해주세요." />
+            <Input
+              placeholder="모임 제목을 입력해주세요."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </Li>
           <Li>
             <ContentTitle>
               <span>내용</span>
             </ContentTitle>
-            <TextArea placeholder="모임 내용을 입력해주세요." />
+            <TextArea
+              placeholder="모임 내용을 입력해주세요."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
           </Li>
           <Li>
             <ContentTitle>
@@ -215,13 +284,22 @@ const Create = () => {
               <span>위치</span>
               <span>최대 3개까지 입력이 가능 합니다.</span>
             </ContentTitle>
+            <Input
+              placeholder="임시 테스트용"
+              value={address1}
+              onChange={(e) => setAddress1(e.target.value)}
+            />
           </Li>
           <Li>
             <ContentTitle>
               <span>추가 주소 입력</span>
               <span>개인 정보 보호를 위해 정확한 주소를 입력하지 마세요.</span>
             </ContentTitle>
-            <Input placeholder="예시) 스타벅스 근처 협의" />
+            <Input
+              placeholder="예시) 스타벅스 근처 협의"
+              value={address2}
+              onChange={(e) => setAddress2(e.target.value)}
+            />
           </Li>
           <Li>
             <ContentTitle>
@@ -232,7 +310,7 @@ const Create = () => {
                 <input
                   type="radio"
                   name="schedule"
-                  value="one"
+                  value="ONE_DAY"
                   defaultChecked
                   onChange={(e) => {
                     setDatePolicy(e.target.value);
@@ -244,7 +322,7 @@ const Create = () => {
                 <input
                   type="radio"
                   name="schedule"
-                  value="regular"
+                  value="PERIOD"
                   onChange={(e) => {
                     setDatePolicy(e.target.value);
                   }}
@@ -255,7 +333,7 @@ const Create = () => {
                 <input
                   type="radio"
                   name="schedule"
-                  value="free"
+                  value="FREE"
                   onChange={(e) => {
                     setDatePolicy(e.target.value);
                   }}
@@ -275,7 +353,7 @@ const Create = () => {
               />
             </div>
             {/* 정기 일정 */}
-            <div ref={regularDateRef}>
+            <div ref={periodDateRef}>
               <DateFlex>
                 <CustomDatePicker
                   locale={ko}
@@ -307,25 +385,60 @@ const Create = () => {
               </DateFlex>
               <RadioButtons>
                 <label>
-                  <input type="checkbox" />월
+                  <input
+                    type="checkbox"
+                    value="1"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  월
                 </label>
                 <label>
-                  <input type="checkbox" />화
+                  <input
+                    type="checkbox"
+                    value="2"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  화
                 </label>
                 <label>
-                  <input type="checkbox" />수
+                  <input
+                    type="checkbox"
+                    value="3"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  수
                 </label>
                 <label>
-                  <input type="checkbox" />목
+                  <input
+                    type="checkbox"
+                    value="4"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  목
                 </label>
                 <label>
-                  <input type="checkbox" />금
+                  <input
+                    type="checkbox"
+                    value="5"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  금
                 </label>
                 <label>
-                  <input type="checkbox" />토
+                  <input
+                    type="checkbox"
+                    value="6"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  토
                 </label>
                 <label>
-                  <input type="checkbox" />일
+                  <input
+                    type="checkbox"
+                    value="7"
+                    onChange={(e) => onCheckDayWeeks(Number(e.target.value))}
+                  />
+                  일
                 </label>
               </RadioButtons>
             </div>
@@ -340,15 +453,15 @@ const Create = () => {
                 highlightDates={[...dates]}
                 selected={dates[0]}
                 onChange={(selectedDate) => {
-                  if (dates.includes(selectedDate)) {
-                    setDates([
-                      ...dates.filter(
-                        (date: Date | null) => date !== selectedDate,
-                      ),
-                    ]);
-                  } else {
-                    setDates([...dates, selectedDate]);
-                  }
+                  // if (dates.includes(selectedDate)) {
+                  //   setDates([
+                  //     ...dates.filter(
+                  //       (date: Date | null) => date !== selectedDate,
+                  //     ),
+                  //   ]);
+                  // } else {
+                  setDates([...dates, selectedDate]);
+                  // }
                 }}
               />
             </div>
@@ -369,7 +482,6 @@ const Create = () => {
                 onChange={(selectedDate) => {
                   setStartTime(selectedDate);
                 }}
-                className="timepicker"
               />
               <Wave>~</Wave>
               <CustomDatePicker
@@ -383,7 +495,6 @@ const Create = () => {
                 onChange={(selectedDate) => {
                   setEndTime(selectedDate);
                 }}
-                className="timepicker"
               />
             </Flex>
           </Li>
@@ -396,22 +507,39 @@ const Create = () => {
                 <input
                   type="radio"
                   name="price"
-                  value="time"
+                  value="HOUR"
                   defaultChecked
-                  onChange={(e) => onDisabled(e.target.value)}
+                  onChange={(e) => {
+                    setPricePolicy(e.target.value);
+                    onDisabled(e.target.value);
+                  }}
                 />
                 시간당 가격
-                <PriceInput type="number" ref={timePriceRef} />
+                <PriceInput
+                  type="number"
+                  ref={hourPriceRef}
+                  value={hourPrice}
+                  onChange={(e) => setHourPrice(Number(e.target.value))}
+                />
               </label>
               <label>
                 <input
                   type="radio"
                   name="price"
-                  value="day"
-                  onChange={(e) => onDisabled(e.target.value)}
+                  value="DAY"
+                  onChange={(e) => {
+                    setPricePolicy(e.target.value);
+                    onDisabled(e.target.value);
+                  }}
                 />
-                당일 모임 가격
-                <PriceInput type="number" disabled ref={dayPriceRef} />
+                하루당 가격
+                <PriceInput
+                  type="number"
+                  disabled
+                  ref={onePriceRef}
+                  value={Number(onePrice)}
+                  onChange={(e) => setOnePrice(Number(e.target.value))}
+                />
               </label>
             </RadioButtons>
           </Li>
@@ -419,12 +547,18 @@ const Create = () => {
             <ContentTitle>
               <span>전달사항</span>
             </ContentTitle>
-            <Input placeholder="모임 신청 전 전달 해야 할 사항이 있다면 적어 주세요." />
+            <Input
+              placeholder="모임 신청 전 전달 해야 할 사항이 있다면 적어 주세요."
+              value={notice}
+              onChange={(e) => {
+                setNotice(e.target.value);
+              }}
+            />
           </Li>
           <Button disabled size="bigBold" label="작성완료" />
         </Ul>
       </CenterSection>
-    </>
+    </div>
   );
 };
 
