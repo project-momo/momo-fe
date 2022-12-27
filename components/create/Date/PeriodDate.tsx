@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {
   CustomDatePicker,
-  Flex,
   RadioButtons,
   Wave,
 } from '../../../pages/meeting/create';
@@ -24,7 +23,7 @@ const PeriodDate = ({
 }: PeriodDateProps) => {
   return (
     <>
-      <DateFlex>
+      <Flex>
         <CustomDatePicker
           locale={ko}
           dateFormat="yyyy-MM-dd"
@@ -52,7 +51,7 @@ const PeriodDate = ({
             setEndDate(selectedDate);
           }}
         />
-      </DateFlex>
+      </Flex>
       <RadioButtons>
         <label>
           <input
@@ -117,6 +116,12 @@ const PeriodDate = ({
 
 export default PeriodDate;
 
-const DateFlex = styled(Flex)`
+const Flex = styled.div`
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+
+  .react-datepicker-wrapper {
+    width: 192px;
+  }
 `;
