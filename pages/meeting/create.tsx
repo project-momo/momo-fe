@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
-// date picker
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import { Button } from '../../stories/Button';
@@ -170,10 +166,10 @@ const Create = () => {
           <Li>
             <LiTitle main="날짜 설정" />
             <DateRadio setDatePolicy={setDatePolicy} />
-            {/* {datePolicy === 'ONE_DAY' && (
+            {datePolicy === 'ONE_DAY' && (
               <OneDate date={date} setDate={setDate} />
             )}
-            {datePolicy === 'PERIOD' && (
+            {/* {datePolicy === 'PERIOD' && (
               <PeriodDate
                 startDate={startDate}
                 endDate={startDate}
@@ -245,9 +241,9 @@ export const Flex = styled.div`
   display: flex;
   align-items: center;
 
-  .react-datepicker-wrapper {
+  /* .react-datepicker-wrapper {
     width: 192px;
-  }
+  } */
 `;
 
 export const RadioButtons = styled.div`
@@ -264,14 +260,14 @@ export const Wave = styled.span`
   margin: 0 15px;
 `;
 
-export const CustomDatePicker = styled(DatePicker)`
-  background-color: #f5f5f5;
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-`;
+// export const CustomDatePicker = styled(DatePicker)`
+//   background-color: #f5f5f5;
+//   padding: 10px 15px;
+//   border-radius: 5px;
+//   border: none;
+//   outline: none;
+//   cursor: pointer;
+// `;
 
 const Input = styled.input`
   background-color: #f5f5f5;

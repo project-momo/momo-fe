@@ -8016,6 +8016,13 @@
     "file-loader" "^6.2.0"
     "url-loader" "^4.1.0"
 
+"next-transpile-modules@^10.0.0":
+  "integrity" "sha512-FyeJ++Lm2Fq31gbThiRCrJlYpIY9QaI7A3TjuhQLzOix8ChQrvn5ny4MhfIthS5cy6+uK1AhDRvxVdW17y3Xdw=="
+  "resolved" "https://registry.npmjs.org/next-transpile-modules/-/next-transpile-modules-10.0.0.tgz"
+  "version" "10.0.0"
+  dependencies:
+    "enhanced-resolve" "^5.10.0"
+
 "next@^13.0.7":
   "integrity" "sha512-YfTifqX9vfHm+rSU/H/3xvzOHDkYuMuh4wsvTjiqj9h7qHEF7KHB66X4qrH96Po+ohdid4JY8YVGPziDwdXL0A=="
   "resolved" "https://registry.npmjs.org/next/-/next-13.0.7.tgz"
