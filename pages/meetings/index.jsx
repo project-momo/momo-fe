@@ -3,14 +3,14 @@ import MyCategory from '../../components/mypage/MyCategory';
 import MyMeetings from '../../components/mypage/MyMettings';
 
 const Meetings = () => {
-  return (
-    <>
-      <MyCategory />
-      <CenterSection>
-        <MyMeetings myMeeting/>
-      </CenterSection>
-    </>
-  );
+   return (
+      <>
+         <MyCategory />
+         <CenterSection>
+            <MyMeetings myMeeting />
+         </CenterSection>
+      </>
+   );
 };
 
 export default Meetings;
