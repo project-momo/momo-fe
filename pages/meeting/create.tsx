@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-
-// date picker
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import { Button } from '../../stories/Button';
@@ -18,6 +13,11 @@ import Time from '../../components/create/Time';
 import Price from '../../components/create/Price';
 import LiTitle from '../../components/create/LiTitle';
 import axios from 'axios';
+
+// date picker
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import Location from '../../components/create/Location';
 
 export interface MeetingType {
   category: string;
@@ -45,12 +45,13 @@ const Create = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const [address1, setAddress1] = useState('');
-  const [address2, setAddress2] = useState('');
-  const [pricePolicy, setPricePolicy] = useState('HOUR');
-  const [hourPrice, setHourPrice] = useState(0);
-  const [onePrice, setOnePrice] = useState(0);
   const [notice, setNotice] = useState('');
+
+  const [locationId, setLocationId] = useState(0);
+  const [location1, setLocaton1] = useState('');
+  const [location2, setLocaton2] = useState<string[]>([]);
+  const [address1, setAddress1] = useState<string[]>([]);
+  const [address2, setAddress2] = useState('');
 
   const [datePolicy, setDatePolicy] = useState('ONE_DAY');
   const [date, setDate] = useState<Date>(new Date());
@@ -63,13 +64,17 @@ const Create = () => {
   );
   const [endTime, setEndTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
 
+  const [pricePolicy, setPricePolicy] = useState('HOUR');
+  const [hourPrice, setHourPrice] = useState(0);
+  const [onePrice, setOnePrice] = useState(0);
+
   // console 확인용
   // useEffect(() => {
   //   console.log('카테고리', category);
   //   console.log('타이틀', title);
   //   console.log('내용', content);
   //   console.log('태그', tags);
-  //   console.log('주소', address1, address2);
+  //   console.log('주소', address1, address1);
   //   console.log('일정 설정', datePolicy);
   //   console.log('하루 일정', date);
   //   console.log('정기 일정', startDate, endDate);
@@ -86,7 +91,7 @@ const Create = () => {
   //   content,
   //   tags,
   //   address1,
-  //   address2,
+  //   address1,
   //   datePolicy,
   //   date,
   //   startDate,
@@ -109,6 +114,21 @@ const Create = () => {
     }
   };
 
+  const onClickLocation1 = (value: string) => {
+    setLocaton1(value);
+    setLocaton2([]);
+  };
+
+  const onClickLocation2 = (value: string) => {
+    if (location2.includes(value)) {
+      setLocaton2([...location2.filter((el) => el !== value)]);
+      setAddress1([...address1.filter((el) => el.slice(3) !== value)]);
+    } else {
+      setLocaton2([...location2, value]);
+      setAddress1([...address1, `${location1} ${value}`]);
+    }
+  };
+
   const onCheckDayWeeks = (checkedDayWeeks: number) => {
     if (dayWeeks.includes(checkedDayWeeks)) {
       setDayWeeks([
@@ -124,7 +144,7 @@ const Create = () => {
     title,
     content,
     tags,
-    locations: [{ address1, address2 }],
+    locations: { address1, address2 },
     priceInfo: {
       pricePolicy,
       price: pricePolicy === 'HOUR' ? hourPrice : onePrice,
@@ -204,10 +224,11 @@ const Create = () => {
           </Li>
           <Li>
             <LiTitle main="위치" sub="최대 3개까지 입력이 가능 합니다." />
-            <Input
-              placeholder="임시 테스트용"
-              value={address1}
-              onChange={(e) => setAddress1(e.target.value)}
+            <Location
+              location1={location1}
+              location2={location2}
+              onClickLocation1={onClickLocation1}
+              onClickLocation2={onClickLocation2}
             />
           </Li>
           <Li>
