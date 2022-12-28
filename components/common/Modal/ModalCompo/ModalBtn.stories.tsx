@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/named
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import ModalBtn from './ModalBtn';

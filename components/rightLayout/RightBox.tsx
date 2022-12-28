@@ -1,16 +1,17 @@
-import React, { Children } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-unresolved
 import { RightSubTitle } from './RightSubTitle';
 interface RightBoxProps {
    label: string;
    imgLink: string;
-   children: React.ReactNode;
+   childrens: React.ReactNode;
 }
-export const RightBox = ({ label, imgLink, children }: RightBoxProps) => {
+export const RightBox = ({ label, imgLink, childrens }: RightBoxProps) => {
    return (
       <Wrap>
          <RightSubTitle label={label} imgLink={imgLink} />
-         <Box>{children}</Box>
+         <Box>{childrens}</Box>
       </Wrap>
    );
 };

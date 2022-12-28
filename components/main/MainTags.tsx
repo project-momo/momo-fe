@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
+// eslint-disable-next-line import/no-unresolved
 import { Tag } from '../common/Tag';
 
 const MainTags = () => {
@@ -10,7 +12,7 @@ const MainTags = () => {
          <SubTitle label="지금 올라오는 모임" labelMore="" />
          <Tags>
             {labelList.map((el, idx) => (
-               <Tag label={el} />
+               <Tag key={idx} label={el} />
             ))}
          </Tags>
       </MainTagWrap>
@@ -23,6 +25,8 @@ const MainTagWrap = styled.div`
    display: flex;
    justify-content: space-between;
    align-items: center;
+   margin-top: 15px;
+   flex-wrap: wrap;
 `;
 const Tags = styled.ul`
    display: flex;

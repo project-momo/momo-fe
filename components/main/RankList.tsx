@@ -49,7 +49,7 @@ const RankList = () => {
    return (
       <RankListOl>
          {dummyRank.map((el, idx) => (
-            <Rank rankNum={`${idx + 1}`} imgLink={el.imgLink} title={el.title} />
+            <Rank key={idx} rankNum={`${idx + 1}`} imgLink={el.imgLink} title={el.title} />
          ))}
       </RankListOl>
    );

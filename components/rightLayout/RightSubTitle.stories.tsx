@@ -1,7 +1,9 @@
 import React from 'react';
+// eslint-disable-next-line import/named
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import IconHot from './../../assets/images/icon_hot.svg';
 
+// eslint-disable-next-line import/no-unresolved
 import { RightSubTitle } from './RightSubTitle';
 
 export default {

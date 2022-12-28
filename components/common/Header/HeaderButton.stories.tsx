@@ -1,6 +1,8 @@
 import React from 'react';
+// eslint-disable-next-line import/named
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
+// eslint-disable-next-line import/no-unresolved
 import { HeaderButton } from './HeaderButton';
 export default {
    title: 'Example/HeaderButton',

@@ -1,6 +1,8 @@
 import React from 'react';
+// eslint-disable-next-line import/named
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
+// eslint-disable-next-line import/no-unresolved
 import { Button } from './Button';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

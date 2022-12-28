@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import IconClose from './../../../assets/images/icon_close.svg';
 
 interface ModalProps {
-   children: React.ReactNode;
+   childrens: React.ReactNode;
+   CloseModal: () => void;
 }
-export const Modal = ({ children }: ModalProps) => {
+export const Modal = ({ CloseModal, childrens }: ModalProps) => {
    return (
       <Dim>
          <ModalLayout>
-            <CloseBtn icon={IconClose}>
+            <CloseBtn onClick={CloseModal} icon={IconClose}>
                <span>x</span>
             </CloseBtn>
-            {children}
+            {childrens}
          </ModalLayout>
       </Dim>
    );
@@ -25,8 +26,12 @@ const Dim = styled.div`
    align-items: center;
    justify-content: center;
    background-color: rgba(0, 0, 0, 0.7);
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 9999;
 `;
-export const ModalLayout = styled.div`
+const ModalLayout = styled.div`
    position: relative;
    padding: 60px 30px 35px;
    background-color: white;
@@ -34,7 +39,7 @@ export const ModalLayout = styled.div`
    border-radius: 15px;
    min-width: 550px;
 `;
-export const CloseBtn = styled.div<{ icon: string }>`
+const CloseBtn = styled.div<{ icon: string }>`
    width: 30px;
    height: 30px;
    font-size: 0;

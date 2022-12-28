@@ -8,13 +8,12 @@
 }
 .storybook_button__primary {
   color: white;
-  background-color: #444BFF;
+  background-color: #444bff;
   font-weight: 700;
 }
 .storybook_button__disabled {
   background-color: lightgray;
-  cursor:default;
-
+  cursor: default;
   font-weight: 400;
   font-size: 16px;
 }
@@ -38,6 +37,6 @@
 .storybook_button__smallBold {
   font-weight: 700;
   font-size: 16px;
-  padding:  8px 0;
+  padding: 8px 0;
+  line-height: 24px;
 }
-
