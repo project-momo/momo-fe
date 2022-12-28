@@ -8,32 +8,23 @@ import Qna from '../../components/detail/Qna';
 import { Modal } from '../../components/common/Modal/Modal';
 import { useState } from 'react';
 const Sub = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const CloseModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-  return (
-    <>
-      {isModalOpen ? <Modal CloseModal={CloseModal} children /> : null}
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const CloseModal = () => {
+      setIsModalOpen(!isModalOpen);
+   };
+   return (
+      <>
+         {isModalOpen ? <Modal CloseModal={CloseModal} childrens /> : null}
 
-      <Category />
-      <CenterSection>
-        <Detail
-          userImage="유저이미지"
-          username="유저이름"
-          location="강남구"
-          location2="근처 스타벅스"
-        />
-      </CenterSection>
-      <RightSection>
-        <RightBox
-          label="모임에 참여하기"
-          imgLink={IconPrice}
-          children={<Price />}
-        />
-      </RightSection>
-    </>
-  );
+         <Category />
+         <CenterSection>
+            <Detail userImage="유저이미지" username="유저이름" location="강남구" location2="근처 스타벅스" />
+         </CenterSection>
+         <RightSection>
+            <RightBox label="모임에 참여하기" imgLink={IconPrice} childrens={<Price />} />
+         </RightSection>
+      </>
+   );
 };
 
 export default Sub;
