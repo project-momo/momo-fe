@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
 import IconPrice from './../../assets/images/icon_price.svg';
-const Price = () => {
+interface PriceProps {
+   OpenModal: () => void;
+}
+const Price = ({ OpenModal }: PriceProps) => {
    return (
       <PriceLayout>
          <Title>
@@ -13,7 +16,7 @@ const Price = () => {
             <PriceType>시간당 가격</PriceType>
             <PriceNumber>3,000원</PriceNumber>
          </PriceInfo>
-         <Button disabled={false} label="참여하기" size="smallBold" />
+         <Button onClick={OpenModal} disabled={false} label="참여하기" size="smallBold" />
       </PriceLayout>
    );
 };

@@ -15,6 +15,7 @@ const HeaderLayout = styled.div`
    position: fixed;
    top: 0;
    left: 0;
+   z-index: 999;
 `;
 
 interface LoginProps {
@@ -33,7 +34,7 @@ const Header = ({ OpenModal }: LoginProps) => {
       }
    }, []);
    const logoutFunc = async () => {
-      const hi = await axios.delete(`${API_URI}/auth/token`, {
+      await axios.delete(`${API_URI}/auth/token`, {
          headers: {
             RefreshToken: localStorage.getItem('AccessToken')
          }
@@ -83,9 +84,11 @@ const Header = ({ OpenModal }: LoginProps) => {
 export default Header;
 
 const Wrapper = styled.div`
+   position: fixed;
    height: 55px;
    width: 100%;
    background-color: #49515b;
+   z-index: 999;
 `;
 
 const InnerWrapper = styled.div`
@@ -97,6 +100,7 @@ const InnerWrapper = styled.div`
    display: flex;
    justify-content: space-between;
    position: relative;
+   z-index: 999;
 `;
 const H = styled.h1`
    font-weight: 700;

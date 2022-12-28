@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Modal } from '../common/Modal/Modal';
 // eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
 import IconMore from './../../assets/images/icon_more.svg';
 import IconToggle from './../../assets/images/icon_toggle.svg';
+import ModalDetail from './ModalDetail';
 // eslint-disable-next-line import/no-unresolved
 import Qna from './Qna';
 // eslint-disable-next-line import/no-unresolved
@@ -16,16 +18,18 @@ interface DetailProps {
 }
 const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
    const [toggleQna, setToggleQna] = useState(true);
+
    return (
-      <DetailLayout>
-         <MoreIcon src={IconMore}></MoreIcon>
-         <UserCard>
-            <img src={userImage} alt="userProfile" />
-            <span>{username}</span>
-         </UserCard>
-         <SubTitle label="가나다" labelMore="" />
-         <Content>
-            {`세상에서 가장 존경하는 사람들이 바로 새로움을 전달하는 자
+      <>
+         <DetailLayout>
+            <MoreIcon src={IconMore}></MoreIcon>
+            <UserCard>
+               <img src={userImage} alt="userProfile" />
+               <span>{username}</span>
+            </UserCard>
+            <SubTitle label="가나다" labelMore="" />
+            <Content>
+               {`세상에서 가장 존경하는 사람들이 바로 새로움을 전달하는 자
             나는 창업자라고 읽는다. 늘 사서 고생을 하지만 뜨겁게 박수 받지 못할 때가 많으며, 늘 의심의 눈초리와 알 수
             없는 직원과의 괴리감 속에서 늘 달리는 것을 멈추면 되지 않는 자리...
 
@@ -42,26 +46,27 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
             <br />
             <br />
             신용으로 먹고 살아가는 사회에서 '창업자'로 굳건히 버티는 것은 어쩌면 위대한 여정이라고 나는 본다.`}
-         </Content>
+            </Content>
 
-         <ListTitle>만남 가능 장소</ListTitle>
-         <LocationList>
-            <Location>{location}</Location>
-            <Location>{location}</Location>
-         </LocationList>
-         <LocationList>
-            <Location>{location2}</Location>
-         </LocationList>
+            <ListTitle>만남 가능 장소</ListTitle>
+            <LocationList>
+               <Location>{location}</Location>
+               <Location>{location}</Location>
+            </LocationList>
+            <LocationList>
+               <Location>{location2}</Location>
+            </LocationList>
 
-         <ListTitle>
-            Q&A
-            <button onClick={() => setToggleQna(!toggleQna)}>
-               1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
-            </button>
-         </ListTitle>
-         <Qna open={toggleQna} />
-         <QnaInput />
-      </DetailLayout>
+            <ListTitle>
+               Q&A
+               <button onClick={() => setToggleQna(!toggleQna)}>
+                  1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
+               </button>
+            </ListTitle>
+            <Qna open={toggleQna} />
+            <QnaInput />
+         </DetailLayout>
+      </>
    );
 };
 
@@ -73,6 +78,7 @@ const DetailLayout = styled.div`
    padding: 28px 30px;
    border-radius: 15px;
    position: relative;
+   z-index: 1;
 `;
 
 const UserCard = styled.div`
