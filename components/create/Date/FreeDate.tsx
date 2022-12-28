@@ -14,7 +14,18 @@ const FreeDate = ({ dates, setDates }: FreeDateProps) => {
       withPortal
       shouldCloseOnSelect={false}
       highlightDates={[...dates]}
-      selected={dates[0]}
+      // selected={dates[0]}
+      placeholderText={
+        dates.length
+          ? dates
+              .map((date) => new Date(date).toISOString().slice(0, 10))
+              .sort(
+                (a, b) =>
+                  Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', '')),
+              )
+              .join(', ')
+          : '선택'
+      }
       onChange={(selectedDate) => {
         // if (dates.includes(selectedDate)) {
         //   setDates([

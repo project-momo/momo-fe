@@ -14,7 +14,7 @@ export const ContentLayout = styled.div`
 
 export const CenterSection = styled.section`
   width: 790px;
-  height: 500px;
+  /* height: 500px; */
   margin: 20px 10px;
   /* flex: 1; */
 `;

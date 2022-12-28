@@ -47,7 +47,7 @@ const Create = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
-  const [pricePolicy, setPricePolicy] = useState('');
+  const [pricePolicy, setPricePolicy] = useState('HOUR');
   const [hourPrice, setHourPrice] = useState(0);
   const [onePrice, setOnePrice] = useState(0);
   const [notice, setNotice] = useState('');
@@ -57,7 +57,7 @@ const Create = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(startDate);
   const [dayWeeks, setDayWeeks] = useState<number[]>([]);
-  const [dates, setDates] = useState<Date[]>([new Date()]);
+  const [dates, setDates] = useState<Date[] | []>([]);
   const [startTime, setStartTime] = useState<any>(
     new Date().setHours(0, 0, 0, 0),
   );
@@ -230,7 +230,7 @@ const Create = () => {
             {datePolicy === 'PERIOD' && (
               <PeriodDate
                 startDate={startDate}
-                endDate={startDate}
+                endDate={endDate}
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 onCheckDayWeeks={onCheckDayWeeks}
@@ -269,8 +269,7 @@ const Create = () => {
               }}
             />
           </Li>
-          <button onClick={onSubmit}>작성 완료</button>
-          {/* <Button disabled size="bigBold" label="작성완료" onClick={onSubmit} /> */}
+          <Button size="bigBold" label="작성완료" onClick={onSubmit} />
         </Ul>
       </CenterSection>
     </div>

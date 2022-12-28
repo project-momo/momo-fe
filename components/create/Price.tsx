@@ -50,7 +50,7 @@ const Price = ({
         <PriceInput
           type="number"
           ref={hourPriceRef}
-          value={hourPrice}
+          value={Number(hourPrice)}
           onChange={(e) => setHourPrice(Number(e.target.value))}
         />
       </label>
