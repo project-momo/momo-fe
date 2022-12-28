@@ -333,6 +333,20 @@ export const RadioButtons = styled.div`
   input {
     margin-right: 5px;
   }
+  input[type='radio'] {
+    appearance: none;
+    width: 1em;
+    height: 1em;
+    border: 1.5px solid gray;
+    border-radius: 50%;
+    transition: border 0.1s ease-in-out;
+  }
+  input[type='radio']:checked {
+    border: 4px solid #6a6ff2;
+  }
+  input[type='radio']:hover {
+    box-shadow: 0 0 0 2px #dfdfdf;
+  }
 `;
 
 export const Wave = styled.span`
