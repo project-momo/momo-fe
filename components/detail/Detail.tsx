@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SubTitle } from '../common/SubTitle';
 import IconMore from './../../assets/images/icon_more.svg';
 import IconToggle from './../../assets/images/icon_toggle.svg';
 import Qna from './Qna';
+import QnaInput from './QnaInput';
 interface DetailProps {
   userImage: string;
   username: string;
@@ -11,6 +12,7 @@ interface DetailProps {
   location2: string;
 }
 const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
+  const [toggleQna, setToggleQna] = useState(true);
   return (
     <DetailLayout>
       <MoreIcon src={IconMore}></MoreIcon>
@@ -54,13 +56,13 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
       </LocationList>
 
       <ListTitle>
-        Q&A{' '}
-        <span>
-          1개 <img src={IconToggle} alt="toggle" />
+        Q&A
+        <span onClick={() => setToggleQna(!toggleQna)}>
+          1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
         </span>
       </ListTitle>
-      <Qna />
-      <QnAInput />
+      <Qna open={toggleQna} />
+      <QnaInput />
     </DetailLayout>
   );
 };
@@ -72,6 +74,7 @@ const DetailLayout = styled.div`
   background: #ffffff;
   padding: 28px 30px;
   border-radius: 15px;
+  position: relative;
 `;
 
 const UserCard = styled.div`
@@ -100,6 +103,8 @@ const UserCard = styled.div`
 
 const MoreIcon = styled.img`
   position: absolute;
+  padding: 0 10px;
+  cursor: pointer;
   top: 20px;
   right: 20px;
 `;
@@ -115,14 +120,17 @@ const ListTitle = styled.p`
   font-size: 16px;
   color: #444bff;
   margin-top: 10px;
+
   span {
     margin-left: 10px;
     margin-right: 5px;
-    img {
-      width: 16px;
-      height: 11px;
-    }
+    cursor: pointer;
   }
+`;
+const ToggleImg = styled.img<{ open: boolean }>`
+  width: 16px;
+  height: 11px;
+  rotate: ${(p) => (p.open ? `0` : '180')}deg;
 `;
 const LocationList = styled.ul`
   margin-top: 2px;
@@ -133,5 +141,3 @@ const Location = styled.li`
   list-style: inside;
   margin-right: 20px;
 `;
-
-const QnAInput = styled.input``;

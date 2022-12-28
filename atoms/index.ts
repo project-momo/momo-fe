@@ -7,5 +7,10 @@ export const nameState = atom<number>({
 
 export const mainTagList = atom<string[]>({
   key: 'mainTagList',
-  default: []
-})
+  default: [],
+});
+
+export const isLogin = atom<boolean>({
+  key: 'isLogin',
+  default: false,
+});

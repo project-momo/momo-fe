@@ -5,9 +5,17 @@ import { CenterSection, RightSection } from '../../styles/style';
 import Detail from './../../components/detail/Detail';
 import IconPrice from './../../assets/images/icon_moin.svg';
 import Qna from '../../components/detail/Qna';
+import { Modal } from '../../components/common/Modal/Modal';
+import { useState } from 'react';
 const Sub = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const CloseModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <>
+      {isModalOpen ? <Modal CloseModal={CloseModal} children /> : null}
+
       <Category />
       <CenterSection>
         <Detail
