@@ -5,7 +5,7 @@ import { HeaderButton } from './HeaderButton';
 import IconSearch from '../../..//assets/images/icon_search.svg';
 import { useRecoilState } from 'recoil';
 // eslint-disable-next-line import/no-unresolved
-import { isLogin } from '../../../atoms';
+import { isLogin } from '../../../atoms/atom';
 import axios from 'axios';
 
 const HeaderLayout = styled.div`
