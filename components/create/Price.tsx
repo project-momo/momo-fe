@@ -1,6 +1,5 @@
-import { RadioButtons } from '../../pages/meeting/create';
+import { NumberInput, RadioButtons } from '../../pages/meeting/create';
 import { useRef } from 'react';
-import styled from 'styled-components';
 
 interface PriceProps {
   setPricePolicy: any;
@@ -46,8 +45,8 @@ const Price = ({
             onDisabled(e.target.value);
           }}
         />
-        시간당 가격
-        <PriceInput
+        <span>시간당 가격</span>
+        <NumberInput
           type="number"
           ref={hourPriceRef}
           value={Number(hourPrice)}
@@ -64,8 +63,8 @@ const Price = ({
             onDisabled(e.target.value);
           }}
         />
-        하루당 가격
-        <PriceInput
+        <span>하루당 가격</span>
+        <NumberInput
           type="number"
           disabled
           ref={onePriceRef}
@@ -78,18 +77,3 @@ const Price = ({
 };
 
 export default Price;
-
-const PriceInput = styled.input`
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  width: 100px;
-  padding: 10px 15px;
-  margin-left: 10px;
-  border: none;
-  outline: none;
-  font-family: inherit;
-
-  &:disabled {
-    background-color: #f0f0f0;
-  }
-`;

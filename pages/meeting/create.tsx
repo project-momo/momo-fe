@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import { Button } from '../../stories/Button';
@@ -31,12 +31,12 @@ export interface MeetingType {
     endDate: string;
     startTime: string;
     endTime: string;
+    maxTime: number;
+    dayWeeks: number[];
     dates: string[];
   };
-  priceInfo: {
-    pricePolicy: string;
-    price: number;
-  };
+  price: number;
+  personnel: number;
   notice: string;
 }
 
@@ -45,6 +45,7 @@ const Create = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [personnel, setPersonnel] = useState(1);
   const [notice, setNotice] = useState('');
 
   const [location1, setLocaton1] = useState('');
@@ -62,6 +63,8 @@ const Create = () => {
     new Date().setHours(0, 0, 0, 0),
   );
   const [endTime, setEndTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
+  const [maxTimeRange, setMaxTimeRange] = useState<number[]>([]);
+  const [maxTime, setMaxTime] = useState(1);
 
   const [pricePolicy, setPricePolicy] = useState('HOUR');
   const [hourPrice, setHourPrice] = useState(0);
@@ -138,12 +141,33 @@ const Create = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(
+      new Date(startTime).toTimeString().slice(0, 2),
+      new Date(endTime).toTimeString().slice(0, 2),
+    );
+
+    setMaxTimeRange([]);
+
+    for (
+      let i = 1;
+      i <=
+      Number(new Date(endTime).toTimeString().slice(0, 2)) -
+        Number(new Date(startTime).toTimeString().slice(0, 2));
+      i++
+    ) {
+      console.log('i', i);
+      setMaxTimeRange([...maxTimeRange, i]);
+    }
+  }, [startTime, endTime]);
+
   const data = {
     category,
     title,
     content,
     tags,
     locations: { address1, address2 },
+    personnel,
     priceInfo: {
       pricePolicy,
       price: pricePolicy === 'HOUR' ? hourPrice : onePrice,
@@ -173,8 +197,8 @@ const Create = () => {
                 (a, b) =>
                   Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', '')),
               )[dates.length - 1],
-      startTime: new Date(startTime).toISOString().slice(11, 19),
-      endTime: new Date(endTime).toISOString().slice(11, 19),
+      startTime: new Date(startTime).toTimeString().slice(0, 8),
+      endTime: new Date(endTime).toTimeString().slice(0, 8),
       dayWeeks,
       dates: dates
         .map((date) => new Date(date).toISOString().slice(0, 10))
@@ -182,6 +206,7 @@ const Create = () => {
           (a, b) =>
             Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', '')),
         ),
+      maxTime,
     },
   };
 
@@ -267,6 +292,33 @@ const Create = () => {
               endTime={endTime}
               setStartTime={setStartTime}
               setEndTime={setEndTime}
+            />
+          </Li>
+          {datePolicy === 'FREE' && (
+            <Li>
+              <LiTitle main="최대 예약 가능 시간" />
+              <Select
+                onChange={(e) => {
+                  setMaxTime(Number(e.target.value));
+                }}
+              >
+                {maxTimeRange.map((el) => (
+                  <option key={el} value={el}>
+                    {el}
+                  </option>
+                ))}
+              </Select>
+            </Li>
+          )}
+          <Li>
+            <LiTitle main="인원수" />
+            <NumberInput
+              type="number"
+              value={datePolicy === 'FREE' ? 1 : personnel}
+              disabled={datePolicy === 'FREE' && true}
+              onChange={(e) => {
+                setPersonnel(Number(e.target.value));
+              }}
             />
           </Li>
           <Li>
@@ -440,11 +492,13 @@ export const RadioButtons = styled.div`
   > label:not(:last-of-type) {
     margin-right: 20px;
   }
+  > label > span {
+    margin-right: 10px;
+  }
 
   input[type='radio'],
-  input[type='checkbox'] {
+  input[type='checkbox'] + label {
     margin-right: 5px;
-    appearance: none;
     width: 1em;
     height: 1em;
     border: 1.5px solid gray;
@@ -455,6 +509,7 @@ export const RadioButtons = styled.div`
   }
 
   input[type='radio'] {
+    appearance: none;
     border-radius: 50%;
     transition: border 0.1s ease-in-out;
   }
@@ -463,11 +518,24 @@ export const RadioButtons = styled.div`
   }
 
   input[type='checkbox'] {
+    display: none;
+  }
+  input[type='checkbox'] + label {
+    display: inline-block;
+    position: relative;
     border-radius: 3px;
     transition: background-color 0.1s ease-in-out;
   }
-  input[type='checkbox']:checked {
+  input[type='checkbox']:checked + label {
     background-color: #6a6ff2;
+  }
+  input[type='checkbox']:checked + label::after {
+    content: '✔';
+    position: absolute;
+    left: 2px;
+    top: -2px;
+    color: white;
+    font-size: 12px;
   }
 `;
 
@@ -503,5 +571,29 @@ const TextArea = styled.textarea`
   border: none;
   outline: none;
   resize: none;
+  font-family: inherit;
+`;
+
+export const NumberInput = styled.input`
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  width: 100px;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  font-family: inherit;
+
+  &:disabled {
+    background-color: #f0f0f0;
+  }
+`;
+
+const Select = styled.select`
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  width: 100px;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
   font-family: inherit;
 `;
