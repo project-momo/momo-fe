@@ -2,12 +2,23 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { modalState } from '../../atoms/mypage/atoms';
 
 export const Button = (props: any) => {
+   const setType = useSetRecoilState(modalState);
    const [isActive, setActive] = useState(false);
 
+   const btnHandler = () => {
+      if(props.modal){
+         setType('applicationStatus')
+      }else{
+         setActive(!isActive);
+      }
+   }
+
    return (
-      <Basic onClick={() => setActive(!isActive)}>
+      <Basic onClick={btnHandler}>
          {props.text}
          {props.icon && <FontAwesomeIcon className={isActive ? 'icon active' : 'icon'} icon={faChevronDown} />}
       </Basic>
