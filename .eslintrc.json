@@ -56,6 +56,7 @@
     "react/prop-types": "off",
     // "comma-dangle": "off"
     "comma-dangle": ["error", "never"],
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "commonjs": true
   }
 }
