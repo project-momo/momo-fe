@@ -11,6 +11,7 @@ const OneDate = ({ date, setDate }: OneDateProps) => {
     <CustomDatePicker
       locale={ko}
       dateFormat="yyyy-MM-dd"
+      dateFormatCalendar="yyyy.MM"
       minDate={new Date()}
       withPortal
       selected={date}

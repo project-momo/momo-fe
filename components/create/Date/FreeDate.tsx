@@ -12,31 +12,26 @@ const FreeDate = ({ dates, setDates }: FreeDateProps) => {
       dateFormat="yyyy-MM-dd"
       minDate={new Date()}
       withPortal
+      selected={dates[0]}
       shouldCloseOnSelect={false}
       highlightDates={[...dates]}
-      // selected={dates[0]}
-      placeholderText={
-        dates.length
-          ? dates
-              .map((date) => new Date(date).toISOString().slice(0, 10))
-              .sort(
-                (a, b) =>
-                  Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', '')),
-              )
-              .join(', ')
-          : '선택'
-      }
       onChange={(selectedDate) => {
-        // if (dates.includes(selectedDate)) {
-        //   setDates([
-        //     ...dates.filter(
-        //       (date: Date | null) => date !== selectedDate,
-        //     ),
-        //   ]);
-        // } else {
         setDates([...dates, selectedDate]);
-        // }
       }}
+      customInput={
+        <div>
+          {dates.length
+            ? dates
+                .map((date) => new Date(date).toISOString().slice(0, 10))
+                .sort(
+                  (a, b) =>
+                    Number(a.replaceAll('-', '')) -
+                    Number(b.replaceAll('-', '')),
+                )
+                .join(', ')
+            : '선택'}
+        </div>
+      }
     />
   );
 };

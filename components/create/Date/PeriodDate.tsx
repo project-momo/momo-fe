@@ -35,6 +35,7 @@ const PeriodDate = ({
           endDate={endDate}
           onChange={(selectedDate) => {
             setStartDate(selectedDate);
+            setEndDate(selectedDate);
           }}
         />
         <Wave>~</Wave>
