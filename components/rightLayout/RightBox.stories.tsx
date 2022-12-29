@@ -1,7 +1,9 @@
+/* eslint-disable import/named */
 import React from 'react';
+
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import IconHot from './../../assets/images/icon_hot.svg';
-
+// eslint-disable-next-line import/no-unresolved
 import { RightBox } from './RightBox';
 
 export default {
@@ -25,5 +27,5 @@ export const RightSubBox = Template.bind({});
 RightSubBox.args = {
    label: '실시간 핫한 모임',
    imgLink: IconHot,
-   children: null
+   childrens: null
 };

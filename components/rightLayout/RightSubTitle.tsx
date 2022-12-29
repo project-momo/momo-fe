@@ -8,7 +8,7 @@ export const RightSubTitle = ({ label, imgLink }: RightSubTitleProps) => {
    return (
       <div>
          <Text>
-            <img src={imgLink} alt="" />
+            <img src={imgLink} alt={'SubtitleImg'} />
             {label}
          </Text>
       </div>
