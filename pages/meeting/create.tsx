@@ -47,7 +47,6 @@ const Create = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [notice, setNotice] = useState('');
 
-  const [locationId, setLocationId] = useState(0);
   const [location1, setLocaton1] = useState('');
   const [location2, setLocaton2] = useState<string[]>([]);
   const [address1, setAddress1] = useState<string[]>([]);
@@ -327,25 +326,35 @@ export const Flex = styled.div`
 
 export const RadioButtons = styled.div`
   margin-bottom: 15px;
+
   > label:not(:last-of-type) {
-    margin-right: 25px;
+    margin-right: 20px;
   }
   input {
     margin-right: 5px;
-  }
-  input[type='radio'] {
     appearance: none;
     width: 1em;
     height: 1em;
     border: 1.5px solid gray;
+  }
+  input:hover {
+    box-shadow: 0 0 0 2px #dfdfdf;
+  }
+
+  input[type='radio'] {
     border-radius: 50%;
     transition: border 0.1s ease-in-out;
   }
   input[type='radio']:checked {
-    border: 4px solid #6a6ff2;
+    border: 4.5px solid #6a6ff2;
   }
-  input[type='radio']:hover {
-    box-shadow: 0 0 0 2px #dfdfdf;
+
+  input[type='checkbox'] {
+    border-radius: 3px;
+    transition: background-color 0.1s ease-in-out;
+  }
+  input[type='checkbox']:checked {
+    background-color: #6a6ff2;
   }
 `;
 
