@@ -2,21 +2,21 @@ import Application from './Application';
 import { Button } from './Button';
 
 const MyMeetingCard = ({ data }: any) => {
-   // console.log(data.applications.new);
-   const price = data.priceInfo.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+   const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
-   const newApplications = data.applications.new;
+   const newApplications = data.applications.requests;
    const confirmedApplications = data.applications.confirmed;
 
-   console.log('new만 : ', newApplications, confirmedApplications.length);
+   // console.log('new만 : ', newApplications, confirmedApplications.length);
    return (
       <div id="detail">
          <div className="accordion-item card-basic">
-            <h2 className="accordion-header " id={`heading${data.id}`}>
+            <h2 className="accordion-header " id={`heading${data.meetingId}`}>
                <div className="left">
                   <div>
-                     <p className={data.meetingStatus ? 'status open' : 'status closed'}>
-                        {data.meetingStatus ? '모집중' : '모집 종료'}
+                     <p className={data.isOpen ? 'status open' : 'status closed'}>
+                        {data.meetingState}
+                        {/* {data.meetingStatus ? '모집중' : '모집 종료'} */}
                      </p>
                      <p className="category">{data.category}</p>
                      <p className="date">2022.12.26</p>
@@ -32,14 +32,22 @@ const MyMeetingCard = ({ data }: any) => {
                   <p>{data.locations.join(', ')}</p>
                </div>
                <div className="right">
+                  
+                  {data.host ? 
                   <div
                      data-bs-toggle="collapse"
-                     data-bs-target={`#collapse${data.id}`}
+                     data-bs-target={`#collapse${data.meetingId}`}
                      aria-expanded="true"
-                     aria-controls={`collapse${data.id}`}>
+                     aria-controls={`collapse${data.meetingId}`}>
                      <Button text="참가 신청 현황" icon />
                   </div>
-                  {data.meetingStatus && (
+                  :
+                  <div data-bs-toggle="modal" data-bs-target="#myModal">
+                     <Button text="참가 신청 현황" modal />
+                  </div>
+                  }
+                  
+                  {data.isOpen && (
                      <div>
                         <Button text="모임 변경" />
                         <Button text="모임 취소" />
@@ -50,9 +58,9 @@ const MyMeetingCard = ({ data }: any) => {
 
             {/* 신정 현황 확인 */}
             <div
-               id={`collapse${data.id}`}
+               id={`collapse${data.meetingId}`}
                className="accordion-collapse collapse  application-status"
-               aria-labelledby={`heading${data.id}`}
+               aria-labelledby={`heading${data.meetingId}`}
                data-bs-parent="#accordionExample">
                <div className="accordion-body">
                   {/* 새로운 신청 */}
@@ -60,7 +68,7 @@ const MyMeetingCard = ({ data }: any) => {
                      <div className="application">
                         <p className="title">새로운 신청</p>
                         {newApplications.map((application: any) => (
-                           <Application data={application} key={application.id} />
+                           <Application data={application} key={application.userId} />
                         ))}
                      </div>
                   )}
@@ -69,7 +77,7 @@ const MyMeetingCard = ({ data }: any) => {
                      <div className="application">
                         <p className="title">확정 모임자</p>
                         {confirmedApplications.map((application: any) => (
-                           <Application data={application} key={application.id} confirmed />
+                           <Application data={application} key={application.userId} confirmed />
                         ))}
                      </div>
                   )}
