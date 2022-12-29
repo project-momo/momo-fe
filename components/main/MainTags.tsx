@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
+// eslint-disable-next-line import/no-unresolved
 import { Tag } from '../common/Tag';
 
 const MainTags = () => {
-  
-
-   const labelList = ['멘토링', '온라인', '오프라인모임', '스터디', '모임', '5인이상']
+   const labelList = ['멘토링', '온라인', '오프라인모임', '스터디', '모임', '5인이상'];
    return (
       <MainTagWrap>
-         <SubTitle label='지금 올라오는 모임' labelMore=''/>
+         <SubTitle label="지금 올라오는 모임" labelMore="" />
          <Tags>
-           { labelList.map((el,idx) => <Tag label={el} />)}
+            {labelList.map((el, idx) => (
+               <Tag key={idx} label={el} />
+            ))}
          </Tags>
       </MainTagWrap>
    );
@@ -23,7 +25,9 @@ const MainTagWrap = styled.div`
    display: flex;
    justify-content: space-between;
    align-items: center;
-`
+   margin-top: 15px;
+   flex-wrap: wrap;
+`;
 const Tags = styled.ul`
    display: flex;
-`
+`;

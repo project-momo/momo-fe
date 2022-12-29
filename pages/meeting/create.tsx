@@ -70,44 +70,6 @@ const Create = () => {
   const [hourPrice, setHourPrice] = useState(0);
   const [onePrice, setOnePrice] = useState(0);
 
-  // console 확인용
-  // useEffect(() => {
-  //   console.log('카테고리', category);
-  //   console.log('타이틀', title);
-  //   console.log('내용', content);
-  //   console.log('태그', tags);
-  //   console.log('주소', address1, address1);
-  //   console.log('일정 설정', datePolicy);
-  //   console.log('하루 일정', date);
-  //   console.log('정기 일정', startDate, endDate);
-  //   console.log('요일', dayWeeks);
-  //   console.log('자유 일정', dates);
-  //   console.log('시간', startTime, endTime);
-  //   console.log('가격 설정', pricePolicy);
-  //   console.log('가격', hourPrice);
-  //   console.log('가격', onePrice);
-  //   console.log('전달사항', notice);
-  // }, [
-  //   category,
-  //   title,
-  //   content,
-  //   tags,
-  //   address1,
-  //   address1,
-  //   datePolicy,
-  //   date,
-  //   startDate,
-  //   endDate,
-  //   dayWeeks,
-  //   dates,
-  //   startTime,
-  //   endTime,
-  //   pricePolicy,
-  //   hourPrice,
-  //   onePrice,
-  //   notice,
-  // ]);
-
   const onClickTag = (value: string) => {
     if (tags.includes(value)) {
       setTags([...tags.filter((tag) => tag !== value)]);
@@ -142,11 +104,6 @@ const Create = () => {
   };
 
   useEffect(() => {
-    console.log(
-      new Date(startTime).toTimeString().slice(0, 2),
-      new Date(endTime).toTimeString().slice(0, 2),
-    );
-
     setMaxTimeRange([]);
 
     for (
@@ -156,7 +113,6 @@ const Create = () => {
         Number(new Date(startTime).toTimeString().slice(0, 2));
       i++
     ) {
-      console.log('i', i);
       setMaxTimeRange([...maxTimeRange, i]);
     }
   }, [startTime, endTime]);

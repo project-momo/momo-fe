@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
@@ -8,16 +9,16 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <RecoilRoot>
-      <GrayLayout>
-        <ContentLayout>
-          <Header />
-          <Component {...pageProps} />
-        </ContentLayout>
-      </GrayLayout>
-    </RecoilRoot>
-  );
+   return (
+      <RecoilRoot>
+         <GrayLayout>
+            <ContentLayout>
+               <Header />
+               <Component {...pageProps} />
+            </ContentLayout>
+         </GrayLayout>
+      </RecoilRoot>
+   );
 }
 
 export default MyApp;
