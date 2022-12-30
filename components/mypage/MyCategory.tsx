@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 const MyCategory = () => {
    const router = useRouter();
    const pathname = router.pathname;
-   console.log(router.pathname);
    return (
       <Layout>
          <Ul>

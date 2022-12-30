@@ -7,13 +7,13 @@ const Withdraw = () => {
          <p className="title">적립금 출금</p>
          <div className="point-status">
             <p className="title-sm">보유 적립금</p>
-            <input type="text" value="36,000원" readOnly />
+            <input type="text" defaultValue="36,000원" readOnly />
          </div>
          <div className="withdraw">
             <p className="title-sm">출금할 적립금</p>
             <ul>
                <li className="input-box">
-                  <input type="text" value="" placeholder="출금할 금액을 입력해주세요." />
+                  <input type="text" value="" onChange={() => {''}} placeholder="출금할 금액을 입력해주세요." />
                </li>
                <li className="message">보유 적립금을 초과해 출금할 수 없습니다.</li>
                <li className="quick-btns">
@@ -32,7 +32,7 @@ const Withdraw = () => {
                   <option>부산은행</option>
                   <option>신한은행</option>
                </select>
-               <input type="text" value="" placeholder="입금 계좌번호를 입력하세요" />
+               <input type="text" value="" onChange={() => {''}} placeholder="입금 계좌번호를 입력하세요" />
             </div>
          </div>
          <p className="notice">*입금은 영업일 기준 3-4일 내 이루어집니다.</p>

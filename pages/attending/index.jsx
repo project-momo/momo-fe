@@ -1,13 +1,13 @@
 import { CenterSection } from '../../styles/style';
 import MyCategory from '../../components/mypage/MyCategory';
-import MyMeetings from '../../components/mypage/MyMettings';
+import MyMeetings_attending from '../../components/mypage/MyMettings_attending';
 
 const Attending = () => {
    return (
       <>
          <MyCategory />
          <CenterSection>
-            <MyMeetings attending />
+            <MyMeetings_attending/>
          </CenterSection>
       </>
    );

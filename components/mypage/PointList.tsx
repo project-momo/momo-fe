@@ -1,50 +1,21 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { myPoint } from '../../atoms/mypage/atoms';
 import List from './List';
 import { BasicWrapper } from './mypage.style';
 
 const PointList = () => {
-   const dummyData = [
-      {
-         id: 1,
-         message: '‘개발자 멘토링 해드립니다’ 모임에 새로운 참가자가 있습니다.',
-         date: '2022.12.22',
-         status: '적립',
-         priceInfo: {
-            status: 'plus',
-            price: 9000
-         }
-      },
-      {
-         id: 2,
-         message: '‘개발자 멘토링 해드립니다’ 모임에 참여하였습니다.',
-         date: '2022.12. 20',
-         status: '차감',
-         priceInfo: {
-            status: 'minus',
-            price: 9000
-         }
-      },
-      {
-         id: 3,
-         message: '‘개발자 멘토링 해드립니다’ 모임 참가가 취소되었습니다.',
-         date: '2022.12. 18',
-         status: '적립',
-         priceInfo: {
-            status: 'plus',
-            price: 9000
-         }
-      }
-   ];
+   const pointList = useRecoilValue(myPoint);
 
    return (
       <PointListWrapper>
          <div className="title">적립금 내역</div>
          <div className="card">
-            {dummyData.map(list => (
+            {pointList.map((list:any) => (
                <List data={list} key={list.id} />
             ))}
          </div>
-         {dummyData.length === 0 && <div className="card empty">적립금 이용 내역이 없습니다.</div>}
+         {pointList.length === 0 && <div className="card empty">적립금 이용 내역이 없습니다.</div>}
       </PointListWrapper>
    );
 };
