@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import IconSearch from '../../assets/images/icon_search.svg';
+// eslint-disable-next-line import/no-unresolved
+import IconSearch from '../../..//assets/images/icon_search.svg';
+import { useRecoilState } from 'recoil';
+// eslint-disable-next-line import/no-unresolved
+import axios from 'axios';
 import { HeaderButton } from './Header/HeaderButton';
+import { isLogin } from '../../atoms/atom';
 
 const HeaderLayout = styled.div`
    background-color: #49515b;
@@ -13,10 +18,38 @@ const HeaderLayout = styled.div`
 `;
 
 interface LoginProps {
-   isLogin: boolean;
+   OpenModal: () => void;
 }
+const Header = ({ OpenModal }: LoginProps) => {
+   const [isLoginState, setIsLoginState] = useRecoilState(isLogin);
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
 
-const Header = ({ isLogin }: LoginProps) => {
+   useEffect(() => {
+      if (localStorage.getItem('RefreshToken') !== null) {
+         setIsLoginState(true);
+         console.log(localStorage.getItem('RefreshToken'));
+      } else {
+         setIsLoginState(false);
+      }
+   }, []);
+   const logoutFunc = async () => {
+      const hi = await axios.delete(`${API_URI}/auth/token`, {
+         headers: {
+            RefreshToken: localStorage.getItem('AccessToken')
+         }
+      });
+      localStorage.removeItem('AccessToken');
+      localStorage.removeItem('RefreshToken');
+      setIsLoginState(false);
+   };
+
+   // const userInfo = async () => {
+   //   console.log(axios.defaults.headers.common['Authorization']);
+   //   const hoho = await axios.get(
+   //     'https://2ba7-39-116-11-157.jp.ngrok.io/mypage/profile',
+   //   );
+   //   console.log(hoho);
+   // };
    return (
       <HeaderLayout>
          <Wrapper>
@@ -30,13 +63,14 @@ const Header = ({ isLogin }: LoginProps) => {
                   <FloatingSearchLabel htmlFor="Search">검색하기</FloatingSearchLabel>
                </FloatingSearch>
                <div>
-                  {isLogin ? (
+                  {isLoginState ? (
                      <>
                         <HeaderButton label="MY" />
+                        <HeaderButton onClick={logoutFunc} label="Logout" />
                      </>
                   ) : (
                      <>
-                        <HeaderButton label="Log in" />
+                        <HeaderButton onClick={OpenModal} label="Log in" />
                      </>
                   )}
                </div>

@@ -9,12 +9,8 @@ import MainList from '../components/main/MainList';
 import MainTags from '../components/main/MainTags';
 import RankList from '../components/main/RankList';
 import Notice from '../components/rightLayout/Notice';
-import { useEffect } from 'react';
 
 const Home: NextPage = () => {
-   useEffect(() => {
-      console.log('hi');
-   }, []);
    return (
       <>
          <Category />
@@ -24,8 +20,8 @@ const Home: NextPage = () => {
             <MainList />
          </CenterSection>
          <RightSection>
-            <RightBox label="실시간 핫한 모임" imgLink={IconHot} children={<RankList />} />
-            <RightBox label="알려드립니다!" imgLink={IconNotice} children={<Notice />} />
+            <RightBox label="실시간 핫한 모임" imgLink={IconHot} childrens={<RankList />} />
+            <RightBox label="알려드립니다!" imgLink={IconNotice} childrens={<Notice />} />
             {/* <Link href="/Test">
                폴더 안 페이지 클릭
             </Link>

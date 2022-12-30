@@ -2,12 +2,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
-import Header from '../components/common/Header';
 import { ContentLayout, GrayLayout } from '../styles/style';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-config.autoAddCss = false;
 import { useEffect, useState } from 'react';
+import { Modal } from '../components/common/Modal/Modal';
+import LoginModal from '../components/common/Modal/ModalCompo/LoginModal';
+import Header from '../components/common/Header/Header';
+config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
    return (
       <RecoilRoot>
+         {isModalOpen ? <Modal CloseModal={CloseModal} childrens={<LoginModal />} /> : null}
          <GrayLayout>
             <ContentLayout>
                <Header OpenModal={OpenModal} />
