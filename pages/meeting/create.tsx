@@ -55,11 +55,11 @@ const Create = () => {
    const [address2, setAddress2] = useState('');
 
    const [datePolicy, setDatePolicy] = useState('ONE_DAY');
-   const [date, setDate] = useState<Date>(new Date());
-   const [startDate, setStartDate] = useState<Date>(new Date());
-   const [endDate, setEndDate] = useState<Date>(startDate);
+   const [date, setDate] = useState<any>(new Date());
+   const [startDate, setStartDate] = useState<any>(new Date());
+   const [endDate, setEndDate] = useState<any>(startDate);
    const [dayWeeks, setDayWeeks] = useState<number[]>([]);
-   const [dates, setDates] = useState<Date[] | []>([]);
+   const [dates, setDates] = useState([]);
    const [startTime, setStartTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
    const [endTime, setEndTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
    const [maxTimeRange, setMaxTimeRange] = useState<number[]>([]);

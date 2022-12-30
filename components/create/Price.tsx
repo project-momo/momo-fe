@@ -1,10 +1,10 @@
 import { NumberInput, RadioButtons } from '../../pages/meeting/create';
-import { useState } from 'react';
+import { useState, SetStateAction } from 'react';
 
 interface PriceProps {
    datePolicy: string;
    price: number;
-   setPrice: any;
+   setPrice: (value: SetStateAction<number>) => void;
 }
 
 const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
@@ -26,7 +26,7 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
                type="number"
                disabled={pricePolicy === 'free' && true}
                value={pricePolicy === 'free' ? 0 : price}
-               onChange={e => setPrice(e.target.value)}
+               onChange={e => setPrice(Number(e.target.value))}
             />
          </label>
          <label>
