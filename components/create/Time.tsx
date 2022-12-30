@@ -20,7 +20,7 @@ const Time = ({ startTime, endTime, setStartTime, setEndTime }: TimeProps) => {
             timeIntervals={60}
             timeCaption="시작 시간"
             selected={startTime}
-            onChange={selectedDate => {
+            onChange={(selectedDate: SetStateAction<Date | [Date | null, Date | null] | null>) => {
                setStartTime(selectedDate);
             }}
          />
@@ -32,8 +32,10 @@ const Time = ({ startTime, endTime, setStartTime, setEndTime }: TimeProps) => {
             showTimeSelectOnly
             timeIntervals={60}
             timeCaption="종료 시간"
+            minTime={startTime}
+            maxTime={new Date().setHours(23, 0, 0, 0)}
             selected={endTime}
-            onChange={selectedDate => {
+            onChange={(selectedDate: SetStateAction<Date | [Date | null, Date | null] | null>) => {
                setEndTime(selectedDate);
             }}
          />

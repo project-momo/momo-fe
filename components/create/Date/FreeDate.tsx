@@ -1,22 +1,22 @@
 import { CustomDatePicker } from '../../../pages/meeting/create';
 import { ko } from 'date-fns/esm/locale';
 import { SetStateAction } from 'react';
+import { DpSettingType } from './OneDate';
 
 interface FreeDateProps {
    dates: Date[];
    setDates: (value: SetStateAction<any>) => void;
+   dpSetting: DpSettingType;
 }
-const FreeDate = ({ dates, setDates }: FreeDateProps) => {
+const FreeDate = ({ dates, setDates, dpSetting }: FreeDateProps) => {
    return (
       <CustomDatePicker
-         locale={ko}
-         dateFormat="yyyy-MM-dd"
+         {...dpSetting}
          minDate={new Date()}
-         withPortal
          selected={dates[0]}
          shouldCloseOnSelect={false}
          highlightDates={[...dates]}
-         onChange={selectedDate => {
+         onChange={(selectedDate: any) => {
             setDates([...dates, selectedDate]);
          }}
          customInput={

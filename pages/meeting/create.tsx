@@ -18,41 +18,20 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Location from '../../components/create/Location';
 import { Button } from '../../components/common/Button';
-
-export interface MeetingType {
-   category: string;
-   title: string;
-   content: string;
-   tags: string[];
-   location: { address1: string; address2: string }[];
-   dateTime: {
-      datepolicy: string;
-      startDate: string;
-      endDate: string;
-      startTime: string;
-      endTime: string;
-      maxTime: number;
-      dayWeeks: number[];
-      dates: string[];
-   };
-   price: number;
-   personnel: number;
-   notice: string;
-}
+import { ko } from 'date-fns/esm/locale';
 
 const Create = () => {
-   const [category, setCategory] = useState('라이프스타일');
+   const [category, setCategory] = useState('LIFESTYLE');
    const [title, setTitle] = useState('');
    const [content, setContent] = useState('');
    const [tags, setTags] = useState<string[]>([]);
    const [personnel, setPersonnel] = useState(1);
    const [price, setPrice] = useState(0);
-   const [notice, setNotice] = useState('');
 
    const [location1, setLocaton1] = useState('');
    const [location2, setLocaton2] = useState<string[]>([]);
-   const [address1, setAddress1] = useState<string[]>([]);
-   const [address2, setAddress2] = useState('');
+   const [addressIds, setAddressIds] = useState<string[]>([]);
+   const [addressInfo, setAddressInfo] = useState('');
 
    const [datePolicy, setDatePolicy] = useState('ONE_DAY');
    const [date, setDate] = useState<any>(new Date());
@@ -81,10 +60,10 @@ const Create = () => {
    const onClickLocation2 = (value: string) => {
       if (location2.includes(value)) {
          setLocaton2([...location2.filter(el => el !== value)]);
-         setAddress1([...address1.filter(el => el.slice(3) !== value)]);
+         setAddressIds([...addressIds.filter(el => el.slice(3) !== value)]);
       } else {
          setLocaton2([...location2, value]);
-         setAddress1([...address1, `${location1} ${value}`]);
+         setAddressIds([...addressIds, `${location1} ${value}`]);
       }
    };
 
@@ -96,29 +75,36 @@ const Create = () => {
       }
    };
 
-   useEffect(() => {
-      setMaxTimeRange([]);
+   // useEffect(() => {
+   //    setMaxTimeRange([]);
 
-      for (
-         let i = 1;
-         i <=
-         Number(new Date(endTime).toTimeString().slice(0, 2)) - Number(new Date(startTime).toTimeString().slice(0, 2));
-         i++
-      ) {
-         setMaxTimeRange([...maxTimeRange, i]);
-      }
-   }, [startTime, endTime]);
+   //    for (
+   //       let i = 1;
+   //       i <=
+   //       Number(new Date(endTime).toTimeString().slice(0, 2)) - Number(new Date(startTime).toTimeString().slice(0, 2));
+   //       i++
+   //    ) {
+   //       setMaxTimeRange([...maxTimeRange, i]);
+   //    }
+   // }, [startTime, endTime]);
+
+   const dpSetting = {
+      locale: ko,
+      dateFormat: 'yyyy-MM-dd',
+      dateFormatCalendar: 'yyyy.MM',
+      withPortal: true
+   };
 
    const data = {
       category,
       title,
       content,
       tags,
-      locations: { address1, address2 },
+      // locations: { addressIds, addressInfo },
+      address: { addressIds: [1], addressInfo },
       personnel: datePolicy === 'FREE' ? 1 : personnel,
       price,
-      notice,
-      dateTimes: {
+      dateTime: {
          datePolicy,
          startDate:
             datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD'
@@ -138,7 +124,7 @@ const Create = () => {
                     .sort((a, b) => Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', '')))[dates.length - 1],
          startTime: new Date(startTime).toTimeString().slice(0, 8),
          endTime: new Date(endTime).toTimeString().slice(0, 8),
-         dayWeeks,
+         dayWeeks: dayWeeks.sort((a, b) => a - b),
          dates: dates
             .map(date => new Date(date).toISOString().slice(0, 10))
             .sort((a, b) => Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', ''))),
@@ -146,16 +132,17 @@ const Create = () => {
       }
    };
 
-   const onSubmit = async () => {
+   const onSubmit = () => {
       console.log('전송!', data);
 
-      // const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/meetings`, data, {
-      //    headers: {
-      //       Authorization: localStorage.getItem('AccessToken')
-      //    }
-      // });
-
-      // console.log('응답!', res);
+      axios
+         .post(`${process.env.NEXT_PUBLIC_API_URI}/meetings`, data, {
+            headers: {
+               Authorization: localStorage.getItem('AccessToken')
+            }
+         })
+         .then(res => console.log('성공', res))
+         .catch(err => console.log(err));
    };
 
    return (
@@ -201,14 +188,14 @@ const Create = () => {
                   <LiTitle main="추가 주소 입력" sub="개인 정보 보호를 위해 정확한 주소를 입력하지 마세요." />
                   <Input
                      placeholder="예시) 스타벅스 근처 협의"
-                     value={address2}
-                     onChange={e => setAddress2(e.target.value)}
+                     value={addressInfo}
+                     onChange={e => setAddressInfo(e.target.value)}
                   />
                </Li>
                <Li>
                   <LiTitle main="날짜 설정" />
                   <DateRadio setDatePolicy={setDatePolicy} setPersonnel={setPersonnel} />
-                  {datePolicy === 'ONE_DAY' && <OneDate date={date} setDate={setDate} />}
+                  {datePolicy === 'ONE_DAY' && <OneDate date={date} setDate={setDate} dpSetting={dpSetting} />}
                   {datePolicy === 'PERIOD' && (
                      <PeriodDate
                         startDate={startDate}
@@ -216,9 +203,10 @@ const Create = () => {
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
                         onCheckDayWeeks={onCheckDayWeeks}
+                        dpSetting={dpSetting}
                      />
                   )}
-                  {datePolicy === 'FREE' && <FreeDate dates={dates} setDates={setDates} />}
+                  {datePolicy === 'FREE' && <FreeDate dates={dates} setDates={setDates} dpSetting={dpSetting} />}
                </Li>
                <Li>
                   <LiTitle main="시간 설정" />
@@ -227,7 +215,7 @@ const Create = () => {
                {datePolicy === 'FREE' && (
                   <Li>
                      <LiTitle main="최대 예약 가능 시간" />
-                     <Select
+                     {/* <Select
                         onChange={e => {
                            setMaxTime(Number(e.target.value));
                         }}>
@@ -236,7 +224,19 @@ const Create = () => {
                               {el}
                            </option>
                         ))}
-                     </Select>
+                     </Select> */}
+                     <NumberInput
+                        type="number"
+                        min={1}
+                        max={
+                           Number(new Date(endTime).toTimeString().slice(0, 2)) -
+                           Number(new Date(startTime).toTimeString().slice(0, 2))
+                        }
+                        value={maxTime}
+                        onChange={e => {
+                           setMaxTime(Number(e.target.value));
+                        }}
+                     />
                   </Li>
                )}
                <Li>
@@ -253,16 +253,6 @@ const Create = () => {
                <Li>
                   <LiTitle main="가격 설정" />
                   <Price datePolicy={datePolicy} price={price} setPrice={setPrice} />
-               </Li>
-               <Li>
-                  <LiTitle main="전달사항" />
-                  <Input
-                     placeholder="모임 신청 전 전달 해야 할 사항이 있다면 적어 주세요."
-                     value={notice}
-                     onChange={e => {
-                        setNotice(e.target.value);
-                     }}
-                  />
                </Li>
                <Button size="bigBold" label="작성완료" onClick={onSubmit} />
             </Ul>
@@ -296,10 +286,10 @@ const Li = styled.li`
       font-family: inherit;
    }
    .react-datepicker-wrapper {
-      width: 192.5px;
+      width: 230px;
    }
    .react-datepicker__header {
-      background-color: #6a6ff2;
+      background-color: #49515b;
       padding: 20px 20px 10px 20px;
       border-radius: 20px 20px 0 0;
    }
@@ -324,15 +314,15 @@ const Li = styled.li`
    }
    .react-datepicker__day:hover {
       background-color: #d4e6ff;
+      color: black;
       border-radius: 50%;
    }
    .react-datepicker__day--today:hover {
       color: black;
    }
    .react-datepicker__day--selected {
-      background-color: #d4e6ff !important;
-      color: #6a6ff2 !important;
-      font-weight: 600 !important;
+      background-color: #d4e6ff;
+      color: black;
       border-radius: 50%;
    }
    .react-datepicker__day--outside-month {
@@ -344,6 +334,8 @@ const Li = styled.li`
    }
 
    .react-datepicker__day--in-range {
+      background-color: #d4e6ff;
+      color: black;
       border-radius: 50%;
    }
    .react-datepicker__day--in-selecting-range {
@@ -353,19 +345,21 @@ const Li = styled.li`
    }
 
    .react-datepicker__day--highlighted {
-      background-color: #d4e6ff !important;
-      color: #6a6ff2;
-      font-weight: 600 !important;
+      background-color: #d4e6ff;
+      color: black;
       border-radius: 50%;
    }
 
    .react-datepicker__time-container,
    .react-datepicker__time-box {
-      width: 192.5px !important;
+      width: 230px !important;
       border: 1px solid #f5f5f5;
    }
    .react-datepicker__header--time {
       padding: 10px 20px;
+   }
+   .react-datepicker__header--time {
+      background-color: #49515b;
    }
    .react-datepicker-time__header {
       color: white;
@@ -399,8 +393,8 @@ const Li = styled.li`
    .react-datepicker__time-list-item--selected,
    .react-datepicker__time-list-item--selected:hover {
       background-color: #d4e6ff !important;
-      color: #6a6ff2 !important;
-      font-weight: 600 !important;
+      color: black !important;
+      font-weight: 500 !important;
    }
 `;
 
@@ -437,9 +431,13 @@ export const RadioButtons = styled.div`
       transition: border 0.1s ease-in-out;
    }
    input[type='radio']:checked {
-      border: 4.5px solid #6a6ff2;
+      border: 5px solid #6a6ff2;
    }
 
+   input[type='checkbox'] + label {
+      width: 0.9em;
+      height: 0.9em;
+   }
    input[type='checkbox'] {
       display: none;
    }
@@ -455,8 +453,8 @@ export const RadioButtons = styled.div`
    input[type='checkbox']:checked + label::after {
       content: '✔';
       position: absolute;
-      left: 2px;
-      top: -2px;
+      left: 1px;
+      top: -3px;
       color: white;
       font-size: 12px;
    }
@@ -511,12 +509,12 @@ export const NumberInput = styled.input`
    }
 `;
 
-const Select = styled.select`
-   background-color: #f5f5f5;
-   border-radius: 5px;
-   width: 100px;
-   padding: 10px 15px;
-   border: none;
-   outline: none;
-   font-family: inherit;
-`;
+// const Select = styled.select`
+//    background-color: #f5f5f5;
+//    border-radius: 5px;
+//    width: 100px;
+//    padding: 10px 15px;
+//    border: none;
+//    outline: none;
+//    font-family: inherit;
+// `;

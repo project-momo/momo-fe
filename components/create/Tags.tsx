@@ -8,22 +8,22 @@ interface TagsProps {
 const Tags = ({ tags, onClickTag }: TagsProps) => {
    return (
       <TagsStyle>
-         <li onClick={() => onClickTag('멘토링')} className={tags.includes('멘토링') ? 'selected' : ''}>
+         <li onClick={() => onClickTag('MENTORING')} className={tags.includes('MENTORING') ? 'selected' : ''}>
             멘토링
          </li>
-         <li onClick={() => onClickTag('온라인')} className={tags.includes('온라인') ? 'selected' : ''}>
+         <li onClick={() => onClickTag('ONLINE')} className={tags.includes('ONLINE') ? 'selected' : ''}>
             온라인
          </li>
-         <li onClick={() => onClickTag('오프라인모임')} className={tags.includes('오프라인모임') ? 'selected' : ''}>
+         <li onClick={() => onClickTag('OFFLINE')} className={tags.includes('OFFLINE') ? 'selected' : ''}>
             오프라인모임
          </li>
-         <li onClick={() => onClickTag('스터디')} className={tags.includes('스터디') ? 'selected' : ''}>
+         <li onClick={() => onClickTag('STUDY')} className={tags.includes('STUDY') ? 'selected' : ''}>
             스터디
          </li>
-         <li onClick={() => onClickTag('모임')} className={tags.includes('모임') ? 'selected' : ''}>
+         <li onClick={() => onClickTag('MEETING')} className={tags.includes('MEETING') ? 'selected' : ''}>
             모임
          </li>
-         <li onClick={() => onClickTag('5인이상')} className={tags.includes('5인이상') ? 'selected' : ''}>
+         <li onClick={() => onClickTag('FIVE')} className={tags.includes('FIVE') ? 'selected' : ''}>
             5인이상
          </li>
       </TagsStyle>

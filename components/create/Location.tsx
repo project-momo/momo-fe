@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { locationDummy } from '../../datas/locationDummy';
+import { locationDummy } from '../../dummy/mypage/locationDummy';
 
 interface LocationProps {
    location1: string;
