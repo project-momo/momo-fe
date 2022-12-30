@@ -115,7 +115,7 @@ const Create = () => {
       content,
       tags,
       locations: { address1, address2 },
-      personnel,
+      personnel: datePolicy === 'FREE' ? 1 : personnel,
       price,
       notice,
       dateTimes: {
@@ -146,10 +146,16 @@ const Create = () => {
       }
    };
 
-   const onSubmit = () => {
+   const onSubmit = async () => {
       console.log('전송!', data);
 
-      // axios.post('/meetings', data);
+      // const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/meetings`, data, {
+      //    headers: {
+      //       Authorization: localStorage.getItem('AccessToken')
+      //    }
+      // });
+
+      // console.log('응답!', res);
    };
 
    return (
@@ -201,7 +207,7 @@ const Create = () => {
                </Li>
                <Li>
                   <LiTitle main="날짜 설정" />
-                  <DateRadio setDatePolicy={setDatePolicy} />
+                  <DateRadio setDatePolicy={setDatePolicy} setPersonnel={setPersonnel} />
                   {datePolicy === 'ONE_DAY' && <OneDate date={date} setDate={setDate} />}
                   {datePolicy === 'PERIOD' && (
                      <PeriodDate
@@ -237,7 +243,7 @@ const Create = () => {
                   <LiTitle main="인원수" />
                   <NumberInput
                      type="number"
-                     value={datePolicy === 'FREE' ? 1 : personnel}
+                     value={personnel}
                      disabled={datePolicy === 'FREE' && true}
                      onChange={e => {
                         setPersonnel(Number(e.target.value));

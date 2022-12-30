@@ -8,7 +8,7 @@ interface PriceProps {
 }
 
 const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
-   const [pricePolicy, setPricePolicy] = useState('pay');
+   const [pricePolicy, setPricePolicy] = useState('PAY');
 
    return (
       <RadioButtons>
@@ -18,14 +18,14 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
                name="price"
                defaultChecked
                onChange={() => {
-                  setPricePolicy('pay');
+                  setPricePolicy('PAY');
                }}
             />
             <span>{datePolicy === 'FREE' ? '시간당 가격' : '하루당 가격'}</span>
             <NumberInput
                type="number"
-               disabled={pricePolicy === 'free' && true}
-               value={pricePolicy === 'free' ? 0 : price}
+               disabled={pricePolicy === 'FREE' && true}
+               value={price}
                onChange={e => setPrice(Number(e.target.value))}
             />
          </label>
@@ -34,7 +34,8 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
                type="radio"
                name="price"
                onChange={() => {
-                  setPricePolicy('free');
+                  setPricePolicy('FREE');
+                  setPrice(0);
                }}
             />
             <span>무료</span>

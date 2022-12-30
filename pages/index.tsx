@@ -9,6 +9,7 @@ import MainList from '../components/main/MainList';
 import MainTags from '../components/main/MainTags';
 import RankList from '../components/main/RankList';
 import Notice from '../components/rightLayout/Notice';
+import { useEffect } from 'react';
 
 const Home: NextPage = () => {
    useEffect(() => {

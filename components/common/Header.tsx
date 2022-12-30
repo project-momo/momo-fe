@@ -15,6 +15,7 @@ const HeaderLayout = styled.div`
 interface LoginProps {
    isLogin: boolean;
 }
+
 const Header = ({ isLogin }: LoginProps) => {
    return (
       <HeaderLayout>

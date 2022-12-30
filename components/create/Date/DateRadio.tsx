@@ -3,9 +3,10 @@ import { SetStateAction } from 'react';
 
 interface DateRadioProps {
    setDatePolicy: (value: SetStateAction<string>) => void;
+   setPersonnel: (value: SetStateAction<number>) => void;
 }
 
-const DateRadio = ({ setDatePolicy }: DateRadioProps) => {
+const DateRadio = ({ setDatePolicy, setPersonnel }: DateRadioProps) => {
    return (
       <RadioButtons>
          <label>
@@ -38,6 +39,7 @@ const DateRadio = ({ setDatePolicy }: DateRadioProps) => {
                value="FREE"
                onChange={e => {
                   setDatePolicy(e.target.value);
+                  setPersonnel(1);
                }}
             />
             자유 일정
