@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-unresolved
-import { mainTagList } from '../../atoms';
+import { mainTagList } from '../../atoms/atom';
 
 interface TagProps {
    label: string;

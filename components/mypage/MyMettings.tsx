@@ -1,171 +1,31 @@
 import { BasicWrapper } from './mypage.style';
 import styled from 'styled-components';
 import MyMeetingCard from './MyMeetingCard';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { host_dummyData } from '../../dummy/mypage/dummy';
+import { useEffect } from 'react';
+import { mypageMeetings } from '../../atoms/mypage/atoms';
+import Link from 'next/link';
+import { hostMeeting_closed, hostMeeting_opened } from '../../atoms/mypage/selector';
 
-const MyMeetings = ({ preview, myMeeting, attending }: any) => {
-   // console.log(preview, myMeeting, attending)
-   const dummyData = [
-      {
-         id: 1,
-         meetingStatus: true,
-         category: '개발',
-         title: '개발 10년차가 전해 주는 멘토링',
-         content:
-            '멘토링 해드립니다. 주니어 개발자를 위한 다양한 멘토링 가능합니다 이력이 어떻구요 저렇구요 이렇습니다.멘토링 해드립니다. 주니어 개발자를 위한 다양한 멘토링 가능합니다 이력이 어떻구요 저렇구요 이렇습니다.멘토링 해드립니다. 주니어 개발자를 위한 다양한 멘토링 가능합니다 이력이 어떻구요 저렇구요 이렇습니다.',
-         locations: ['서초구', '강남구'],
-         dateTimes: [],
-         priceInfo: {
-            pricePolicy: 'HOUR',
-            price: 10000
-         },
-         notice: '전달 사항',
-         applications: {
-            new: [
-               {
-                  id: 1,
-                  img: '',
-                  nickname: 'Icyeong',
-                  dateInfo: {
-                     date: '2022.12.26',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '제가 코딩한게 있는데 보여드면서 코드리뷰 받고 싶습니다.'
-               },
-               {
-                  id: 2,
-                  img: '',
-                  nickname: 'qqllqqll',
-                  dateInfo: {
-                     date: '2022.12.24',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '두번째 t신청자'
-               }
-            ],
-            confirmed: [
-               {
-                  id: 3,
-                  img: '',
-                  nickname: 'hello world',
-                  dateInfo: {
-                     date: '2022.12.20',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '열심히 참여하겠습니다.',
-                  contact: '010-1234-5678',
-                  email: 'abcd@gmail.com'
-               }
-            ]
-         }
-      },
-      {
-         id: 2,
-         meetingStatus: false,
-         category: '라이프스타일',
-         title: '읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽',
-         content: '안녕하세요! 온라인 북클럽 Bookies의 새로운 모임 #벽돌-휴먼에 참가하실 분들을 기다리고 있습니다!',
-         locations: ['강남역', '근처 스타벅스'],
-         dateTimes: [],
-         priceInfo: {
-            pricePolicy: 'HOUR',
-            price: 5000
-         },
-         notice: '전달 사항',
-         applications: {
-            new: [
-               {
-                  id: 1,
-                  img: '',
-                  nickname: 'Icyeong',
-                  dateInfo: {
-                     date: '2022.12.26',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '제가 코딩한게 있는데 보여드면서 코드리뷰 받고 싶습니다.'
-               },
-               {
-                  id: 2,
-                  img: '',
-                  nickname: 'qqllqqll',
-                  dateInfo: {
-                     date: '2022.12.24',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '두번째 t신청자'
-               }
-            ],
-            confirmed: [
-               {
-                  id: 3,
-                  img: '',
-                  nickname: 'hello world',
-                  dateInfo: {
-                     date: '2022.12.20',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '열심히 참여하겠습니다.',
-                  contact: '010-1234-5678',
-                  email: 'abcd@gmail.com'
-               }
-            ]
-         }
-      },
-      {
-         id: 3,
-         meetingStatus: true,
-         category: '테스트',
-         title: '모집 종료 제외만 보여주기',
-         content:
-            '멘토링 해드립니다. 주니어 개발자를 위한 다양한 멘토링 가능합니다 이력이 어떻구요 저렇구요 이렇습니다.멘토링 해드립니다. 주니어 개발자를 위한 다양한 멘토링 가능합니다 이력이 어떻구요 저렇구요 이렇습니다.멘토링 해드립니다. 주니어 개발자를 위한 다양한 멘토링 가능합니다 이력이 어떻구요 저렇구요 이렇습니다.',
-         locations: ['서초구', '강남구'],
-         dateTimes: [],
-         priceInfo: {
-            pricePolicy: 'HOUR',
-            price: 10000
-         },
-         notice: '전달 사항',
-         applications: {
-            new: [
-               {
-                  id: 1,
-                  img: '',
-                  nickname: 'Icyeong',
-                  dateInfo: {
-                     date: '2022.12.26',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '제가 코딩한게 있는데 보여드면서 코드리뷰 받고 싶습니다.'
-               },
-               {
-                  id: 2,
-                  img: '',
-                  nickname: 'qqllqqll',
-                  dateInfo: {
-                     date: '2022.12.24',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '두번째 t신청자'
-               }
-            ],
-            confirmed: [
-               {
-                  id: 3,
-                  img: '',
-                  nickname: 'hello world',
-                  dateInfo: {
-                     date: '2022.12.20',
-                     time: '13:00 - 15:00 (2시간)'
-                  },
-                  message: '열심히 참여하겠습니다.',
-                  contact: '010-1234-5678',
-                  email: 'abcd@gmail.com'
-               }
-            ]
-         }
-      }
-   ];
-   const openedMeetings: any = dummyData.filter((meeting: any) => meeting.meetingStatus === true);
-   const closedMeetings: any = dummyData.filter((meeting: any) => meeting.meetingStatus === false);
+const MyMeetings_mypage = ({ preview, myMeeting, attending }: any) => {
+   const [hostMeetings, setHostMeetings] = useRecoilState(mypageMeetings);
+   const host_openedMeetings = useRecoilValue(hostMeeting_opened);
+   const host_closedMeetings = useRecoilValue(hostMeeting_closed);
+   // const openedMeetings: any = hostMeetings.filter((meeting:any) => meeting.meetingStatus === true);
+   // const closedMeetings: any = hostMeetings.filter((meeting:any) => meeting.meetingStatus === false);
+
+   useEffect(() => {
+      // 통신
+      // axios.get('/mypage/meetings/hosts?page=1&size=20')
+      // .then((res) => {
+      //    setHostMeetings(res);
+      // })
+      const fetchData = host_dummyData;
+      setHostMeetings(fetchData);
+   },[]);
+   
+   
 
    return (
       <>
@@ -173,14 +33,14 @@ const MyMeetings = ({ preview, myMeeting, attending }: any) => {
          <MeetingWrapper className={attending && 'hidden'}>
             <div className="title">
                <p>
-                  현재 모집중인 모임<span>{openedMeetings.length}개</span>
+                  현재 모집중인 모임<span>{host_openedMeetings.length}개</span>
                </p>
-               {/* <button className='seeMore'>더보기</button> */}
+               {preview && <Link href="/meetings" className='seeMore'>더보기</Link>}
             </div>
-            {myMeeting && openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.id} />)}
-            {preview && openedMeetings.length > 0 && <MyMeetingCard data={openedMeetings[0]} />}
-            {openedMeetings.length === 0 && (
-               <div className="card empty">
+            {myMeeting && host_openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />)}
+            {preview && host_openedMeetings.length > 0 && <MyMeetingCard data={host_openedMeetings[0]} />}
+            {host_openedMeetings.length === 0 && (
+               <div className="card-basic empty">
                   <button>모임 찾아보기</button>
                </div>
             )}
@@ -192,12 +52,12 @@ const MyMeetings = ({ preview, myMeeting, attending }: any) => {
                <p>
                   참여 예정 모임<span>{openedMeetings.length}개</span>
                </p>
-               {/* <button className='seeMore'>더보기</button> */}
+               {preview && <Link href="/attending" className='seeMore'>더보기</Link>}
             </div>
             {!preview && openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.id} />)}
             {preview && openedMeetings.length > 0 && <MyMeetingCard data={openedMeetings[0]} />}
             {openedMeetings.length === 0 && (
-               <div className="card empty">
+               <div className="card-basic empty">
                   <button>모임 찾아보기</button>
                </div>
             )}
@@ -209,12 +69,11 @@ const MyMeetings = ({ preview, myMeeting, attending }: any) => {
                <p>
                   모집 종료된 모임<span>{closedMeetings.length}개</span>
                </p>
-               {/* <button className='seeMore'>더보기</button> */}
             </div>
             {!preview && closedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.id} />)}
             {preview && closedMeetings.length > 0 && <MyMeetingCard data={closedMeetings[0]} />}
             {closedMeetings.length === 0 && (
-               <div className="card empty">
+               <div className="card-basic empty">
                   <button>모집 종료된 모임이 없습니다.</button>
                </div>
             )}
@@ -441,4 +300,4 @@ const MeetingWrapper = styled(BasicWrapper)`
    }
 `;
 
-export default MyMeetings;
+export default MyMeetings_mypage;

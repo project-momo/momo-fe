@@ -1,13 +1,17 @@
 import { Title } from '../../components/common/Title';
-import { CenterSectionr, ContentLayout, GrayLayout } from '../../styles/style';
+import { CenterSection, ContentLayout, GrayLayout } from '../../styles/style';
 import styled from 'styled-components';
 import { Button } from '../../stories/Button';
+import { useSetRecoilState } from 'recoil';
+import { modalState } from '../../atoms/mypage/atoms';
 
 const Create = () => {
+   const setType = useSetRecoilState(modalState);
+
    return (
       <GrayLayout>
          <ContentLayout>
-            <CenterSectionr>
+            <CenterSection>
                <Title label="모임 만들기" />
                <SubTitle>지금 올라오는 모임</SubTitle>
                <Ul>
@@ -130,8 +134,10 @@ const Create = () => {
                      <Input placeholder="모임 신청 전 전달 해야 할 사항이 있다면 적어 주세요." />
                   </Li>
                   <Button disabled size="bigBold" label="작성완료" />
+                  {/* 유효성 검사 완료 후 버튼 속성 넣어주세요 */}
+                  {/* onClick={() => setType('create')} data-bs-toggle="modal" data-bs-target="#myModal" */}
                </Ul>
-            </CenterSectionr>
+            </CenterSection>
          </ContentLayout>
       </GrayLayout>
    );
