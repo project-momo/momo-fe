@@ -25,6 +25,7 @@ const Create = () => {
    const [title, setTitle] = useState('');
    const [content, setContent] = useState('');
    const [tags, setTags] = useState<string[]>([]);
+   const [maxTime, setMaxTime] = useState(1);
    const [personnel, setPersonnel] = useState(1);
    const [price, setPrice] = useState(0);
 
@@ -39,10 +40,21 @@ const Create = () => {
    const [endDate, setEndDate] = useState<any>(startDate);
    const [dayWeeks, setDayWeeks] = useState<number[]>([]);
    const [dates, setDates] = useState([]);
+
    const [startTime, setStartTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
    const [endTime, setEndTime] = useState<any>(new Date().setHours(0, 0, 0, 0));
-   const [maxTimeRange, setMaxTimeRange] = useState<number[]>([]);
-   const [maxTime, setMaxTime] = useState(1);
+
+   const [categoryError, setCategoryError] = useState('');
+   const [titleError, setTitleError] = useState('');
+   const [contentError, setContentError] = useState('');
+   const [tagError, setTagError] = useState('');
+   const [addressIdsError, setAddressIdsError] = useState('');
+   const [addressInfoError, setAddressInfoError] = useState('');
+   const [dateError, setDateError] = useState('');
+   const [timeError, setTimeError] = useState('');
+   const [maxTimeError, setMaxTimeError] = useState('');
+   const [personnelError, setPersonnelError] = useState('');
+   const [priceError, setPriceError] = useState('');
 
    const onClickTag = (value: string) => {
       if (tags.includes(value)) {
@@ -62,6 +74,11 @@ const Create = () => {
          setLocaton2([...location2.filter(el => el !== value)]);
          setAddressIds([...addressIds.filter(el => el.slice(3) !== value)]);
       } else {
+         if (addressIds.length >= 3) {
+            alert('최대 3개까지 선택이 가능 합니다.');
+            return;
+         }
+
          setLocaton2([...location2, value]);
          setAddressIds([...addressIds, `${location1} ${value}`]);
       }
@@ -74,19 +91,6 @@ const Create = () => {
          setDayWeeks([...dayWeeks, checkedDayWeeks]);
       }
    };
-
-   // useEffect(() => {
-   //    setMaxTimeRange([]);
-
-   //    for (
-   //       let i = 1;
-   //       i <=
-   //       Number(new Date(endTime).toTimeString().slice(0, 2)) - Number(new Date(startTime).toTimeString().slice(0, 2));
-   //       i++
-   //    ) {
-   //       setMaxTimeRange([...maxTimeRange, i]);
-   //    }
-   // }, [startTime, endTime]);
 
    const dpSetting = {
       locale: ko,
@@ -132,17 +136,76 @@ const Create = () => {
       }
    };
 
+   const checkError = () => {
+      setCategoryError('');
+      setTitleError('');
+      setContentError('');
+      setTagError('');
+      setAddressIdsError('');
+      setAddressInfoError('');
+      setDateError('');
+      setTimeError('');
+      setMaxTimeError('');
+      setPersonnelError('');
+      setPriceError('');
+
+      if (category === '') {
+         setCategoryError('카테고리를 선택해주세요.');
+      } else if (title === '') {
+         setTitleError('제목을 입력해주세요.');
+      } else if (content === '') {
+         setContentError('내용을 입력해주세요.');
+      } else if (tags.length < 1) {
+         setTagError('1개 이상 선택해주세요.');
+      } else if (addressIds.length < 1) {
+         setAddressIdsError('1개 이상 선택해주세요.');
+      } else if (addressInfo === '') {
+         setAddressInfoError('추가 주소를 입력해주세요.');
+      } else if (datePolicy === 'ONE_DAY' && date === '') {
+         setDateError('날짜를 선택해주세요.');
+      } else if (datePolicy === 'PERIOD') {
+         if (startDate === '' || endDate === '') {
+            setDateError('날짜를 선택해주세요.');
+         } else if (startDate === endDate) {
+            setDateError('시작/종료 날짜가 동일합니다.');
+         } else if (dayWeeks.length < 1) {
+            setDateError('요일을 1개 이상 선택해주세요.');
+         }
+      } else if (datePolicy === 'FREE' && dates.length < 1) {
+         setDateError('날짜를 1개 이상 선택해주세요.');
+      } else if (startTime === '' || endTime === '') {
+         setTimeError('시간을 선택해주세요.');
+      } else if (startTime === endTime) {
+         setTimeError('시작/종료 시간이 동일합니다.');
+      } else if (maxTime < 1) {
+         setMaxTimeError('1시간 이상 입력해주세요.');
+      } else if (personnel < 1) {
+         setPersonnelError('1명 이상 입력해주세요.');
+      } else if (price < 0) {
+         setPriceError('0원 이상 입력해주세요.');
+      } else {
+         return false;
+      }
+
+      return true;
+   };
+
    const onSubmit = () => {
+      if (checkError()) {
+         window.scrollTo(0, 0);
+         return false;
+      }
+
       console.log('전송!', data);
 
-      axios
-         .post(`${process.env.NEXT_PUBLIC_API_URI}/meetings`, data, {
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })
-         .then(res => console.log('성공', res))
-         .catch(err => console.log(err));
+      // axios
+      //    .post(`${process.env.NEXT_PUBLIC_API_URI}/meetings`, data, {
+      //       headers: {
+      //          Authorization: localStorage.getItem('AccessToken')
+      //       }
+      //    })
+      //    .then(res => console.log('성공', res))
+      //    .catch(err => console.log('에러', err));
    };
 
    return (
@@ -152,11 +215,11 @@ const Create = () => {
             <SubTitle>지금 올라오는 모임</SubTitle>
             <Ul>
                <Li>
-                  <LiTitle main="카테고리" sub="카테고리를 선택해주세요." />
+                  <LiTitle main="카테고리" sub="카테고리를 선택해주세요." error={categoryError} />
                   <Categorys category={category} setCategory={setCategory} />
                </Li>
                <Li>
-                  <LiTitle main="제목" />
+                  <LiTitle main="제목" error={titleError} />
                   <Input
                      placeholder="모임 제목을 입력해주세요."
                      value={title}
@@ -164,7 +227,7 @@ const Create = () => {
                   />
                </Li>
                <Li>
-                  <LiTitle main="내용" />
+                  <LiTitle main="내용" error={contentError} />
                   <TextArea
                      placeholder="모임 내용을 입력해주세요."
                      value={content}
@@ -172,11 +235,11 @@ const Create = () => {
                   />
                </Li>
                <Li>
-                  <LiTitle main="태그" sub="1개 이상 선택 해주세요." />
+                  <LiTitle main="태그" sub="1개 이상 선택해주세요." error={tagError} />
                   <Tags tags={tags} onClickTag={onClickTag} />
                </Li>
                <Li>
-                  <LiTitle main="위치" sub="최대 3개까지 입력이 가능 합니다." />
+                  <LiTitle main="위치" sub="최대 3개까지 선택이 가능 합니다." error={addressIdsError} />
                   <Location
                      location1={location1}
                      location2={location2}
@@ -185,7 +248,11 @@ const Create = () => {
                   />
                </Li>
                <Li>
-                  <LiTitle main="추가 주소 입력" sub="개인 정보 보호를 위해 정확한 주소를 입력하지 마세요." />
+                  <LiTitle
+                     main="추가 주소 입력"
+                     sub="개인 정보 보호를 위해 정확한 주소를 입력하지 마세요."
+                     error={addressInfoError}
+                  />
                   <Input
                      placeholder="예시) 스타벅스 근처 협의"
                      value={addressInfo}
@@ -193,7 +260,7 @@ const Create = () => {
                   />
                </Li>
                <Li>
-                  <LiTitle main="날짜 설정" />
+                  <LiTitle main="날짜 설정" error={dateError} />
                   <DateRadio setDatePolicy={setDatePolicy} setPersonnel={setPersonnel} />
                   {datePolicy === 'ONE_DAY' && <OneDate date={date} setDate={setDate} dpSetting={dpSetting} />}
                   {datePolicy === 'PERIOD' && (
@@ -209,22 +276,12 @@ const Create = () => {
                   {datePolicy === 'FREE' && <FreeDate dates={dates} setDates={setDates} dpSetting={dpSetting} />}
                </Li>
                <Li>
-                  <LiTitle main="시간 설정" />
+                  <LiTitle main="시간 설정" error={timeError} />
                   <Time startTime={startTime} endTime={endTime} setStartTime={setStartTime} setEndTime={setEndTime} />
                </Li>
                {datePolicy === 'FREE' && (
                   <Li>
-                     <LiTitle main="최대 예약 가능 시간" />
-                     {/* <Select
-                        onChange={e => {
-                           setMaxTime(Number(e.target.value));
-                        }}>
-                        {maxTimeRange.map(el => (
-                           <option key={el} value={el}>
-                              {el}
-                           </option>
-                        ))}
-                     </Select> */}
+                     <LiTitle main="최대 예약 가능 시간" error={maxTimeError} />
                      <NumberInput
                         type="number"
                         min={1}
@@ -240,9 +297,10 @@ const Create = () => {
                   </Li>
                )}
                <Li>
-                  <LiTitle main="인원수" />
+                  <LiTitle main="인원수" error={personnelError} />
                   <NumberInput
                      type="number"
+                     min={1}
                      value={personnel}
                      disabled={datePolicy === 'FREE' && true}
                      onChange={e => {
@@ -251,7 +309,7 @@ const Create = () => {
                   />
                </Li>
                <Li>
-                  <LiTitle main="가격 설정" />
+                  <LiTitle main="가격 설정" error={priceError} />
                   <Price datePolicy={datePolicy} price={price} setPrice={setPrice} />
                </Li>
                <Button size="bigBold" label="작성완료" onClick={onSubmit} />
@@ -321,8 +379,8 @@ const Li = styled.li`
       color: black;
    }
    .react-datepicker__day--selected {
-      background-color: #d4e6ff;
-      color: black;
+      background-color: #d4e6ff !important;
+      color: #6a6ff2 !important;
       border-radius: 50%;
    }
    .react-datepicker__day--outside-month {
@@ -346,7 +404,7 @@ const Li = styled.li`
 
    .react-datepicker__day--highlighted {
       background-color: #d4e6ff;
-      color: black;
+      color: #6a6ff2;
       border-radius: 50%;
    }
 
@@ -431,7 +489,7 @@ export const RadioButtons = styled.div`
       transition: border 0.1s ease-in-out;
    }
    input[type='radio']:checked {
-      border: 5px solid #6a6ff2;
+      border: 5px solid #444bff;
    }
 
    input[type='checkbox'] + label {
@@ -448,7 +506,8 @@ export const RadioButtons = styled.div`
       transition: background-color 0.1s ease-in-out;
    }
    input[type='checkbox']:checked + label {
-      background-color: #6a6ff2;
+      background-color: #444bff;
+      border: 1.5px solid #444bff;
    }
    input[type='checkbox']:checked + label::after {
       content: '✔';
@@ -508,13 +567,3 @@ export const NumberInput = styled.input`
       background-color: #f0f0f0;
    }
 `;
-
-// const Select = styled.select`
-//    background-color: #f5f5f5;
-//    border-radius: 5px;
-//    width: 100px;
-//    padding: 10px 15px;
-//    border: none;
-//    outline: none;
-//    font-family: inherit;
-// `;

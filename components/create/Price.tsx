@@ -25,6 +25,7 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
             <NumberInput
                type="number"
                disabled={pricePolicy === 'FREE' && true}
+               min={0}
                value={price}
                onChange={e => setPrice(Number(e.target.value))}
             />

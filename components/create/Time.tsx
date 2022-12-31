@@ -22,6 +22,7 @@ const Time = ({ startTime, endTime, setStartTime, setEndTime }: TimeProps) => {
             selected={startTime}
             onChange={(selectedDate: SetStateAction<Date | [Date | null, Date | null] | null>) => {
                setStartTime(selectedDate);
+               setEndTime(selectedDate);
             }}
          />
          <Wave>~</Wave>
