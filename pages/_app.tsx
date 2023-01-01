@@ -19,9 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
    const OpenModal = () => {
       setIsModalOpen(!isModalOpen);
    };
-   // useEffect(() => {
-   //    typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
-   // }, []);
+   useEffect(() => {
+      typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
+   }, []);
 
    return (
       <RecoilRoot>
