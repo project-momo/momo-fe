@@ -18,7 +18,6 @@ const Profile = () => {
             <div className="profile-txt">
                <p className="nickname">{myInfo.nickname}</p>
                <p className="email">{myInfo.email}</p>
-               <p className="contact">{myInfo.contactNumber}</p>
             </div>
             <button className="edit">
                <FontAwesomeIcon icon={faPen} />

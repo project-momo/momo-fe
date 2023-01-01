@@ -1,42 +1,16 @@
 import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { host_dummyData } from '../../dummy/mypage/dummy';
-import { useEffect } from 'react';
-import { mypageAttendingMeetings, mypageHostMeetings} from '../../atoms/mypage/atoms';
+import { mypageAttendingMeetings } from '../../atoms/mypage/atoms';
 import Link from 'next/link';
 import { attendingMeeting_opened, hostMeeting_opened } from '../../atoms/mypage/selector';
-import axios from 'axios';
 
 const MyMeetings_mypage = () => {
-   const setHostMeetings = useSetRecoilState(mypageHostMeetings);
-   const setAttendingMeetings = useSetRecoilState(mypageAttendingMeetings);
    const host_openedMeetings = useRecoilValue(hostMeeting_opened);
    const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
-   // const openedMeetings: any = hostMeetings.filter((meeting:any) => meeting.meetingStatus === true);
-   // const closedMeetings: any = hostMeetings.filter((meeting:any) => meeting.meetingStatus === false);
+   // const host_openedMeetings: any = hostMeetings.filter((meeting:any) => meeting.meetingStatus === true);
+   // const attending_openedMeetings: any = hostMeetings.filter((meeting:any) => meeting.meetingStatus === false);
 
-   useEffect(() => {
-      // 통신 2개
-      // axios
-      // .all([axios.get("/mypage/meetings/hosts?page=1&size=20"), axios.get('')])
-      // .then(
-      //    axios.spread((res1, res2) => {
-      //       setHostMeetings(res1);
-      //       setAttendingMeetings(res2);
-      //    })
-      // )
-      // .catch((err) => console.log(err));
-
-      // 통신 만든 모임만 테스트
-      // axios.get('/mypage/meetings/hosts?page=1&size=20')
-      // .then((res) => {
-      //    setHostMeetings(res);
-      // })
-      const fetchData = host_dummyData;
-      setHostMeetings(fetchData);
-   },[]);
-   
    
 
    return (

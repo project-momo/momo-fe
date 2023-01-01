@@ -20,7 +20,7 @@ const Application = ({ data, confirmed }: any) => {
                   <p>{data.nickname}</p>
                </div>
                <div className="timeInfo">
-                  <p>{data.dateInfo && data.dateInfo.date}</p>
+                  <p>{data.dateTimeInfo && data.dateTimeInfo.date}</p>
                   <p>{data.dateTimeInfo && data.dateTimeInfo.time}</p>
                </div>
                <div className="seeMessage">
@@ -43,7 +43,6 @@ const Application = ({ data, confirmed }: any) => {
                   </div>
                ) : (
                   <div className="contact-wrapper">
-                     {/* <p>{data.contact}</p> */}
                      <p>{data.email}</p>
                   </div>
                )}
