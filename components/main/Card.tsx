@@ -5,17 +5,18 @@ interface CardProps {
    userImage: string;
    title: string;
    content: string;
-   locate: string;
+   locate: string[];
    price: string;
 }
 
 const Card = ({ username, userImage, title, content, locate, price }: CardProps) => {
+   const shortLocate = locate[0].split(' ')[1];
    return (
       <CardWrap>
          <a href="#">
             <UserCard>
-               <img src={userImage} alt="userProfile" />
-               <span>{username}</span>
+               <UserImg backimg={userImage}></UserImg>
+               <UserName>{username}</UserName>
             </UserCard>
             <CardContent>
                <Title>{title}</Title>
@@ -23,7 +24,7 @@ const Card = ({ username, userImage, title, content, locate, price }: CardProps)
             </CardContent>
             <MoreInfo>
                <p>
-                  <span>{locate}</span>
+                  <span>{shortLocate}</span>
                   {price === '0' ? null : <span> | {price}원 </span>}
                </p>
             </MoreInfo>
@@ -47,30 +48,34 @@ const CardWrap = styled.div`
    }
    a:hover {
       box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+      margin-top: -5px;
    }
 `;
 const UserCard = styled.div`
-   span {
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 24px;
-      height: 24px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      word-break: break-word;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-   }
-
    display: flex;
    align-items: center;
    margin-bottom: 13px;
-   img {
-      height: 45px;
-      width: 45px;
-      margin-right: 14px;
-   }
+`;
+const UserName = styled.span`
+   font-size: 16px;
+   font-weight: 700;
+   line-height: 24px;
+   height: 24px;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   word-break: break-word;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+`;
+const UserImg = styled.span<{ backimg: string }>`
+   height: 45px;
+   width: 45px;
+   margin-right: 14px;
+   background-size: cover;
+   border-radius: 100%;
+   display: block;
+   background-image: url(${p => `${p.backimg}`});
 `;
 const CardContent = styled.div``;
 const Title = styled.p`
