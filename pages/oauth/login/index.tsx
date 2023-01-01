@@ -4,8 +4,8 @@ import React, { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
+import { isLogin } from '../../../atoms/atom';
 // eslint-disable-next-line import/no-unresolved
-import { isLogin } from '../../../atoms';
 
 interface DecodedProps {
    id: string;
