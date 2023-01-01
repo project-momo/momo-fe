@@ -10,6 +10,7 @@ import ModalDetail from './ModalDetail';
 import Qna from './Qna';
 // eslint-disable-next-line import/no-unresolved
 import QnaInput from './QnaInput';
+import SubModal from './SubModal';
 interface DetailProps {
    userImage: string;
    username: string;
@@ -18,11 +19,13 @@ interface DetailProps {
 }
 const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
    const [toggleQna, setToggleQna] = useState(true);
-
+   const [toggleModal, setToggleModal] = useState(false);
    return (
       <>
          <DetailLayout>
-            <MoreIcon src={IconMore}></MoreIcon>
+            <MoreIcon onClick={() => setToggleModal(!toggleModal)} src={IconMore}></MoreIcon>
+            {toggleModal ? <SubModal /> : null}
+
             <UserCard>
                <img src={userImage} alt="userProfile" />
                <span>{username}</span>
