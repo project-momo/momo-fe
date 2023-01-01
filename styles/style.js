@@ -12,12 +12,10 @@ export const ContentLayout = styled.div`
    display: flex;
    justify-content: center;
 `;
-
 export const CenterSection = styled.section`
    width: 790px;
-   /* height: 500px; */
-   margin: 20px 10px;
-   /* flex: 1; */
+   margin: 20px 10px 100px;
+   flex: 1;
 `;
 
 export const RightSection = styled.section`
