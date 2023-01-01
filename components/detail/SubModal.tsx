@@ -1,12 +1,15 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
+import { setIsShareModalOpen } from '../../atoms/sub/atom';
 
 const SubModal = () => {
    const myPost = true;
+   const [modalOpen, setModalOpen] = useRecoilState(setIsShareModalOpen);
    return (
       <ModalWarp>
          <List>
-            <a>공유하기</a>
+            <a onClick={() => setModalOpen(!modalOpen)}>공유하기</a>
          </List>
          <List>
             <a>게시글 수정</a>
