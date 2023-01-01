@@ -2,8 +2,12 @@ import { BasicWrapper } from './mypage.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { myProfile } from '../../atoms/mypage/atoms';
 
 const Profile = () => {
+   const myInfo = useRecoilValue(myProfile);
+
    return (
       <ProfileWrapper className="half">
          <p className="title">내 정보</p>
@@ -12,9 +16,9 @@ const Profile = () => {
                <img src="" alt="" />
             </div>
             <div className="profile-txt">
-               <p className="nickname">Icyeong</p>
-               <p className="email">abcd@gmail.com</p>
-               <p className="contact">010-1234-5678</p>
+               <p className="nickname">{myInfo.nickname}</p>
+               <p className="email">{myInfo.email}</p>
+               <p className="contact">{myInfo.contactNumber}</p>
             </div>
             <button className="edit">
                <FontAwesomeIcon icon={faPen} />

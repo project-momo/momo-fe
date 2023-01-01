@@ -5,9 +5,12 @@ import MoimModal from '../common/Modal/ModalCompo/MoimModal';
 import { ColorBtn } from '../common/Modal/ModalCompo/ModalBtn';
 import ApplicationStatus from '../common/Modal/ModalCompo/ApplicationStatus';
 import Withdraw from '../common/Modal/ModalCompo/Withdraw';
+import { useRecoilValue } from 'recoil';
+import { modalState } from '../../atoms/mypage/atoms';
 
-const Modal = ({ create, join, cancel, applicationStatus, withdraw }: any) => {
-   console.log(cancel);
+const Modal = () => {
+   const type = useRecoilValue(modalState);
+   console.log(type);
 
    return (
       <ModalWrapper className="modal modal-alert bg-secondary py-5" role="dialog" id="myModal">
@@ -20,7 +23,7 @@ const Modal = ({ create, join, cancel, applicationStatus, withdraw }: any) => {
                      data-bs-dismiss="modal"
                   />
                   {/* 모임 등록 완료 모달 */}
-                  {create && (
+                  {type === 'create' && (
                      <MoimModal
                         title="모임 등록이 완료되었습니다!"
                         subTitle="등록된 모임을 확인해보세요."
@@ -31,7 +34,7 @@ const Modal = ({ create, join, cancel, applicationStatus, withdraw }: any) => {
                      />
                   )}
                   {/* 모임 신청 완료 모달 */}
-                  {join && (
+                  {type === 'join' && (
                      <MoimModal
                         title="신청이 완료되었습니다!"
                         subTitle="지금 신청한 모임을 확인해보세요."
@@ -42,7 +45,7 @@ const Modal = ({ create, join, cancel, applicationStatus, withdraw }: any) => {
                      />
                   )}
                   {/* 신청 반려 사유 모달 */}
-                  {cancel && (
+                  {type === 'cancel' && (
                      <>
                         <p className="title">참가 신청 반려</p>
                         <textarea placeholder="신청 반려 사유를 작성해주세요."></textarea>
@@ -50,10 +53,10 @@ const Modal = ({ create, join, cancel, applicationStatus, withdraw }: any) => {
                      </>
                   )}
                   {/* 참가 신청 현황 모달 */}
-                  {applicationStatus && <ApplicationStatus />}
+                  {type === 'applicationStatus' && <ApplicationStatus />}
 
                   {/* 적립금 출금 모달 */}
-                  {withdraw && <Withdraw />}
+                  {type === 'withdraw' && <Withdraw />}
                </div>
             </div>
          </div>
