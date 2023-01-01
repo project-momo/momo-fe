@@ -21,6 +21,8 @@ import { Button } from '../../components/common/Button';
 import { ko } from 'date-fns/esm/locale';
 
 const Create = () => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+
    const [category, setCategory] = useState('LIFESTYLE');
    const [title, setTitle] = useState('');
    const [content, setContent] = useState('');
@@ -198,14 +200,14 @@ const Create = () => {
 
       console.log('전송!', data);
 
-      // axios
-      //    .post(`${process.env.NEXT_PUBLIC_API_URI}/meetings`, data, {
-      //       headers: {
-      //          Authorization: localStorage.getItem('AccessToken')
-      //       }
-      //    })
-      //    .then(res => console.log('성공', res))
-      //    .catch(err => console.log('에러', err));
+      axios
+         .post(`${API_URI}/meetings`, data, {
+            headers: {
+               Authorization: localStorage.getItem('AccessToken')
+            }
+         })
+         .then(res => console.log('성공', res))
+         .catch(err => console.log('에러', err));
    };
 
    return (

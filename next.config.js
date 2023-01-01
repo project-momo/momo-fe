@@ -8,5 +8,5 @@ module.exports = nextConfig;
 const withImages = require('next-images');
 module.exports = withImages();
 
-const withTM = require('next-transpile-modules')(['date-fns']);
-module.exports = withTM({});
+// const withTM = require('next-transpile-modules')(['date-fns']);
+// module.exports = withTM({});
