@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 // eslint-disable-next-line import/no-unresolved
-import { isLogin } from '../../../atoms';
+import { isLogin } from '../../../atoms/atom';
 
 interface DecodedProps {
    id: string;

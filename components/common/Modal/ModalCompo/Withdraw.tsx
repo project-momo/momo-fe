@@ -1,13 +1,17 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { myProfile } from '../../../../atoms/mypage/atoms';
 import { SquareButton } from '../../../mypage/Button';
 
 const Withdraw = () => {
+   const point = useRecoilValue(myProfile).point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+   
    return (
       <ModalWrapper>
          <p className="title">적립금 출금</p>
          <div className="point-status">
             <p className="title-sm">보유 적립금</p>
-            <input type="text" defaultValue="36,000원" readOnly />
+            <input type="text" defaultValue={point + '원'} readOnly />
          </div>
          <div className="withdraw">
             <p className="title-sm">출금할 적립금</p>

@@ -7,12 +7,12 @@ export const myProfile = atom<any>({
 
 export const mypageHostMeetings = atom<any>({
     key: 'mypageHostMeetings',
-    default: []
+    default: {content: []}
 })
 
 export const mypageAttendingMeetings = atom<any>({
     key: 'mypageAttendingMeetings',
-    default: []
+    default: {content: []}
 })
 
 export const myPoint = atom<any>({
