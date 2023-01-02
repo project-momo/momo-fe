@@ -16,7 +16,7 @@ const MyMeetings_attending = () => {
                   참여 예정 모임<span>{attending_openedMeetings.length}개</span>
                </p>
             </div>
-            {attending_openedMeetings.length > 0 ? attending_openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />):
+            {attending_openedMeetings.length > 0 ? attending_openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} participant/>):
                <div className="card-basic empty">
                <button>모임 찾아보기</button>
                </div>
@@ -30,7 +30,7 @@ const MyMeetings_attending = () => {
                   모집 종료된 모임<span>{attending_closedMeetings.length}개</span>
                </p>
             </div>
-            {attending_closedMeetings.length > 0 ? attending_closedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />):
+            {attending_closedMeetings.length > 0 ? attending_closedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} participant/>):
                <div className="card-basic empty">
                <button>모집 종료된 모임이 없습니다.</button>
                </div>

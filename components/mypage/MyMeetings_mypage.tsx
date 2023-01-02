@@ -38,7 +38,7 @@ const MyMeetings_mypage = () => {
                </p>
                <Link href="/attending" className='seeMore'>더보기</Link>
             </div>
-            {attending_openedMeetings.length > 0 ? <MyMeetingCard data={attending_openedMeetings[0]} /> :
+            {attending_openedMeetings.length > 0 ? <MyMeetingCard data={attending_openedMeetings[0]} participant /> :
                <div className="card-basic empty">
                   <button>모임 찾아보기</button>
                </div>

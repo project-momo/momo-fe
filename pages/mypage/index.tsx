@@ -40,7 +40,6 @@ const Mypage = () => {
             setMyInfo(res1.data);
             setHostMeetings(res2.data);
             setAttendingMeetings(res3.data);
-            console.log(res3);
          })
       )
       .catch((err) => console.log(err));

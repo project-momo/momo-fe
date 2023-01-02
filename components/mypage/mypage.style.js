@@ -175,6 +175,7 @@ export const MeetingWrapper = styled(BasicWrapper)`
                border-radius: 50%;
                background-color: lightgray;
                margin-right: 10px;
+               overflow: hidden;
             }
             p {
                font-size: 16px;
