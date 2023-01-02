@@ -312,7 +312,7 @@ const Create = () => {
                   <LiTitle main="가격 설정" error={priceError} />
                   <Price datePolicy={datePolicy} price={price} setPrice={setPrice} />
                </Li>
-               <Button size="bigBold" label="작성완료" onClick={onSubmit} />
+               <Button size="bigBold" label="작성 완료" onClick={onSubmit} />
             </Ul>
          </CenterSection>
       </div>
@@ -528,18 +528,15 @@ export const CustomDatePicker = styled(DatePicker)`
    padding: 10px 15px;
    border-radius: 5px;
    border: none;
-   outline: none;
    cursor: pointer;
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
    background-color: #f5f5f5;
    border-radius: 15px;
    width: 100%;
    padding: 20px;
    border: none;
-   outline: none;
-   font-family: inherit;
 `;
 
 const TextArea = styled.textarea`
@@ -549,9 +546,7 @@ const TextArea = styled.textarea`
    height: 250px;
    padding: 20px;
    border: none;
-   outline: none;
    resize: none;
-   font-family: inherit;
 `;
 
 export const NumberInput = styled.input`
@@ -560,7 +555,7 @@ export const NumberInput = styled.input`
    width: 100px;
    padding: 10px 15px;
    border: none;
-   outline: none;
+   /* outline: none; */
    font-family: inherit;
 
    &:disabled {

@@ -37,9 +37,11 @@ const TagsStyle = styled.ul`
    border-radius: 15px;
    padding: 20px 30px;
    display: flex;
+
    > li {
       padding: 7px 12px;
       border-radius: 15px;
+      transition: background-color 0.2s ease-in-out;
       cursor: pointer;
       &.selected {
          background-color: #d4e6ff;

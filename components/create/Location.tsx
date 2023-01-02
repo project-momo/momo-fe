@@ -77,13 +77,14 @@ const LocationStyle = styled.ul`
 
    li {
       width: 50%;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 12px 10px;
+      border-radius: 10px;
       cursor: pointer;
    }
    li.selected1 {
       background-color: #d4e6ff;
       color: #6a6ff2;
+      transition: background-color 0.2s ease-in-out;
    }
    li.selected2 {
       color: #6a6ff2;
