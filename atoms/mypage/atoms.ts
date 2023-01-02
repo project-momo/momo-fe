@@ -24,3 +24,8 @@ export const modalState = atom<string>({
     key: 'modalState',
     default: ''
 })
+
+export const meetingInfo = atom<any>({
+    key: 'meetingInfo',
+    default: {}
+})

@@ -1,17 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import Modal from './Modal';
 import { modalState } from '../../atoms/mypage/atoms';
 import { useSetRecoilState } from 'recoil';
+import {v4 as uuidv4} from 'uuid';
 
-const Application = ({ data, confirmed }: any) => {
+
+const Application = ({ data, host, confirmed }: any) => {
+   const uuid = uuidv4();
    const setType = useSetRecoilState(modalState);
    const [isActive, setActive] = useState(false);
+   console.log(data);
 
    return (
       <div className="accordion-item application-list">
-         <h3 className="accordion-header " id={`heading-detail${data.userId}`}>
+         <h3 className="accordion-header " id={`heading-detail${uuid}`}>
             <div className="application">
                <div className="profile">
                   <div className="imgBox">
@@ -27,9 +30,9 @@ const Application = ({ data, confirmed }: any) => {
                   <button
                      onClick={() => setActive(!isActive)}
                      data-bs-toggle="collapse"
-                     data-bs-target={`#collapse-detail${data.userId}`}
+                     data-bs-target={`#collapse-detail${uuid}`}
                      aria-expanded="true"
-                     aria-controls={`collapse-detail${data.userId}`}>
+                     aria-controls={`collapse-detail${uuid}`}>
                      {data.message && '전달 사항'}
                      <FontAwesomeIcon className={isActive ? 'icon active' : 'icon'} icon={faChevronDown} />
                   </button>
@@ -49,14 +52,12 @@ const Application = ({ data, confirmed }: any) => {
             </div>
          </h3>
          <div
-            id={`collapse-detail${data.userId}`}
+            id={`collapse-detail${uuid}`}
             className="accordion-collapse collapse "
-            aria-labelledby={`heading-detail${data.userId}`}
+            aria-labelledby={`heading-detail${uuid}`}
             data-bs-parent="#accordionExample">
             <div className="accordion-body message">{data.message}</div>
          </div>
-
-         <Modal />
       </div>
    );
 };

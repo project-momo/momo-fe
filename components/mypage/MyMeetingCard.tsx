@@ -1,13 +1,25 @@
 import Application from './Application';
 import { Button } from './Button';
+import Modal from './Modal';
 
-const MyMeetingCard = ({ data }: any) => {
+const MyMeetingCard = ({ data, participant }: any) => {
    const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+   let newApplications, confirmedApplications, meetingInfo;
 
-   const newApplications = data.applications.requests;
-   const confirmedApplications = data.applications.confirmed;
+   // 참여 모임
+   if(participant){
+      meetingInfo = {
+         title: data.title,
+         hostInfo: data.host,
+         address: data.address,
+         date: data.application.dateTimeInfo
+      }
+   // 만든 모임
+   }else{
+      newApplications = data.applications.requests;
+      confirmedApplications = data.applications.confirmed;
+   }
 
-   // console.log('new만 : ', newApplications, confirmedApplications.length);
    return (
       <div id="detail">
          <div className="accordion-item card-basic">
@@ -16,7 +28,6 @@ const MyMeetingCard = ({ data }: any) => {
                   <div>
                      <p className={data.isOpen ? 'status open' : 'status closed'}>
                         {data.meetingState}
-                        {/* {data.meetingStatus ? '모집중' : '모집 종료'} */}
                      </p>
                      <p className="category">{data.category}</p>
                      <p className="date">{data.dateTime.startDate}</p>
@@ -29,13 +40,13 @@ const MyMeetingCard = ({ data }: any) => {
                      {data.dateTime.datePolicy === 'HOUR' && '시간당'}
                      {data.dateTime.datePolicy === 'DAY' && '종일'}
                      {data.dateTime.datePolicy === 'FREE' && '자유'}
-                     {data.price !== 0 && <span>{price}원</span>}
+                     <span>{data.price === 0 ? '무료' : price + '원'}</span>
                   </p>
-                  {/* <p>{data.locations.address.join(',')}</p> */}
+                  <p>{data.address.addresses.join(', ')}</p>
                </div>
                <div className="right">
                   
-                  {data.host ? 
+                  {!participant ? 
                   <div
                      data-bs-toggle="collapse"
                      data-bs-target={`#collapse${data.meetingId}`}
@@ -45,7 +56,7 @@ const MyMeetingCard = ({ data }: any) => {
                   </div>
                   :
                   <div data-bs-toggle="modal" data-bs-target="#myModal">
-                     <Button text="참가 신청 현황" modal />
+                     <Button text="참가 신청 현황" meetingInfo={meetingInfo} modal />
                   </div>
                   }
                   
@@ -59,11 +70,13 @@ const MyMeetingCard = ({ data }: any) => {
             </h2>
 
             {/* 신정 현황 확인 */}
+            {!participant
+            &&
             <div
-               id={`collapse${data.meetingId}`}
-               className="accordion-collapse collapse  application-status"
-               aria-labelledby={`heading${data.meetingId}`}
-               data-bs-parent="#accordionExample">
+            id={`collapse${data.meetingId}`}
+            className="accordion-collapse collapse  application-status"
+            aria-labelledby={`heading${data.meetingId}`}
+            data-bs-parent="#accordionExample">
                <div className="accordion-body">
                   {/* 새로운 신청 */}
                   {newApplications.length > 0 && (
@@ -85,7 +98,10 @@ const MyMeetingCard = ({ data }: any) => {
                   )}
                </div>
             </div>
+            }
          </div>
+
+         <Modal />
       </div>
    );
 };
