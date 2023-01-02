@@ -8,14 +8,17 @@ import IconToggle from './../../assets/images/icon_toggle.svg';
 import Qna from './Qna';
 // eslint-disable-next-line import/no-unresolved
 import QnaInput from './QnaInput';
+
 interface DetailProps {
    userImage: string;
    username: string;
    location: string;
    location2: string;
 }
+
 const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
    const [toggleQna, setToggleQna] = useState(true);
+
    return (
       <DetailLayout>
          <MoreIcon src={IconMore}></MoreIcon>
@@ -53,13 +56,14 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
             <Location>{location2}</Location>
          </LocationList>
 
+         {/* 유진 */}
          <ListTitle>
             Q&A
             <button onClick={() => setToggleQna(!toggleQna)}>
                1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
             </button>
          </ListTitle>
-         <Qna open={toggleQna} />
+         {toggleQna && <Qna />}
          <QnaInput />
       </DetailLayout>
    );
@@ -115,19 +119,28 @@ const Content = styled.p`
 `;
 
 const ListTitle = styled.p`
+   display: flex;
+   align-items: center;
+   margin: 20px 0 10px 0;
    font-size: 16px;
    color: #444bff;
-   margin-top: 10px;
 
    span {
       margin-left: 10px;
       margin-right: 5px;
       cursor: pointer;
    }
+
+   button {
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+   }
 `;
 const ToggleImg = styled.img<{ open: boolean }>`
    width: 16px;
    height: 11px;
+   margin-left: 5px;
    rotate: ${p => (p.open ? `0` : '180')}deg;
 `;
 const LocationList = styled.ul`
