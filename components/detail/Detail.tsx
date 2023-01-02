@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
 import IconMore from './../../assets/images/icon_more.svg';
 import IconToggle from './../../assets/images/icon_toggle.svg';
 // eslint-disable-next-line import/no-unresolved
-import Qna from './Qna';
-// eslint-disable-next-line import/no-unresolved
 import QnaInput from './QnaInput';
+import QnaList from './QnaList';
 
 interface DetailProps {
    userImage: string;
@@ -63,7 +62,7 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
                1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
             </button>
          </ListTitle>
-         {toggleQna && <Qna />}
+         {toggleQna && <QnaList />}
          <QnaInput />
       </DetailLayout>
    );
@@ -140,7 +139,7 @@ const ListTitle = styled.p`
 const ToggleImg = styled.img<{ open: boolean }>`
    width: 16px;
    height: 11px;
-   margin-left: 5px;
+   margin-left: 6px;
    rotate: ${p => (p.open ? `0` : '180')}deg;
 `;
 const LocationList = styled.ul`

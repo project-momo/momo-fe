@@ -344,7 +344,7 @@ const Li = styled.li`
       font-family: inherit;
    }
    .react-datepicker-wrapper {
-      width: 230px;
+      width: 240px;
    }
    .react-datepicker__header {
       background-color: #49515b;
@@ -410,7 +410,7 @@ const Li = styled.li`
 
    .react-datepicker__time-container,
    .react-datepicker__time-box {
-      width: 230px !important;
+      width: 240px !important;
       border: 1px solid #f5f5f5;
    }
    .react-datepicker__header--time {
@@ -454,6 +454,20 @@ const Li = styled.li`
       color: black !important;
       font-weight: 500 !important;
    }
+   .react-datepicker__inputDiv-container,
+   .react-datepicker__input-container input {
+      background-color: #f5f5f5;
+      border-radius: 15px;
+      width: 100%;
+      padding: 12px 20px;
+      border: none;
+      outline: none;
+      transition: outline 0.1s;
+      :focus {
+         outline: 2px solid #9093f3;
+      }
+      cursor: pointer;
+   }
 `;
 
 export const Flex = styled.div`
@@ -489,7 +503,7 @@ export const RadioButtons = styled.div`
       transition: border 0.1s ease-in-out;
    }
    input[type='radio']:checked {
-      border: 5px solid #444bff;
+      border: 5px solid #6a6ff2;
    }
 
    input[type='checkbox'] + label {
@@ -506,8 +520,8 @@ export const RadioButtons = styled.div`
       transition: background-color 0.1s ease-in-out;
    }
    input[type='checkbox']:checked + label {
-      background-color: #444bff;
-      border: 1.5px solid #444bff;
+      background-color: #6a6ff2;
+      border: 1.5px solid #6a6ff2;
    }
    input[type='checkbox']:checked + label::after {
       content: '✔';
@@ -523,13 +537,7 @@ export const Wave = styled.span`
    margin: 0 15px;
 `;
 
-export const CustomDatePicker = styled(DatePicker)`
-   background-color: #f5f5f5;
-   padding: 10px 15px;
-   border-radius: 5px;
-   border: none;
-   cursor: pointer;
-`;
+export const CustomDatePicker = styled(DatePicker)``;
 
 export const Input = styled.input`
    background-color: #f5f5f5;
@@ -537,6 +545,20 @@ export const Input = styled.input`
    width: 100%;
    padding: 20px;
    border: none;
+   outline: none;
+   transition: outline 0.1s;
+   :focus {
+      outline: 2px solid #9093f3;
+   }
+`;
+
+export const NumberInput = styled(Input)`
+   width: 100px;
+   padding: 12px 20px;
+
+   :disabled {
+      background-color: #f0f0f0;
+   }
 `;
 
 const TextArea = styled.textarea`
@@ -545,20 +567,11 @@ const TextArea = styled.textarea`
    width: 100%;
    height: 250px;
    padding: 20px;
-   border: none;
    resize: none;
-`;
-
-export const NumberInput = styled.input`
-   background-color: #f5f5f5;
-   border-radius: 5px;
-   width: 100px;
-   padding: 10px 15px;
    border: none;
-   /* outline: none; */
-   font-family: inherit;
-
-   &:disabled {
-      background-color: #f0f0f0;
+   outline: none;
+   transition: outline 0.1s;
+   :focus {
+      outline: 2px solid #9093f3;
    }
 `;
