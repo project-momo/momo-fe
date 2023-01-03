@@ -12,24 +12,24 @@ const Attending = () => {
 
    useEffect(() => {
       // 통신
-      axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20',{
-         headers: {
-            Authorization: localStorage.getItem('AccessToken')
-         }
-      }) 
-      .then((res) => {
-         console.log(res.data);
-         setAttendingMeetings(res.data);
-      })
-      .catch((err) => console.log(err));
+      axios
+         .get(API_URI + '/mypage/meetings/participants?page=1&size=20', {
+            headers: {
+               Authorization: localStorage.getItem('AccessToken')
+            }
+         })
+         .then(res => {
+            console.log(res.data);
+            setAttendingMeetings(res.data);
+         })
+         .catch(err => console.log(err));
+   }, []);
 
-   },[])
-   
    return (
       <>
          <MyCategory />
          <CenterSection>
-            <MyMeetings_attending/>
+            <MyMeetings_attending />
          </CenterSection>
       </>
    );

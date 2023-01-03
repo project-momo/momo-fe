@@ -11,14 +11,13 @@ export const Button = (props: any) => {
    const [isActive, setActive] = useState(false);
 
    const btnHandler = () => {
-      
-      if(props.modal){
+      if (props.modal) {
          setType('applicationStatus');
          setMeetingInfo(props.meetingInfo);
-      }else{
+      } else {
          setActive(!isActive);
       }
-   }
+   };
 
    return (
       <Basic onClick={btnHandler}>

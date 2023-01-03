@@ -12,7 +12,7 @@ interface CardProps {
 const Card = ({ username, userImage, title, content, locate, price }: CardProps) => {
    return (
       <CardWrap>
-         <a href="#">
+         <a href="https://naver.com">
             <UserCard>
                <img src={userImage} alt="userProfile" />
                <span>{username}</span>

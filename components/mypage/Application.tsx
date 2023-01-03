@@ -3,10 +3,9 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { modalState } from '../../atoms/mypage/atoms';
 import { useSetRecoilState } from 'recoil';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
-
-const Application = ({ data, host, confirmed }: any) => {
+const Application = ({ data, confirmed }: any) => {
    const uuid = uuidv4();
    const setType = useSetRecoilState(modalState);
    const [isActive, setActive] = useState(false);

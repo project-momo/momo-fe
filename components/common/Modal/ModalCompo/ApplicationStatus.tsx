@@ -11,7 +11,10 @@ const ApplicationStatus = () => {
          <p className="title">참가 신청 현황</p>
          <div>
             <p className="title-sm">
-               신청 내역<span>( {info.date.date} | {info.date.time} )</span>
+               신청 내역
+               <span>
+                  ( {info.date.date} | {info.date.time} )
+               </span>
             </p>
             <p className="meeting-title">{info.title}</p>
          </div>

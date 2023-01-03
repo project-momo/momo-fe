@@ -1440,6 +1440,13 @@
   "resolved" "https://registry.npmjs.org/@next/env/-/env-13.1.1.tgz"
   "version" "13.1.1"
 
+"@next/eslint-plugin-next@^13.1.1":
+  "integrity" "sha512-SBrOFS8PC3nQ5aeZmawJkjKkWjwK9RoxvBSv/86nZp0ubdoVQoko8r8htALd9ufp16NhacCdqhu9bzZLDWtALQ=="
+  "resolved" "https://registry.npmjs.org/@next/eslint-plugin-next/-/eslint-plugin-next-13.1.1.tgz"
+  "version" "13.1.1"
+  dependencies:
+    "glob" "7.1.7"
+
 "@next/eslint-plugin-next@13.0.7":
   "integrity" "sha512-Q/Z0V3D3UpKhhzFU6/s17wD4rqJ+ZDGded8UpqNyzX1nUdD+/PnsZexPhSIZ2Yf/c8QESeirmJVRb3eAfCQkRQ=="
   "resolved" "https://registry.npmjs.org/@next/eslint-plugin-next/-/eslint-plugin-next-13.0.7.tgz"
@@ -1447,15 +1454,15 @@
   dependencies:
     "glob" "7.1.7"
 
-"@next/swc-linux-x64-gnu@13.0.7":
-  "integrity" "sha512-/ygUIiMMTYnbKlFs5Ba9J5k/tNxFWy8eI1bBF8UuMTvV8QJHl/aLDiA5dwsei2kk99/cu3eay62JnJXkSk3RSQ=="
-  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-13.0.7.tgz"
-  "version" "13.0.7"
+"@next/swc-linux-x64-gnu@13.1.1":
+  "integrity" "sha512-nnjuBrbzvqaOJaV+XgT8/+lmXrSCOt1YYZn/irbDb2fR2QprL6Q7WJNgwsZNxiLSfLdv+2RJGGegBx9sLBEzGA=="
+  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-13.1.1.tgz"
+  "version" "13.1.1"
 
-"@next/swc-linux-x64-musl@13.0.7":
-  "integrity" "sha512-dLzr6AL77USJN0ejgx5AS8O8SbFlbYTzs0XwAWag4oQpUG2p3ARvxwQgYQ0Z+6EP0zIRZ/XfLkN/mhsyi3m4PA=="
-  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-13.0.7.tgz"
-  "version" "13.0.7"
+"@next/swc-linux-x64-musl@13.1.1":
+  "integrity" "sha512-CM9xnAQNIZ8zf/igbIT/i3xWbQZYaF397H+JroF5VMOCUleElaMdQLL5riJml8wUfPoN3dtfn2s4peSr3azz/g=="
+  "resolved" "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-13.1.1.tgz"
+  "version" "13.1.1"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
