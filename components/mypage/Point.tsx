@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Modal from './Modal';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import {  modalState, myProfile } from '../../atoms/mypage/atoms';
+import { modalState, myProfile } from '../../atoms/mypage/atoms';
 
 const Point = ({ myPoint }: any) => {
    const router = useRouter();
-   const point = useRecoilValue(myProfile).point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+   const point = useRecoilValue(myProfile)
+      .point.toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    const setType = useSetRecoilState(modalState);
-   
+
    return (
       <PointWrapper className="half">
          <p className="title">보유 적립금</p>
@@ -17,7 +19,11 @@ const Point = ({ myPoint }: any) => {
             <div className="myPoint">{point}원</div>
             <div className="btn-wrapper">
                {!myPoint && <button onClick={() => router.push('/point')}>내역</button>}
-               <button onClick={() => setType('withdraw')} type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+               <button
+                  onClick={() => setType('withdraw')}
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#myModal">
                   출금
                </button>
             </div>

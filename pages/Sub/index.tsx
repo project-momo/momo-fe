@@ -4,7 +4,6 @@ import { RightBox } from '../../components/rightLayout/RightBox';
 import { CenterSection, RightSection } from '../../styles/style';
 import Detail from './../../components/detail/Detail';
 import IconPrice from './../../assets/images/icon_moin.svg';
-import Qna from '../../components/detail/Qna';
 import { Modal } from '../../components/common/Modal/Modal';
 import { useState } from 'react';
 const Sub = () => {

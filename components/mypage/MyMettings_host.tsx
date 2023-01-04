@@ -1,8 +1,6 @@
 import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useEffect } from 'react';
-import { mypageHostMeetings } from '../../atoms/mypage/atoms';
+import { useRecoilValue } from 'recoil';
 import { hostMeeting_closed, hostMeeting_opened } from '../../atoms/mypage/selector';
 
 const MyMeetings_host = () => {
@@ -18,11 +16,13 @@ const MyMeetings_host = () => {
                   현재 모집중인 모임<span>{host_openedMeetings.length}개</span>
                </p>
             </div>
-            {host_openedMeetings.length > 0 ? host_openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />) :
+            {host_openedMeetings.length > 0 ? (
+               host_openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />)
+            ) : (
                <div className="card-basic empty">
-               <button>모임 찾아보기</button>
+                  <button>모임 찾아보기</button>
                </div>
-            }
+            )}
          </MeetingWrapper>
 
          {/* 모집 종료된 모임 */}
@@ -32,11 +32,13 @@ const MyMeetings_host = () => {
                   모집 종료된 모임<span>{host_closedMeetings.length}개</span>
                </p>
             </div>
-            {host_closedMeetings.length > 0 ? host_closedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />):
+            {host_closedMeetings.length > 0 ? (
+               host_closedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />)
+            ) : (
                <div className="card-basic empty">
                   <button>모집 종료된 모임이 없습니다.</button>
                </div>
-            }
+            )}
          </MeetingWrapper>
       </>
    );

@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { SubTitle } from './SubTitle';
 interface InputProps {
    label: string;
-   placeholder : string;
-   labelMore: string
- }
+   placeholder: string;
+   labelMore: string;
+}
 
- const InputCompo = styled.input`
-   background-color: #F0F0F0;
+const InputCompo = styled.input`
+   background-color: #f0f0f0;
    border-radius: 10px;
    border: none;
    height: 45px;
@@ -17,16 +17,12 @@ interface InputProps {
    ::placeholder {
       font-size: 14px;
    }
- `
-export const Input = ({
-   placeholder,
-   label,
-   labelMore
-}:InputProps) => {
+`;
+export const Input = ({ placeholder, label, labelMore }: InputProps) => {
    return (
       <>
-         <SubTitle label={label} labelMore={labelMore}/>
-        <InputCompo placeholder={placeholder}/>
+         <SubTitle label={label} labelMore={labelMore} />
+         <InputCompo placeholder={placeholder} />
       </>
    );
 };

@@ -14,44 +14,42 @@ const Mypage = () => {
 
    const setHostMeetings = useSetRecoilState(mypageHostMeetings);
    const setAttendingMeetings = useSetRecoilState(mypageAttendingMeetings);
-   
+
    useEffect(() => {
       // 통신
-       axios
-      .all([
-         axios.get(API_URI + '/mypage/profile',{
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         }),
-         axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20',{
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         }),
-         axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20',{
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })    
-      ])
-      .then(
-         axios.spread((res1, res2, res3) => {
-            setMyInfo(res1.data);
-            setHostMeetings(res2.data);
-            setAttendingMeetings(res3.data);
-            console.log(res3);
-         })
-      )
-      .catch((err) => console.log(err));
-
-   },[])
+      axios
+         .all([
+            axios.get(API_URI + '/mypage/profile', {
+               headers: {
+                  Authorization: localStorage.getItem('AccessToken')
+               }
+            }),
+            axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20', {
+               headers: {
+                  Authorization: localStorage.getItem('AccessToken')
+               }
+            }),
+            axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20', {
+               headers: {
+                  Authorization: localStorage.getItem('AccessToken')
+               }
+            })
+         ])
+         .then(
+            axios.spread((res1, res2, res3) => {
+               setMyInfo(res1.data);
+               setHostMeetings(res2.data);
+               setAttendingMeetings(res3.data);
+            })
+         )
+         .catch(err => console.log(err));
+   }, []);
 
    return (
       <>
          <MyCategory />
          <CenterSection>
-            <Profile/>
+            <Profile />
             <Point />
             <MyMeetings_mypage />
          </CenterSection>
