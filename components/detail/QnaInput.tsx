@@ -3,24 +3,35 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import IconCommentAdd from './../../assets/images/icon_cmment_add.svg';
 
-const QnaInput = () => {
-   const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const meeting_id = 1;
+interface QnaInputType {
+   type: string;
+}
 
-   const [question, setQuestion] = useState('');
+const QnaInput = ({ type }: QnaInputType) => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const meeting_id = 2;
+   const question_id = 231;
+
+   const url =
+      type === 'question'
+         ? `${API_URI}/meetings/${meeting_id}/questions`
+         : `${API_URI}/meetings/${meeting_id}/questions/${question_id}/answers`;
+
+   const [content, setContent] = useState('');
 
    const onSubmit = () => {
-      if (question === '') {
-         alert('질문 내용을 입력해주세요.');
+      if (content === '') {
+         if (type === 'question') alert('질문 내용을 입력해주세요.');
+         else alert('답변 내용을 입력해주세요.');
          return;
       }
 
-      console.log('전송!', question);
+      console.log('전송!', content);
 
       axios
          .post(
-            `${API_URI}/meetings/${meeting_id}/questions`,
-            { content: question },
+            url,
+            { content },
             {
                headers: {
                   Authorization: localStorage.getItem('AccessToken')
@@ -34,9 +45,9 @@ const QnaInput = () => {
    return (
       <InputWarp>
          <Input
-            placeholder="궁금한 것이 있다면 질문을 남겨주세요."
-            value={question}
-            onChange={e => setQuestion(e.target.value)}
+            placeholder={type === 'question' ? '궁금한 것이 있다면 질문을 남겨주세요.' : '답변을 남겨주세요.'}
+            value={content}
+            onChange={e => setContent(e.target.value)}
             onKeyDown={e => {
                if (e.code === 'Enter') onSubmit();
             }}

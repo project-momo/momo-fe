@@ -63,7 +63,7 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
             </button>
          </ListTitle>
          {toggleQna && <QnaList />}
-         <QnaInput />
+         <QnaInput type="question" />
       </DetailLayout>
    );
 };

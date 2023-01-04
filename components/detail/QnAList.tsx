@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import Qna from './Qna';
 
 export interface QnaType {
@@ -36,7 +35,7 @@ interface AnswererType {
 
 const QnaList = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const meeting_id = 1;
+   const meeting_id = 2;
 
    const [qnaList, setQnaList] = useState<QnaType[]>([]);
 
@@ -54,9 +53,7 @@ const QnaList = () => {
          .catch(err => console.log('에러', err));
    }, []);
 
-   return <QnaWrap>{qnaList && qnaList.map(qna => <Qna qna={qna} />)}</QnaWrap>;
+   return <>{qnaList && qnaList.map(qna => <Qna qna={qna} key={qna.questionId} />)}</>;
 };
 
 export default QnaList;
-
-const QnaWrap = styled.div``;

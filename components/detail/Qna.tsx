@@ -1,16 +1,21 @@
-import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import UserImage from './../../assets/images/userimg.svg';
 import IconModify from './../../assets/images/icon_mdify.svg';
 import IconDelete from './../../assets/images/icon_delete.svg';
 import { QnaType } from './QnaList';
+import { useRecoilState } from 'recoil';
+import { myProfile } from '../../atoms/mypage/atoms';
+import QnaInput from './QnaInput';
 
 interface QnaCompoType {
    qna: QnaType;
 }
 
 const Qna = ({ qna }: QnaCompoType) => {
-   console.log(qna);
+   const my = useRecoilState(myProfile);
+
+   const [toggleWriteAnswer, settoggleWriteAnswer] = useState(false);
 
    return (
       <QnaUl>
@@ -18,22 +23,32 @@ const Qna = ({ qna }: QnaCompoType) => {
             <FirstList>
                <User>
                   <UserImg userimg={UserImage}>userImg</UserImg>
-                  <UserName>유저이름</UserName>
-                  <Time>시간전</Time>
+                  <UserName>{qna.questioner.nickname}</UserName>
+                  <Time>{qna.createdAt}</Time>
                </User>
-               <Comment>너무 어렵습니다. 몇시간 정도가 적당할까요?</Comment>
+               <Comment>{qna.content}</Comment>
+               {/* <Icon buttonImg={IconModify}>modify</Icon>
+               <Icon buttonImg={IconDelete}>Delete</Icon> */}
             </FirstList>
             <SecondUl>
-               <CommentWarp>
-                  <User>
-                     <UserImg userimg={UserImage}>userImg</UserImg>
-                     <UserName>유저이름</UserName>
-                     <Time>시간전</Time>
-                  </User>
-                  <Comment>너무 어렵습니다. 몇시간 정도가 적당할까요?</Comment>
-                  <Icon buttonImg={IconModify}>modify</Icon>
-                  <Icon buttonImg={IconDelete}>Delete</Icon>
-               </CommentWarp>
+               {qna.answers && (
+                  <>
+                     {qna.answers.map(answer => (
+                        <CommentWarp key={answer.answerId}>
+                           <User>
+                              <UserImg userimg={UserImage}>userImg</UserImg>
+                              <UserName>{answer.answerer.nickname}</UserName>
+                              <Time>{answer.createdAt}</Time>
+                           </User>
+                           <Comment>{answer.content}</Comment>
+                           {/* <Icon buttonImg={IconModify}>modify</Icon>
+                     <Icon buttonImg={IconDelete}>Delete</Icon> */}
+                        </CommentWarp>
+                     ))}
+                     <WriteAnswerBtn onClick={() => settoggleWriteAnswer(!toggleWriteAnswer)}>답변 작성</WriteAnswerBtn>
+                     {toggleWriteAnswer && <QnaInput type="answer" />}
+                  </>
+               )}
             </SecondUl>
          </FirstLi>
       </QnaUl>
@@ -95,3 +110,5 @@ const Icon = styled.button<{ buttonImg: string }>`
    background-repeat: none;
    margin-left: 10px;
 `;
+
+const WriteAnswerBtn = styled.button``;

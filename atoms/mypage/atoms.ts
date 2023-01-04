@@ -1,26 +1,38 @@
-import { atom } from "recoil"
+import { atom } from 'recoil';
 
-export const myProfile = atom<any>({
-    key: 'myProfile',
-    default: {point: 0}
-})
+interface MyProfileType {
+   nickname: string;
+   email: string;
+   phoneNum: string;
+   point: number;
+}
+
+export const myProfile = atom<MyProfileType>({
+   key: 'myProfile',
+   default: {
+      nickname: '',
+      email: '',
+      phoneNum: '',
+      point: 0
+   }
+});
 
 export const mypageHostMeetings = atom<any>({
-    key: 'mypageHostMeetings',
-    default: {content: []}
-})
+   key: 'mypageHostMeetings',
+   default: { content: [] }
+});
 
 export const mypageAttendingMeetings = atom<any>({
-    key: 'mypageAttendingMeetings',
-    default: {content: []}
-})
+   key: 'mypageAttendingMeetings',
+   default: { content: [] }
+});
 
 export const myPoint = atom<any>({
-    key: 'myPoint',
-    default: []
-})
+   key: 'myPoint',
+   default: []
+});
 
 export const modalState = atom<string>({
-    key: 'modalState',
-    default: ''
-})
+   key: 'modalState',
+   default: ''
+});
