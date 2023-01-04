@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { qnaListLengthState } from '../../atoms/qna/selector';
 // eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
 import IconMore from './../../assets/images/icon_more.svg';
 import IconToggle from './../../assets/images/icon_toggle.svg';
 // eslint-disable-next-line import/no-unresolved
-import Qna from './Qna';
-// eslint-disable-next-line import/no-unresolved
 import QnaInput from './QnaInput';
+import QnaList from './QnaList';
+
 interface DetailProps {
    userImage: string;
    username: string;
    location: string;
    location2: string;
 }
+
 const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
+   const qnaListLength = useRecoilValue(qnaListLengthState);
    const [toggleQna, setToggleQna] = useState(true);
+
    return (
       <DetailLayout>
          <MoreIcon src={IconMore}></MoreIcon>
@@ -53,14 +58,15 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
             <Location>{location2}</Location>
          </LocationList>
 
+         {/* 유진 */}
          <ListTitle>
             Q&A
             <button onClick={() => setToggleQna(!toggleQna)}>
-               1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
+               {qnaListLength}개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
             </button>
          </ListTitle>
-         <Qna open={toggleQna} />
-         <QnaInput />
+         {toggleQna && <QnaList />}
+         <QnaInput type="question" />
       </DetailLayout>
    );
 };
@@ -115,19 +121,28 @@ const Content = styled.p`
 `;
 
 const ListTitle = styled.p`
+   display: flex;
+   align-items: center;
+   margin: 20px 0 10px 0;
    font-size: 16px;
    color: #444bff;
-   margin-top: 10px;
 
    span {
       margin-left: 10px;
       margin-right: 5px;
       cursor: pointer;
    }
+
+   button {
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+   }
 `;
 const ToggleImg = styled.img<{ open: boolean }>`
    width: 16px;
    height: 11px;
+   margin-left: 6px;
    rotate: ${p => (p.open ? `0` : '180')}deg;
 `;
 const LocationList = styled.ul`
