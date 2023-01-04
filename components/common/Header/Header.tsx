@@ -29,7 +29,6 @@ const Header = ({ OpenModal }: LoginProps) => {
    useEffect(() => {
       if (localStorage.getItem('RefreshToken') !== null) {
          setIsLoginState(true);
-         console.log(localStorage.getItem('RefreshToken'));
       } else {
          setIsLoginState(false);
       }
@@ -43,15 +42,9 @@ const Header = ({ OpenModal }: LoginProps) => {
       localStorage.removeItem('AccessToken');
       localStorage.removeItem('RefreshToken');
       setIsLoginState(false);
+      window.location.reload();
    };
 
-   // const userInfo = async () => {
-   //   console.log(axios.defaults.headers.common['Authorization']);
-   //   const hoho = await axios.get(
-   //     'https://2ba7-39-116-11-157.jp.ngrok.io/mypage/profile',
-   //   );
-   //   console.log(hoho);
-   // };
    return (
       <HeaderLayout>
          <Wrapper>
