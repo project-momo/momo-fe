@@ -1,27 +1,13 @@
 import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { host_dummyData } from '../../dummy/mypage/dummy';
 import { useEffect } from 'react';
 import { mypageHostMeetings } from '../../atoms/mypage/atoms';
 import { hostMeeting_closed, hostMeeting_opened } from '../../atoms/mypage/selector';
 
 const MyMeetings_host = () => {
-   const setHostMeetings = useSetRecoilState(mypageHostMeetings);
    const host_openedMeetings = useRecoilValue(hostMeeting_opened);
    const host_closedMeetings = useRecoilValue(hostMeeting_closed);
-
-   useEffect(() => {
-      // 통신
-      // axios.get('/mypage/meetings/hosts?page=1&size=20')
-      // .then((res) => {
-      //    setHostMeetings(res);
-      // })
-      const fetchData = host_dummyData;
-      setHostMeetings(fetchData);
-   },[]);
-   
-   
 
    return (
       <>

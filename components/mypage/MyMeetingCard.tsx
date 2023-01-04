@@ -19,17 +19,19 @@ const MyMeetingCard = ({ data }: any) => {
                         {/* {data.meetingStatus ? '모집중' : '모집 종료'} */}
                      </p>
                      <p className="category">{data.category}</p>
-                     <p className="date">2022.12.26</p>
+                     <p className="date">{data.dateTime.startDate}</p>
                   </div>
                   <button className="title">{data.title}</button>
                   <p>{data.content}</p>
                </div>
                <div className="center">
                   <p className="rate">
-                     {data.priceInfo.pricePolicy === 'HOUR' ? '시간당' : data.priceInfo.pricePolicy}{' '}
-                     <span>{price}원</span>
+                     {data.dateTime.datePolicy === 'HOUR' && '시간당'}
+                     {data.dateTime.datePolicy === 'DAY' && '종일'}
+                     {data.dateTime.datePolicy === 'FREE' && '자유'}
+                     {data.price !== 0 && <span>{price}원</span>}
                   </p>
-                  <p>{data.locations.join(', ')}</p>
+                  {/* <p>{data.locations.address.join(',')}</p> */}
                </div>
                <div className="right">
                   

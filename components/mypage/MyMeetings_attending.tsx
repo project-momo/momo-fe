@@ -1,27 +1,11 @@
 import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { host_dummyData } from '../../dummy/mypage/dummy';
-import { useEffect } from 'react';
-import { mypageAttendingMeetings } from '../../atoms/mypage/atoms';
+import { useRecoilValue } from 'recoil';
 import { attendingMeeting_closed, attendingMeeting_opened } from '../../atoms/mypage/selector';
 
 const MyMeetings_attending = () => {
-   const setAttendingMeetings = useSetRecoilState(mypageAttendingMeetings);
    const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
    const attending_closedMeetings = useRecoilValue(attendingMeeting_closed);
-
-   useEffect(() => {
-      // 통신
-      // axios.get('')
-      // .then((res) => {
-      //    setAttendingMeetings(res);
-      // })
-      const fetchData = host_dummyData;
-      setAttendingMeetings(fetchData);
-   },[]);
-   
-   
 
    return (
       <>

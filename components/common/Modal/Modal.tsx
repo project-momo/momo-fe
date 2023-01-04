@@ -39,7 +39,7 @@ const ModalLayout = styled.div`
    border-radius: 15px;
    min-width: 550px;
 `;
-const CloseBtn = styled.div<{ icon: string }>`
+export const CloseBtn = styled.div<{ icon: string }>`
    width: 30px;
    height: 30px;
    font-size: 0;

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line import/no-unresolved
 import { HeaderButton } from './HeaderButton';
 import IconSearch from '../../..//assets/images/icon_search.svg';
 import { useRecoilState } from 'recoil';
-// eslint-disable-next-line import/no-unresolved
 import { isLogin } from '../../../atoms/atom';
 import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const HeaderLayout = styled.div`
    background-color: #49515b;
@@ -24,6 +24,7 @@ interface LoginProps {
 const Header = ({ OpenModal }: LoginProps) => {
    const [isLoginState, setIsLoginState] = useRecoilState(isLogin);
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const route = useRouter();
 
    useEffect(() => {
       if (localStorage.getItem('RefreshToken') !== null) {
@@ -56,7 +57,9 @@ const Header = ({ OpenModal }: LoginProps) => {
          <Wrapper>
             <InnerWrapper>
                <div>
-                  <H>웹사이트 이름</H>
+                  <Link href="/">
+                     <H>Momo</H>
+                  </Link>
                </div>
                <Input id="Search" />
                <FloatingSearch htmlFor="Search">
@@ -66,7 +69,7 @@ const Header = ({ OpenModal }: LoginProps) => {
                <div>
                   {isLoginState ? (
                      <>
-                        <HeaderButton label="MY" />
+                        <HeaderButton onClick={() => route.push('/mypage')} label="MY" />
                         <HeaderButton onClick={logoutFunc} label="Logout" />
                      </>
                   ) : (
