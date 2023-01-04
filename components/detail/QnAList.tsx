@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { qnaListState } from '../../atoms/qna/atom';
 import Qna from './Qna';
 
 export interface QnaType {
@@ -35,9 +37,9 @@ interface AnswererType {
 
 const QnaList = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const meeting_id = 2;
+   const meeting_id = 3;
 
-   const [qnaList, setQnaList] = useState<QnaType[]>([]);
+   const [qnaList, setQnaList] = useRecoilState(qnaListState);
 
    useEffect(() => {
       axios

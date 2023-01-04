@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { qnaListLengthState } from '../../atoms/qna/selector';
 // eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
 import IconMore from './../../assets/images/icon_more.svg';
@@ -16,6 +18,7 @@ interface DetailProps {
 }
 
 const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
+   const qnaListLength = useRecoilValue(qnaListLengthState);
    const [toggleQna, setToggleQna] = useState(true);
 
    return (
@@ -59,7 +62,7 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
          <ListTitle>
             Q&A
             <button onClick={() => setToggleQna(!toggleQna)}>
-               1개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
+               {qnaListLength}개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
             </button>
          </ListTitle>
          {toggleQna && <QnaList />}

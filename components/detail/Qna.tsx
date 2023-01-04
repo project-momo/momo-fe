@@ -4,7 +4,7 @@ import UserImage from './../../assets/images/userimg.svg';
 import IconModify from './../../assets/images/icon_mdify.svg';
 import IconDelete from './../../assets/images/icon_delete.svg';
 import { QnaType } from './QnaList';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { myProfile } from '../../atoms/mypage/atoms';
 import QnaInput from './QnaInput';
 
@@ -13,8 +13,6 @@ interface QnaCompoType {
 }
 
 const Qna = ({ qna }: QnaCompoType) => {
-   const my = useRecoilState(myProfile);
-
    const [toggleWriteAnswer, settoggleWriteAnswer] = useState(false);
 
    return (
@@ -27,8 +25,6 @@ const Qna = ({ qna }: QnaCompoType) => {
                   <Time>{qna.createdAt}</Time>
                </User>
                <Comment>{qna.content}</Comment>
-               {/* <Icon buttonImg={IconModify}>modify</Icon>
-               <Icon buttonImg={IconDelete}>Delete</Icon> */}
             </FirstList>
             <SecondUl>
                {qna.answers && (
@@ -41,8 +37,6 @@ const Qna = ({ qna }: QnaCompoType) => {
                               <Time>{answer.createdAt}</Time>
                            </User>
                            <Comment>{answer.content}</Comment>
-                           {/* <Icon buttonImg={IconModify}>modify</Icon>
-                     <Icon buttonImg={IconDelete}>Delete</Icon> */}
                         </CommentWarp>
                      ))}
                      <WriteAnswerBtn onClick={() => settoggleWriteAnswer(!toggleWriteAnswer)}>답변 작성</WriteAnswerBtn>
@@ -59,7 +53,7 @@ export default Qna;
 
 const QnaUl = styled.ul``;
 const FirstLi = styled.li`
-   margin-bottom: 15px;
+   margin-bottom: 10px;
 `;
 const CommentWarp = styled.li`
    margin-bottom: 8px;
@@ -111,4 +105,8 @@ const Icon = styled.button<{ buttonImg: string }>`
    margin-left: 10px;
 `;
 
-const WriteAnswerBtn = styled.button``;
+const WriteAnswerBtn = styled.button`
+   margin-bottom: 8px;
+   font-size: 12px;
+   color: #767676;
+`;

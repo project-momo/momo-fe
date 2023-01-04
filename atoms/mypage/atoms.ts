@@ -1,20 +1,8 @@
 import { atom } from 'recoil';
 
-interface MyProfileType {
-   nickname: string;
-   email: string;
-   phoneNum: string;
-   point: number;
-}
-
-export const myProfile = atom<MyProfileType>({
+export const myProfile = atom<any>({
    key: 'myProfile',
-   default: {
-      nickname: '',
-      email: '',
-      phoneNum: '',
-      point: 0
-   }
+   default: { point: 0 }
 });
 
 export const mypageHostMeetings = atom<any>({

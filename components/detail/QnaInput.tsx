@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { qnaListState } from '../../atoms/qna/atom';
 import IconCommentAdd from './../../assets/images/icon_cmment_add.svg';
 
 interface QnaInputType {
@@ -9,14 +11,15 @@ interface QnaInputType {
 
 const QnaInput = ({ type }: QnaInputType) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const meeting_id = 2;
-   const question_id = 231;
+   const meeting_id = 3;
+   const question_id = 239;
 
    const url =
       type === 'question'
          ? `${API_URI}/meetings/${meeting_id}/questions`
          : `${API_URI}/meetings/${meeting_id}/questions/${question_id}/answers`;
 
+   const setQnaList = useSetRecoilState(qnaListState);
    const [content, setContent] = useState('');
 
    const onSubmit = () => {
@@ -25,8 +28,6 @@ const QnaInput = ({ type }: QnaInputType) => {
          else alert('답변 내용을 입력해주세요.');
          return;
       }
-
-      console.log('전송!', content);
 
       axios
          .post(
@@ -38,7 +39,11 @@ const QnaInput = ({ type }: QnaInputType) => {
                }
             }
          )
-         .then(res => console.log('성공', res))
+         .then(res => {
+            console.log('성공', res);
+            setQnaList(res.data);
+            setContent('');
+         })
          .catch(err => console.log('에러', err));
    };
 
@@ -51,8 +56,9 @@ const QnaInput = ({ type }: QnaInputType) => {
             onKeyDown={e => {
                if (e.code === 'Enter') onSubmit();
             }}
+            type={type}
          />
-         <SubmitBtn onClick={onSubmit}>
+         <SubmitBtn onClick={onSubmit} type2={type}>
             <img src={IconCommentAdd} />
          </SubmitBtn>
       </InputWarp>
@@ -64,9 +70,9 @@ export default QnaInput;
 const InputWarp = styled.div`
    position: relative;
 `;
-const Input = styled.input`
+const Input = styled.input<{ type: string }>`
    width: 100%;
-   padding: 20px 30px;
+   padding: ${props => (props.type === 'question' ? '20px 30px' : '10px 20px')};
    background-color: #f0f0f0;
    font-size: 14px;
    border-radius: 30px;
@@ -80,16 +86,16 @@ const Input = styled.input`
       color: #717171;
    }
 `;
-const SubmitBtn = styled.button`
-   width: 35px;
-   height: 35px;
+const SubmitBtn = styled.button<{ type2: string }>`
+   width: ${props => (props.type2 === 'question' ? '35px' : '28px')};
+   height: ${props => (props.type2 === 'question' ? '35px' : '28px')};
    border-radius: 100%;
    display: flex;
    align-items: center;
    justify-content: center;
    position: absolute;
    right: 12px;
-   top: 12px;
+   top: ${props => (props.type2 === 'question' ? '12px' : '6px')};
    background-color: white;
    box-shadow: 0px 1px 3px rgba(68, 75, 255, 0.15);
 
