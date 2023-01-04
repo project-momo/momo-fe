@@ -22,7 +22,7 @@ const Qna = ({ qna }: QnaCompoType) => {
                <User>
                   <UserImg userimg={UserImage}>userImg</UserImg>
                   <UserName>{qna.questioner.nickname}</UserName>
-                  <Time>{qna.createdAt}</Time>
+                  <Time>{new Date(qna.createdAt).toLocaleString()}</Time>
                </User>
                <Comment>{qna.content}</Comment>
             </FirstList>
@@ -34,7 +34,7 @@ const Qna = ({ qna }: QnaCompoType) => {
                            <User>
                               <UserImg userimg={UserImage}>userImg</UserImg>
                               <UserName>{answer.answerer.nickname}</UserName>
-                              <Time>{answer.createdAt}</Time>
+                              <Time>{new Date(answer.createdAt).toLocaleString()}</Time>
                            </User>
                            <Comment>{answer.content}</Comment>
                         </CommentWarp>
