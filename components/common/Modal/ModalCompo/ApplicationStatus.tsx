@@ -1,27 +1,33 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { meetingInfo } from '../../../../atoms/mypage/atoms';
 import { SquareButton } from '../../../mypage/Button';
 
 const ApplicationStatus = () => {
+   const info = useRecoilValue(meetingInfo);
+
    return (
       <ModalWrapper>
          <p className="title">참가 신청 현황</p>
          <div>
             <p className="title-sm">
-               신청 내역<span>( 2022.12.26 | 15:00 - 16:00 (1시간) )</span>
+               신청 내역
+               <span>
+                  ( {info.date.date} | {info.date.time} )
+               </span>
             </p>
-            <p className="meeting-title">개발자 멘토링 해드립니다.</p>
+            <p className="meeting-title">{info.title}</p>
          </div>
          <div>
             <p className="title-sm">주최자 정보</p>
             <ul>
-               <li>홍길동</li>
-               <li>abcd@gamil.com</li>
-               <li>010-1234-5678</li>
+               <li>{info.hostInfo.nickname}</li>
+               <li>{info.hostInfo.email}</li>
             </ul>
          </div>
          <div>
             <p className="title-sm">만남 장소</p>
-            <p className="meeting-address">Zoom회의 당일 링크 이메일로 전달</p>
+            <p className="meeting-address">{info.address.addresses.join(', ')}</p>
          </div>
          <div className="btn-wrapper">
             <SquareButton>모임 시간 변경</SquareButton>
@@ -63,7 +69,7 @@ const ModalWrapper = styled.div`
       }
    }
    .btn-wrapper {
-      flex-direction: row;
+      flex-direction: row !important;
       justify-content: space-between;
       button {
          width: 48%;

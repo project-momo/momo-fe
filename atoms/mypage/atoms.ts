@@ -21,6 +21,11 @@ export const myPoint = atom<any>({
 });
 
 export const modalState = atom<string>({
-   key: 'modalState',
-   default: ''
-});
+    key: 'modalState',
+    default: ''
+})
+
+export const meetingInfo = atom<any>({
+    key: 'meetingInfo',
+    default: {}
+})

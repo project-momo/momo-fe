@@ -3,19 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { modalState } from '../../atoms/mypage/atoms';
+import { meetingInfo, modalState } from '../../atoms/mypage/atoms';
 
 export const Button = (props: any) => {
    const setType = useSetRecoilState(modalState);
+   const setMeetingInfo = useSetRecoilState(meetingInfo);
    const [isActive, setActive] = useState(false);
 
    const btnHandler = () => {
-      if(props.modal){
-         setType('applicationStatus')
-      }else{
+      if (props.modal) {
+         setType('applicationStatus');
+         setMeetingInfo(props.meetingInfo);
+      } else {
          setActive(!isActive);
       }
-   }
+   };
 
    return (
       <Basic onClick={btnHandler}>

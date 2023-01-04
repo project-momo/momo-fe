@@ -10,7 +10,8 @@
       "plugin:import/recommended",
       "plugin:jsx-a11y/recommended",
       "plugin:prettier/recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@next/next/recommended"
    ],
    "plugins": ["@typescript-eslint"],
    "parserOptions": {
@@ -29,7 +30,7 @@
       "comma-dangle": ["error", "never"],
       "import/no-named-as-default": 0,
       "import/no-unresolved": "off",
-      "commonjs": true,
+      "commonjs": 0,
       "@typescript-eslint/no-explicit-any": "off"
    }
 }

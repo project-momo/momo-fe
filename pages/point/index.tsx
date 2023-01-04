@@ -18,7 +18,7 @@ const MyPoint = () => {
       // })
       const fetchData = myPointInfo;
       setPointList(fetchData);
-   },[]);
+   }, []);
 
    return (
       <>
