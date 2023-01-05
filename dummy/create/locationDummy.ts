@@ -1,9 +1,9 @@
 export const locationDummy = [
-   { id: 1, location1: '전국', location2: ['전체'] },
+   { id: 1, location1: '전국', gu: ['전체'] },
    {
       id: 2,
       location1: '서울',
-      location2: [
+      gu: [
          '전체',
          '강남구',
          '강동구',
@@ -35,7 +35,7 @@ export const locationDummy = [
    {
       id: 3,
       location1: '경기',
-      location2: [
+      gu: [
          '전체',
          '고양시',
          '과천시',
@@ -73,12 +73,12 @@ export const locationDummy = [
    {
       id: 4,
       location1: '인천',
-      location2: ['전체', '계양구', '남구', '남동구', '동구', '부평구', '서구', '연수구', '중구', '강화군', '옹진군']
+      gu: ['전체', '계양구', '남구', '남동구', '동구', '부평구', '서구', '연수구', '중구', '강화군', '옹진군']
    },
    {
       id: 5,
       location1: '부산',
-      location2: [
+      gu: [
          '전체',
          '강서구',
          '금정구',
@@ -101,27 +101,27 @@ export const locationDummy = [
    {
       id: 6,
       location1: '대구',
-      location2: ['전체', '남구', '달서구', '동구', '북구', '서구', '수성구', '중구', '달성군']
+      gu: ['전체', '남구', '달서구', '동구', '북구', '서구', '수성구', '중구', '달성군']
    },
    {
       id: 7,
       location1: '광주',
-      location2: ['전체', '광산구', '남구', '동구', '북구', '서구']
+      gu: ['전체', '광산구', '남구', '동구', '북구', '서구']
    },
    {
       id: 8,
       location1: '대전',
-      location2: ['전체', '대덕구', '동구', '서구', '유성구', '중구']
+      gu: ['전체', '대덕구', '동구', '서구', '유성구', '중구']
    },
    {
       id: 9,
       location1: '울산',
-      location2: ['전체', '남구', '동구', '북구', '중구', '울주군']
+      gu: ['전체', '남구', '동구', '북구', '중구', '울주군']
    },
    {
       id: 10,
       location1: '강원',
-      location2: [
+      gu: [
          '전체',
          '강릉시',
          '동해시',
@@ -146,7 +146,7 @@ export const locationDummy = [
    {
       id: 11,
       location1: '충북',
-      location2: [
+      gu: [
          '전체',
          '제천시',
          '청주시',
@@ -165,7 +165,7 @@ export const locationDummy = [
    {
       id: 12,
       location1: '충남',
-      location2: [
+      gu: [
          '전체',
          '공주시',
          '논산시',
@@ -187,7 +187,7 @@ export const locationDummy = [
    {
       id: 13,
       location1: '전북',
-      location2: [
+      gu: [
          '전체',
          '군산시',
          '김제시',
@@ -208,7 +208,7 @@ export const locationDummy = [
    {
       id: 14,
       location1: '전남',
-      location2: [
+      gu: [
          '전체',
          '광양시',
          '나주시',
@@ -237,7 +237,7 @@ export const locationDummy = [
    {
       id: 15,
       location1: '경북',
-      location2: [
+      gu: [
          '전체',
          '경산시',
          '경주시',
@@ -267,7 +267,7 @@ export const locationDummy = [
    {
       id: 16,
       location1: '경남',
-      location2: [
+      gu: [
          '전체',
          '거제시',
          '김해시',
@@ -294,6 +294,6 @@ export const locationDummy = [
    {
       id: 17,
       location1: '제주',
-      location2: ['전체', '서귀포시', '제주시', '남제주군', '북제주군']
+      gu: ['전체', '서귀포시', '제주시', '남제주군', '북제주군']
    }
 ];

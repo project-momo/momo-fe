@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import Categorys from '../../components/create/Categorys';
@@ -30,9 +30,8 @@ const Create = () => {
    const [personnel, setPersonnel] = useState(1);
    const [price, setPrice] = useState(0);
 
-   const [location1, setLocaton1] = useState('');
-   const [location2, setLocaton2] = useState<string[]>([]);
-   const [addressIds, setAddressIds] = useState<string[]>([]);
+   const [si, setSi] = useState('');
+   const [gu, setGu] = useState<number[]>([]);
    const [addressInfo, setAddressInfo] = useState('');
 
    const [datePolicy, setDatePolicy] = useState('ONE_DAY');
@@ -65,23 +64,20 @@ const Create = () => {
       }
    };
 
-   const onClickLocation1 = (value: string) => {
-      setLocaton1(value);
-      setLocaton2([]);
+   const onClickSi = (value: string) => {
+      setSi(value);
    };
 
-   const onClickLocation2 = (value: string) => {
-      if (location2.includes(value)) {
-         setLocaton2([...location2.filter(el => el !== value)]);
-         setAddressIds([...addressIds.filter(el => el.slice(3) !== value)]);
+   const onClickGu = (value: number) => {
+      if (gu.includes(value)) {
+         setGu([...gu.filter(el => el !== value)]);
       } else {
-         if (addressIds.length >= 3) {
+         if (gu.length >= 3) {
             alert('최대 3개까지 선택이 가능 합니다.');
             return;
          }
 
-         setLocaton2([...location2, value]);
-         setAddressIds([...addressIds, `${location1} ${value}`]);
+         setGu([...gu, value]);
       }
    };
 
@@ -104,8 +100,7 @@ const Create = () => {
       title,
       content,
       tags,
-      // locations: { addressIds, addressInfo },
-      address: { addressIds: [1], addressInfo },
+      address: { addressIds: gu, addressInfo },
       personnel: datePolicy === 'FREE' ? 1 : personnel,
       price,
       dateTime: {
@@ -151,49 +146,63 @@ const Create = () => {
 
       if (category === '') {
          setCategoryError('카테고리를 선택해주세요.');
+         return true;
       } else if (title === '') {
          setTitleError('제목을 입력해주세요.');
+         return true;
       } else if (content === '') {
          setContentError('내용을 입력해주세요.');
+         return true;
       } else if (tags.length < 1) {
          setTagError('1개 이상 선택해주세요.');
-      } else if (addressIds.length < 1) {
+         return true;
+      } else if (gu.length < 1) {
          setAddressIdsError('1개 이상 선택해주세요.');
+         return true;
       } else if (addressInfo === '') {
          setAddressInfoError('추가 주소를 입력해주세요.');
+         return true;
       } else if (datePolicy === 'ONE_DAY' && date === '') {
          setDateError('날짜를 선택해주세요.');
+         return true;
       } else if (datePolicy === 'PERIOD') {
          if (startDate === '' || endDate === '') {
             setDateError('날짜를 선택해주세요.');
+            return true;
          } else if (startDate === endDate) {
             setDateError('시작/종료 날짜가 동일합니다.');
+            return true;
          } else if (dayWeeks.length < 1) {
             setDateError('요일을 1개 이상 선택해주세요.');
+            return true;
          }
       } else if (datePolicy === 'FREE' && dates.length < 1) {
          setDateError('날짜를 1개 이상 선택해주세요.');
+         return true;
       } else if (startTime === '' || endTime === '') {
          setTimeError('시간을 선택해주세요.');
+         return true;
       } else if (startTime === endTime) {
          setTimeError('시작/종료 시간이 동일합니다.');
+         return true;
       } else if (maxTime < 1) {
          setMaxTimeError('1시간 이상 입력해주세요.');
+         return true;
       } else if (personnel < 1) {
          setPersonnelError('1명 이상 입력해주세요.');
+         return true;
       } else if (price < 0) {
          setPriceError('0원 이상 입력해주세요.');
-      } else {
-         return false;
+         return true;
       }
 
-      return true;
+      return;
    };
 
    const onSubmit = () => {
       if (checkError()) {
          window.scrollTo(0, 0);
-         return false;
+         return;
       }
 
       console.log('전송!', data);
@@ -240,12 +249,7 @@ const Create = () => {
                </Li>
                <Li>
                   <LiTitle main="위치" sub="최대 3개까지 선택이 가능 합니다." error={addressIdsError} />
-                  <Location
-                     location1={location1}
-                     location2={location2}
-                     onClickLocation1={onClickLocation1}
-                     onClickLocation2={onClickLocation2}
-                  />
+                  <Location si={si} gu={gu} onClickSi={onClickSi} onClickGu={onClickGu} />
                </Li>
                <Li>
                   <LiTitle

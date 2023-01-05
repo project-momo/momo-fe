@@ -17,7 +17,7 @@ const Sub = () => {
 
          <Category />
          <CenterSection>
-            <Detail userImage="유저이미지" username="유저이름" location="강남구" location2="근처 스타벅스" />
+            <Detail userImage="유저이미지" username="유저이름" location="강남구" gu="근처 스타벅스" />
          </CenterSection>
          <RightSection>
             <RightBox label="모임에 참여하기" imgLink={IconPrice} childrens={<Price />} />

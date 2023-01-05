@@ -12,7 +12,7 @@ interface QnaInputType {
 const QnaInput = ({ type }: QnaInputType) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const meeting_id = 3;
-   const question_id = 239;
+   const question_id = 1;
 
    const url =
       type === 'question'
