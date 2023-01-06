@@ -3,8 +3,8 @@ import { useState, SetStateAction } from 'react';
 
 interface PriceProps {
    datePolicy: string;
-   price: number;
-   setPrice: (value: SetStateAction<number>) => void;
+   price: number | string;
+   setPrice: (value: SetStateAction<number | string>) => void;
 }
 
 const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
@@ -27,7 +27,7 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
                disabled={pricePolicy === 'FREE' && true}
                min={0}
                value={price}
-               onChange={e => setPrice(Number(e.target.value))}
+               onChange={e => setPrice(e.target.value)}
             />
          </label>
          <label>

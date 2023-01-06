@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import Categorys from '../../components/create/Categorys';
@@ -26,9 +26,9 @@ const Create = () => {
    const [title, setTitle] = useState('');
    const [content, setContent] = useState('');
    const [tags, setTags] = useState<string[]>([]);
-   const [maxTime, setMaxTime] = useState(1);
-   const [personnel, setPersonnel] = useState(1);
-   const [price, setPrice] = useState(0);
+   const [maxTime, setMaxTime] = useState<number | string>(1);
+   const [personnel, setPersonnel] = useState<number | string>(1);
+   const [price, setPrice] = useState<number | string>(0);
 
    const [si, setSi] = useState('');
    const [gu, setGu] = useState<number[]>([]);
@@ -49,7 +49,6 @@ const Create = () => {
    const [contentError, setContentError] = useState('');
    const [tagError, setTagError] = useState('');
    const [addressIdsError, setAddressIdsError] = useState('');
-   const [addressInfoError, setAddressInfoError] = useState('');
    const [dateError, setDateError] = useState('');
    const [timeError, setTimeError] = useState('');
    const [maxTimeError, setMaxTimeError] = useState('');
@@ -101,8 +100,8 @@ const Create = () => {
       content,
       tags,
       address: { addressIds: gu, addressInfo },
-      personnel: datePolicy === 'FREE' ? 1 : personnel,
-      price,
+      personnel: datePolicy === 'FREE' ? 1 : Number(personnel),
+      price: Number(price),
       dateTime: {
          datePolicy,
          startDate:
@@ -127,7 +126,7 @@ const Create = () => {
          dates: dates
             .map(date => new Date(date).toISOString().slice(0, 10))
             .sort((a, b) => Number(a.replaceAll('-', '')) - Number(b.replaceAll('-', ''))),
-         maxTime
+         maxTime: Number(maxTime)
       }
    };
 
@@ -137,7 +136,6 @@ const Create = () => {
       setContentError('');
       setTagError('');
       setAddressIdsError('');
-      setAddressInfoError('');
       setDateError('');
       setTimeError('');
       setMaxTimeError('');
@@ -158,9 +156,6 @@ const Create = () => {
          return true;
       } else if (gu.length < 1) {
          setAddressIdsError('1개 이상 선택해주세요.');
-         return true;
-      } else if (addressInfo === '') {
-         setAddressInfoError('추가 주소를 입력해주세요.');
          return true;
       } else if (datePolicy === 'ONE_DAY' && date === '') {
          setDateError('날짜를 선택해주세요.');
@@ -252,11 +247,7 @@ const Create = () => {
                   <Location si={si} gu={gu} onClickSi={onClickSi} onClickGu={onClickGu} />
                </Li>
                <Li>
-                  <LiTitle
-                     main="추가 주소 입력"
-                     sub="개인 정보 보호를 위해 정확한 주소를 입력하지 마세요."
-                     error={addressInfoError}
-                  />
+                  <LiTitle main="추가 주소 입력" sub="개인 정보 보호를 위해 정확한 주소를 입력하지 마세요." />
                   <Input
                      placeholder="예시) 스타벅스 근처 협의"
                      value={addressInfo}
@@ -295,7 +286,7 @@ const Create = () => {
                         }
                         value={maxTime}
                         onChange={e => {
-                           setMaxTime(Number(e.target.value));
+                           setMaxTime(e.target.value);
                         }}
                      />
                   </Li>
@@ -308,7 +299,7 @@ const Create = () => {
                      value={personnel}
                      disabled={datePolicy === 'FREE' && true}
                      onChange={e => {
-                        setPersonnel(Number(e.target.value));
+                        setPersonnel(e.target.value);
                      }}
                   />
                </Li>
