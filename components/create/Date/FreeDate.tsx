@@ -19,7 +19,7 @@ const FreeDate = ({ dates, setDates, dpSetting }: FreeDateProps) => {
             setDates([...dates, selectedDate]);
          }}
          customInput={
-            <div>
+            <div className="react-datepicker__inputDiv-container">
                {dates.length
                   ? dates
                        .map(date => new Date(date).toISOString().slice(0, 10))
