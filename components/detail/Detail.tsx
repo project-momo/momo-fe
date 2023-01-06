@@ -14,10 +14,10 @@ interface DetailProps {
    userImage: string;
    username: string;
    location: string;
-   location2: string;
+   gu: string;
 }
 
-const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
+const Detail = ({ userImage, username, location, gu }: DetailProps) => {
    const qnaListLength = useRecoilValue(qnaListLengthState);
    const [toggleQna, setToggleQna] = useState(true);
 
@@ -55,7 +55,7 @@ const Detail = ({ userImage, username, location, location2 }: DetailProps) => {
             <Location>{location}</Location>
          </LocationList>
          <LocationList>
-            <Location>{location2}</Location>
+            <Location>{gu}</Location>
          </LocationList>
 
          {/* 유진 */}

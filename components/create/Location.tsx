@@ -1,14 +1,39 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { locationDummy } from '../../dummy/create/locationDummy';
 
 interface LocationProps {
-   location1: string;
-   location2: string[];
-   onClickLocation1: (value: string) => void;
-   onClickLocation2: (value: string) => void;
+   si: string;
+   gu: string[];
+   onClickSi: (value: string) => void;
+   onClickGu: (value: number) => void;
 }
 
-const Location = ({ location1, location2, onClickLocation1, onClickLocation2 }: LocationProps) => {
+interface LocationDummyType {
+   si: string;
+   gu: GuType[];
+}
+
+interface GuType {
+   id: number;
+   name: string;
+}
+
+const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+
+   const [locationDummy, SetlocationDummy] = useState<LocationDummyType[]>([]);
+
+   useEffect(() => {
+      axios
+         .get(`${API_URI}/addresses`)
+         .then(res => {
+            console.log('성공', res);
+            SetlocationDummy(res.data);
+         })
+         .catch(err => console.log('에러', err));
+   }, []);
+
    return (
       <>
          <LocationTitle>
@@ -17,29 +42,31 @@ const Location = ({ location1, location2, onClickLocation1, onClickLocation2 }: 
          </LocationTitle>
          <LocationWrapper>
             <LocationStyle>
-               {locationDummy.map(el => (
-                  <li
-                     key={el.location1}
-                     onClick={() => {
-                        onClickLocation1(el.location1);
-                     }}
-                     className={el.location1 === location1 ? 'selected1' : ''}>
-                     {el.location1}
-                  </li>
-               ))}
+               {locationDummy &&
+                  locationDummy.map(el => (
+                     <li
+                        key={el.si}
+                        onClick={() => {
+                           onClickSi(el.si);
+                        }}
+                        className={el.si === si ? 'selectedSi' : ''}>
+                        {el.si}
+                     </li>
+                  ))}
             </LocationStyle>
             <LocationStyle>
-               {location1 ? (
+               {si ? (
+                  locationDummy &&
                   locationDummy.map(el => {
-                     if (el.location1 === location1) {
-                        return el.location2.map((el, idx) => (
+                     if (el.si === si) {
+                        return el.gu.map(el => (
                            <li
-                              key={idx}
+                              key={el.id}
                               onClick={() => {
-                                 onClickLocation2(el);
+                                 onClickGu(el.id);
                               }}
-                              className={location2.includes(el) ? 'selected2' : ''}>
-                              {el}
+                              className={gu.includes(el.id) ? 'selectedGu' : ''}>
+                              {el.name}
                            </li>
                         ));
                      }
@@ -81,12 +108,12 @@ const LocationStyle = styled.ul`
       border-radius: 10px;
       cursor: pointer;
    }
-   li.selected1 {
+   li.selectedSi {
       background-color: #d4e6ff;
       color: #6a6ff2;
       transition: background-color 0.2s ease-in-out;
    }
-   li.selected2 {
+   li.selectedGu {
       color: #6a6ff2;
    }
 
