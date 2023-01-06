@@ -2509,6 +2509,27 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
+"@tosspayments/payment__types@^1.10.28":
+  "integrity" "sha512-5YtmWgjvtTYUIOIUS/l0V5zFuGzDvG7VgfNMYZjBrz3xOzzi3UIkKt0NLWW0v3HJ29JfWbhuiCXNI+zqJCRZFw=="
+  "resolved" "https://registry.npmjs.org/@tosspayments/payment__types/-/payment__types-1.10.28.tgz"
+  "version" "1.10.28"
+  dependencies:
+    "@tosspayments/sdk-constants" "^0.2.1"
+
+"@tosspayments/payment-sdk@^1.2.5":
+  "integrity" "sha512-RD3Qcqzqv2B5cyJN+VWwZYdRYim3uEXJgFz2xA5SRGrpGuGy2ZNHqeXj+eNnG7GSANSnJLH0OYNqZfphQ2yAjA=="
+  "resolved" "https://registry.npmjs.org/@tosspayments/payment-sdk/-/payment-sdk-1.2.5.tgz"
+  "version" "1.2.5"
+  dependencies:
+    "@tosspayments/payment__types" "^1.10.28"
+
+"@tosspayments/sdk-constants@^0.2.1":
+  "integrity" "sha512-svTqRO0vVs78UxG23pa4ywxsWEzVEiO6VYAMhKJClFYlnn1yqetFCL9aFzWwTYnChWuJu3OTC+SC1xslVf1Eqg=="
+  "resolved" "https://registry.npmjs.org/@tosspayments/sdk-constants/-/sdk-constants-0.2.1.tgz"
+  "version" "0.2.1"
+  dependencies:
+    "type-fest" "^2.11.2"
+
 "@types/aria-query@^4.2.0":
   "integrity" "sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig=="
   "resolved" "https://registry.npmjs.org/@types/aria-query/-/aria-query-4.2.2.tgz"
@@ -10820,6 +10841,11 @@
   "integrity" "sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA=="
   "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-0.8.1.tgz"
   "version" "0.8.1"
+
+"type-fest@^2.11.2":
+  "integrity" "sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA=="
+  "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-2.19.0.tgz"
+  "version" "2.19.0"
 
 "type-is@~1.6.18":
   "integrity" "sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g=="
