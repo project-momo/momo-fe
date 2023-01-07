@@ -9,13 +9,13 @@ const SubModal = () => {
    return (
       <ModalWarp>
          <List>
-            <a onClick={() => setModalOpen(!modalOpen)}>공유하기</a>
+            <button onClick={() => setModalOpen(!modalOpen)}>공유하기</button>
          </List>
          <List>
-            <a>게시글 수정</a>
+            <button>게시글 수정</button>
          </List>
          <List>
-            <a>게시글 삭제</a>
+            <button>게시글 삭제</button>
          </List>
          {myPost}
       </ModalWarp>
@@ -35,7 +35,7 @@ const ModalWarp = styled.ul`
 `;
 
 const List = styled.li`
-   a {
+   button {
       display: block;
       text-align: center;
       width: 90px;

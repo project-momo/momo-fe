@@ -16,10 +16,13 @@ interface DetailProps {
    userImage: string;
    username: string;
    location: string;
-   gu: string;
+   gu: string[];
+   content: string;
+   title: string;
+   meetingId: number;
 }
 
-const Detail = ({ userImage, username, location, gu }: DetailProps) => {
+const Detail = ({ userImage, username, location, gu, content, title, meetingId }: DetailProps) => {
    const qnaListLength = useRecoilValue(qnaListLengthState);
    const [toggleQna, setToggleQna] = useState(true);
    const [toggleModal, setToggleModal] = useState(false);
@@ -29,38 +32,22 @@ const Detail = ({ userImage, username, location, gu }: DetailProps) => {
          <MoreIcon onClick={() => setToggleModal(!toggleModal)} src={IconMore}></MoreIcon>
          {toggleModal ? <SubModal /> : null}
 
-         <UserCard>
-            <img src={userImage} alt="userProfile" />
+         <UserCard backImg={userImage}>
+            <div></div>
             <span>{username}</span>
          </UserCard>
-         <SubTitle label="가나다" labelMore="" />
-         <Content>
-            {`세상에서 가장 존경하는 사람들이 바로 새로움을 전달하는 자
-            나는 창업자라고 읽는다. 늘 사서 고생을 하지만 뜨겁게 박수 받지 못할 때가 많으며, 늘 의심의 눈초리와 알 수
-            없는 직원과의 괴리감 속에서 늘 달리는 것을 멈추면 되지 않는 자리...
-
-            창업을 하면서 '빚'이 생긴다는 것은 수치스러운 것이 아닌 '미래를 담보'로 오늘을 살아가기 위한 또 다른 기회의
-            발판...
-            <br />
-            <br />
-            고물가 고금리 그리고 할부의 시대를 살아가고 있는 지금, 누군가는 그것을 기회로 만들어가고 있으며 누군가는
-            빚에 대해 담담하게 받아들이고 계속해서 나아가는 자가 있다.
-            <br />
-            <br />
-            '창업을 한다는 것'은 정말 대단한 것이며, 소위 '배포'가 없다면 쉽게 할 수 없는 것이다. 늘 미래를 보며 오늘을
-            손해 보는 것 같지만, 포기하지만 않는다면, 모두의 동경과 시대의 흐름에 기억되는 그 이름 '창업자'...
-            <br />
-            <br />
-            신용으로 먹고 살아가는 사회에서 '창업자'로 굳건히 버티는 것은 어쩌면 위대한 여정이라고 나는 본다.`}
-         </Content>
+         <SubTitle label={title} labelMore="" />
+         <Content>{content}</Content>
 
          <ListTitle>만남 가능 장소</ListTitle>
+
          <LocationList>
-            <Location>{location}</Location>
-            <Location>{location}</Location>
+            {gu.map((el, idx) => (
+               <Location key={idx}>{el}</Location>
+            ))}
          </LocationList>
          <LocationList>
-            <Location>{gu}</Location>
+            <Location>{location}</Location>
          </LocationList>
 
          {/* 유진 */}
@@ -87,7 +74,7 @@ const DetailLayout = styled.div`
    z-index: 1;
 `;
 
-const UserCard = styled.div`
+const UserCard = styled.div<{ backImg: string }>`
    span {
       font-size: 16px;
       font-weight: 700;
@@ -104,7 +91,10 @@ const UserCard = styled.div`
    display: flex;
    align-items: center;
    margin-bottom: 13px;
-   img {
+   div {
+      background-image: url(${p => `${p.backImg}`});
+      background-position: cover;
+      border-radius: 30px;
       height: 45px;
       width: 45px;
       margin-right: 14px;

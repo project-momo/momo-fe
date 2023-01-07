@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
-
-const ModalDetail = () => {
+interface DetailProps {
+   title: string;
+}
+const ModalDetail = ({ title }: DetailProps) => {
    return (
       <>
          <TitleWrap>
-            <Title>창업은 아무나 하나?!</Title>
+            <Title>{title}</Title>
             <MbrPrtcp>단체 만남 1/7 (남은 자리 : 6명)</MbrPrtcp>
          </TitleWrap>
          <SelectSection>

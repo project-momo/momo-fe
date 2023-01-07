@@ -59,7 +59,7 @@ const QnaInput = ({ type }: QnaInputType) => {
             type={type}
          />
          <SubmitBtn onClick={onSubmit} type2={type}>
-            <img src={IconCommentAdd} />
+            <img src={IconCommentAdd} alt="commentAdd" />
          </SubmitBtn>
       </InputWarp>
    );

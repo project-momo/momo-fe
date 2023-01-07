@@ -15,6 +15,7 @@ interface MainProps {
       addresses: string[];
    };
    price: number;
+   meetingId: number;
 }
 
 const MainList = () => {
@@ -24,9 +25,10 @@ const MainList = () => {
    const [loading, setLoading] = useState(true);
    const getMoimData = async () => {
       try {
-         const data = await axios
-            .get(`${API_URI}/meetings?&category=SOCIAL&page=1&size=18`)
-            .then(el => setModimData(el.data.content));
+         const data = await axios.get(`${API_URI}/meetings?&category=SOCIAL&page=1&size=18`).then(el => {
+            console.log(el);
+            setModimData(el.data.content);
+         });
       } catch (error) {
          setError(error);
       } finally {
@@ -41,11 +43,12 @@ const MainList = () => {
       <CardList>
          {loading ? <p>로딩중...</p> : null}
          {moimData.length !== 0
-            ? moimData.map((el: MainProps, idx: number) => {
+            ? moimData.map((el: MainProps) => {
                  const priceString = el.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                  return (
                     <Card
-                       key={idx}
+                       key={el.meetingId}
+                       meetingId={el.meetingId}
                        username={el.host.nickname}
                        userImage={el.host.imageUrl}
                        title={el.title}

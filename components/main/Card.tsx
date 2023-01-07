@@ -7,13 +7,14 @@ interface CardProps {
    content: string;
    locate: string[];
    price: string;
+   meetingId: number;
 }
 
-const Card = ({ username, userImage, title, content, locate, price }: CardProps) => {
+const Card = ({ username, userImage, title, content, locate, price, meetingId }: CardProps) => {
    const shortLocate = locate[0].split(' ')[1];
    return (
       <CardWrap>
-         <a href="https://naver.com">
+         <a href={`/Sub/${meetingId}`}>
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>
