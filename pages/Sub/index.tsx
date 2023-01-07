@@ -4,7 +4,6 @@ import { RightBox } from '../../components/rightLayout/RightBox';
 import { CenterSection, RightSection } from '../../styles/style';
 import Detail from './../../components/detail/Detail';
 import IconPrice from './../../assets/images/icon_moin.svg';
-import Qna from '../../components/detail/Qna';
 import { Modal } from '../../components/common/Modal/Modal';
 import { useState } from 'react';
 import ModalDetail from '../../components/detail/ModalDetail';
@@ -22,7 +21,7 @@ const Sub = () => {
          <SubWrap className={isModalOpen ? 'modalactive' : ''}>
             <Category />
             <CenterSection>
-               <Detail userImage="유저이미지" username="유저이름" location="강남구" location2="근처 스타벅스" />
+               <Detail userImage="유저이미지" username="유저이름" gu="강남구" location="근처 스타벅스" />
             </CenterSection>
             <RightSection>
                <RightBox

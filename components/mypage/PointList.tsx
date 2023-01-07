@@ -11,7 +11,7 @@ const PointList = () => {
       <PointListWrapper>
          <div className="title">적립금 내역</div>
          <div className="card">
-            {pointList.map((list:any) => (
+            {pointList.map((list: any) => (
                <List data={list} key={list.id} />
             ))}
          </div>

@@ -13,7 +13,7 @@ const Card = ({ username, userImage, title, content, locate, price }: CardProps)
    const shortLocate = locate[0].split(' ')[1];
    return (
       <CardWrap>
-         <a href="#">
+         <a href="https://naver.com">
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>

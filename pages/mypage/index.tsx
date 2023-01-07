@@ -21,20 +21,20 @@ const Mypage = () => {
       // 통신
       axios
          .all([
-            api.get(API_URI + '/mypage/profile', {
-               // headers: {
-               //    Authorization: localStorage.getItem('AccessToken')
-               // }
+            axios.get(API_URI + '/mypage/profile', {
+               headers: {
+                  Authorization: localStorage.getItem('AccessToken')
+               }
             }),
-            api.get(API_URI + '/mypage/meetings/hosts?page=1&size=20', {
-               // headers: {
-               //    Authorization: localStorage.getItem('AccessToken')
-               // }
+            axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20', {
+               headers: {
+                  Authorization: localStorage.getItem('AccessToken')
+               }
             }),
-            api.get(API_URI + '/mypage/meetings/participants?page=1&size=20', {
-               // headers: {
-               //    Authorization: localStorage.getItem('AccessToken')
-               // }
+            axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20', {
+               headers: {
+                  Authorization: localStorage.getItem('AccessToken')
+               }
             })
          ])
          .then(
@@ -42,7 +42,6 @@ const Mypage = () => {
                setMyInfo(res1.data);
                setHostMeetings(res2.data);
                setAttendingMeetings(res3.data);
-               console.log(res3);
             })
          )
          .catch(err => console.log(err));

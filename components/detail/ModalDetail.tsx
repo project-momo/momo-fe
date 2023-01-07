@@ -4,7 +4,7 @@ import { Button } from '../common/Button';
 
 const ModalDetail = () => {
    return (
-      <DetailWrap>
+      <>
          <TitleWrap>
             <Title>창업은 아무나 하나?!</Title>
             <MbrPrtcp>단체 만남 1/7 (남은 자리 : 6명)</MbrPrtcp>
@@ -24,24 +24,9 @@ const ModalDetail = () => {
                <TimeList>
                   <span>13:00</span>
                </TimeList>
-               <TimeList>
-                  <span>13:00</span>
-               </TimeList>
-               <TimeList>
-                  <span>13:00</span>
-               </TimeList>
-               <TimeList>
-                  <span>13:00</span>
-               </TimeList>
-               <TimeList>
-                  <span>13:00</span>
-               </TimeList>
             </TimeTable>
          </SelectSection>
-         <BtnWrap>
-            <Button disabled={false} size="bigThin" label="" priceLabel="21,000" />
-         </BtnWrap>
-      </DetailWrap>
+      </>
    );
 };
 
@@ -57,10 +42,6 @@ const DetailWrap = styled.div`
 const TitleWrap = styled.div`
    padding-bottom: 10px;
    border-bottom: 1px solid #cecece;
-   width: 100%;
-   position: absolute;
-   top: 0;
-   left: 0;
 `;
 const Title = styled.p`
    font-size: 30px;
