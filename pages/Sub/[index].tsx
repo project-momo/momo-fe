@@ -36,7 +36,10 @@ const Sub = () => {
    return (
       <>
          {isModalOpen ? (
-            <Modal CloseModal={() => setIsModalOpen(!isModalOpen)} childrens={<ModalDetail title={subData.title} />} />
+            <Modal
+               CloseModal={() => setIsModalOpen(!isModalOpen)}
+               childrens={<ModalDetail dateTime={subData.dateTime} title={subData.title} />}
+            />
          ) : null}
          {modalOpen ? <Modal CloseModal={() => setModalOpen(!modalOpen)} childrens={<ShareModal />} /> : null}
          <SubWrap className={isModalOpen ? 'modalactive' : ''}>

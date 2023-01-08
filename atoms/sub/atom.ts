@@ -25,6 +25,16 @@ interface SubDataType {
    title: string;
    questions: [];
    meetingId: number;
+   dateTime: {
+      datePolicy: string;
+      startDate: string;
+      endDate: string;
+      startTime: string;
+      endTime: string;
+      maxTime: number;
+      dayWeeks: [];
+      dates: string[];
+   };
 }
 export const setSubDataObject = atom<SubDataType>({
    key: 'setSubDataObject',
@@ -46,6 +56,16 @@ export const setSubDataObject = atom<SubDataType>({
       price: 0,
       title: '',
       questions: [],
-      meetingId: 0
+      meetingId: 0,
+      dateTime: {
+         datePolicy: '',
+         startDate: '',
+         endDate: '',
+         startTime: '',
+         endTime: '',
+         maxTime: 0,
+         dayWeeks: [],
+         dates: []
+      }
    }
 });

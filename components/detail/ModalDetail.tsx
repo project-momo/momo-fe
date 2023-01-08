@@ -3,13 +3,29 @@ import styled from 'styled-components';
 import { Button } from '../common/Button';
 interface DetailProps {
    title: string;
+   dateTime: {
+      datePolicy: string;
+      startDate: string;
+      endDate: string;
+      startTime: string;
+      endTime: string;
+      maxTime: number;
+      dayWeeks: [];
+      dates: string[];
+   };
 }
-const ModalDetail = ({ title }: DetailProps) => {
+const ModalDetail = ({ title, dateTime }: DetailProps) => {
    return (
       <>
          <TitleWrap>
             <Title>{title}</Title>
-            <MbrPrtcp>단체 만남 1/7 (남은 자리 : 6명)</MbrPrtcp>
+            <MbrPrtcp>
+               {dateTime.datePolicy === 'FREE'
+                  ? '자유 일정을 선택해주세요.'
+                  : dateTime.datePolicy === 'PERIOD'
+                  ? '주중 일정을 확인해주세요.'
+                  : '단체 만남 1/7 (남은 자리 : 6명)'}
+            </MbrPrtcp>
          </TitleWrap>
          <SelectSection>
             <SubTitle>시간선택</SubTitle>
