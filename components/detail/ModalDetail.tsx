@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
+import { label } from '../common/Header/HeaderButton.stories';
+import FreeDate from '../create/Date/FreeDate';
+import OneDate from '../create/Date/OneDate';
+import PeriodDate from '../create/Date/PeriodDate';
 interface DetailProps {
    title: string;
+   price: number;
    dateTime: {
       datePolicy: string;
-      startDate: string;
-      endDate: string;
+      startDate: Date;
+      endDate: Date;
       startTime: string;
       endTime: string;
       maxTime: number;
@@ -14,21 +19,48 @@ interface DetailProps {
       dates: string[];
    };
 }
-const ModalDetail = ({ title, dateTime }: DetailProps) => {
+const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
+   const datePolicy = dateTime.datePolicy;
+   const [startDate, setStartDate] = useState<any>(dateTime.startDate);
+   const [endDate, setEndDate] = useState<any>(dateTime.endDate);
+
+   const onCheckDayWeeks = () => {
+      console.log('week');
+      console.log(startDate, endDate);
+   };
+   const dpSetting = {
+      dateFormat: 'yyyy-MM-dd',
+      dateFormatCalendar: 'yyyy.MM',
+      withPortal: true
+   };
+   const [dates, setDates] = useState<any>('');
    return (
       <>
          <TitleWrap>
             <Title>{title}</Title>
             <MbrPrtcp>
-               {dateTime.datePolicy === 'FREE'
+               {datePolicy === 'FREE'
                   ? '자유 일정을 선택해주세요.'
-                  : dateTime.datePolicy === 'PERIOD'
+                  : datePolicy === 'PERIOD'
                   ? '주중 일정을 확인해주세요.'
                   : '단체 만남 1/7 (남은 자리 : 6명)'}
             </MbrPrtcp>
          </TitleWrap>
          <SelectSection>
-            <SubTitle>시간선택</SubTitle>
+            <SubTitle>날짜선택</SubTitle>
+            {/* {datePolicy === 'ONE_DAY' && <OneDate date={date} setDate={setDate} dpSetting={dpSetting} />} */}
+            {/* {datePolicy === 'PERIOD' && (
+               <PeriodDate
+                  startDate={startDate}
+                  endDate={endDate}
+                  setStartDate={setStartDate}
+                  setEndDate={setEndDate}
+                  onCheckDayWeeks={onCheckDayWeeks}
+                  dpSetting={dpSetting}
+               />
+            )} */}
+            {datePolicy === 'FREE' && <FreeDate dates={dates} setDates={setDates} dpSetting={dpSetting} />}
+            {/* <SubTitle>시간선택</SubTitle>
             <TimeTable>
                <TimeList>
                   <span>10:00</span>
@@ -42,7 +74,14 @@ const ModalDetail = ({ title, dateTime }: DetailProps) => {
                <TimeList>
                   <span>13:00</span>
                </TimeList>
-            </TimeTable>
+            </TimeTable> */}
+            <Button
+               size="bigBold"
+               disabled={false}
+               backgroundColor="#444bff"
+               priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+               label=""
+            />
          </SelectSection>
       </>
    );

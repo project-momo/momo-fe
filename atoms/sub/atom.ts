@@ -27,8 +27,8 @@ interface SubDataType {
    meetingId: number;
    dateTime: {
       datePolicy: string;
-      startDate: string;
-      endDate: string;
+      startDate: any;
+      endDate: any;
       startTime: string;
       endTime: string;
       maxTime: number;
