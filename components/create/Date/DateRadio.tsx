@@ -3,7 +3,7 @@ import { SetStateAction } from 'react';
 
 interface DateRadioProps {
    setDatePolicy: (value: SetStateAction<string>) => void;
-   setPersonnel: (value: SetStateAction<number>) => void;
+   setPersonnel: (value: SetStateAction<number | string>) => void;
 }
 
 const DateRadio = ({ setDatePolicy, setPersonnel }: DateRadioProps) => {
