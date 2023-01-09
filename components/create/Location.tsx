@@ -101,7 +101,8 @@ const LocationStyle = styled.ul`
    display: flex;
    flex-wrap: wrap;
    width: 50%;
-   height: 300px;
+   height: fit-content;
+   max-height: 300px;
    overflow-y: scroll;
 
    li {

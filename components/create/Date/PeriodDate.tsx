@@ -44,31 +44,31 @@ const PeriodDate = ({ startDate, endDate, setStartDate, setEndDate, onCheckDayWe
          <RadioButtons>
             <label>
                <input type="checkbox" id="1" value="1" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="1">월</label>
+               <label htmlFor="1">ㅤ</label>월
             </label>
             <label>
                <input type="checkbox" id="2" value="2" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="2">화</label>
+               <label htmlFor="2">ㅤ</label>화
             </label>
             <label>
                <input type="checkbox" id="3" value="3" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="3">수</label>
+               <label htmlFor="3">ㅤ</label>수
             </label>
             <label>
                <input type="checkbox" id="4" value="4" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="4">목</label>
+               <label htmlFor="4">ㅤ</label>목
             </label>
             <label>
                <input type="checkbox" id="5" value="5" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="5">금</label>
+               <label htmlFor="5">ㅤ</label>금
             </label>
             <label>
                <input type="checkbox" id="6" value="6" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="6">토</label>
+               <label htmlFor="6">ㅤ</label>토
             </label>
             <label>
                <input type="checkbox" id="7" value="7" onChange={e => onCheckDayWeeks(Number(e.target.value))} />
-               <label htmlFor="7">일</label>
+               <label htmlFor="7">ㅤ</label>일
             </label>
          </RadioButtons>
       </>
