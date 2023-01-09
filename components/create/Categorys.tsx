@@ -9,28 +9,51 @@ interface CategorysProps {
 const Categorys = ({ category, setCategory }: CategorysProps) => {
    return (
       <CategorysStyle>
-         <li onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
-            라이프스타일
+         <li>
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('DESIGN')} className={category === 'DESIGN' ? 'selected' : ''}>
             디자인
+            <button onClick={() => setCategory('DESIGN')} className={category === 'DESIGN' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('MEDIA')} className={category === 'MEDIA' ? 'selected' : ''}>
             미디어
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('DEVELOP')} className={category === 'DEVELOP' ? 'selected' : ''}>
             개발
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('EDU')} className={category === 'EDU' ? 'selected' : ''}>
             교육
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('FINANCE')} className={category === 'FINANCE' ? 'selected' : ''}>
             금융
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('SOCIAL')} className={category === 'SOCIAL' ? 'selected' : ''}>
             소셜
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
          </li>
          <li onClick={() => setCategory('AI')} className={category === 'AI' ? 'selected' : ''}>
+            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+               라이프스타일
+            </button>
             인공지능
          </li>
       </CategorysStyle>

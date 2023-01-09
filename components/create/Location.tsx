@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface LocationProps {
    si: string;
-   gu: string[];
+   gu: number[];
    onClickSi: (value: string) => void;
    onClickGu: (value: number) => void;
 }
