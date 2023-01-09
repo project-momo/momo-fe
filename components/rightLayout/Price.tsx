@@ -2,7 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
 import IconPrice from './../../assets/images/icon_price.svg';
-const Price = () => {
+interface PriceProps {
+   OpenModal: () => void;
+   price: number;
+   open: string;
+}
+const Price = ({ OpenModal, price, open }: PriceProps) => {
+   const priceData = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+   const openState = open === '모집 완료' ? true : false;
    return (
       <PriceLayout>
          <Title>
@@ -11,9 +18,15 @@ const Price = () => {
          </Title>
          <PriceInfo>
             <PriceType>시간당 가격</PriceType>
-            <PriceNumber>3,000원</PriceNumber>
+            <PriceNumber>{priceData}</PriceNumber>
          </PriceInfo>
-         <Button disabled={false} label="참여하기" size="smallBold" />
+         <Button
+            onClick={OpenModal}
+            // disabled={openState}
+            disabled={false}
+            label={openState ? '모집 완료' : '참여하기'}
+            size="smallBold"
+         />
       </PriceLayout>
    );
 };

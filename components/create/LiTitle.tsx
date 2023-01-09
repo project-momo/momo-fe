@@ -3,11 +3,11 @@ import styled from 'styled-components';
 interface LiTitleProps {
    main: string;
    sub?: string;
-   error: string;
+   error?: string;
 }
 
 interface ErrorType {
-   error: string;
+   error?: string;
 }
 
 const LiTitle = ({ main, sub, error }: LiTitleProps) => {

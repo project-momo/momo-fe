@@ -1,57 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import UserImg from './../../assets/images/userimg.svg';
 import styled from 'styled-components';
+import axios from 'axios';
 
-const dummyList = [
-   {
-      username: '유저이르으으음',
-      userImage: UserImg,
-      title: '읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽',
-      content: '안녕하세요! 온라인 북클럽 Bookies의 새로운 모임 #벽돌-휴먼에 참가하실 분들을 기다리고 있습니다!',
-      locate: '강남구',
-      price: '3,000'
-   },
-   {
-      username: '유저이르으으음',
-      userImage: UserImg,
-      title: '읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽',
-      content: '안녕하세요! 온라인 북클럽 Bookies의 새로운 모임 #벽돌-휴먼에 참가하실 분들을 기다리고 있습니다!',
-      locate: '강남구',
-      price: '3,000'
-   },
-   {
-      username: '유저이르으으음',
-      userImage: UserImg,
-      title: '읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽',
-      content: '안녕하세요! 온라인 북클럽 Bookies의 새로운 모임 #벽돌-휴먼에 참가하실 분들을 기다리고 있습니다!',
-      locate: '강남구',
-      price: '3,000'
-   },
-   {
-      username: '유저이르으으음',
-      userImage: UserImg,
-      title: '읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽읽기를 미루고 있던 두꺼운 벽돌책 부수는 북클럽',
-      content: '안녕하세요! 온라인 북클럽 Bookies의 새로운 모임 #벽돌-휴먼에 참가하실 분들을 기다리고 있습니다!',
-      locate: '강남구',
-      price: '3,000'
-   }
-];
+interface MainProps {
+   host: { nickname: string; imageUrl: string };
+   nickname: string;
+   imageUrl: string;
+   title: string;
+   content: string;
+   address: {
+      addressInfo: string;
+      addresses: string[];
+   };
+   price: number;
+   meetingId: number;
+}
+interface CategoryProps {
+   category: string;
+}
+const MainList = ({ category }: CategoryProps) => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const [moimData, setModimData] = useState([] as any);
+   const [error, setError] = useState('' as string | unknown);
+   const [loading, setLoading] = useState(true);
+   const getMoimData = async () => {
+      try {
+         const data = await axios.get(`${API_URI}/meetings?&category=${category}&page=1&size=18`).then(el => {
+            setModimData(el.data.content);
+         });
+      } catch (error) {
+         setError(error);
+      } finally {
+         setLoading(false);
+      }
+   };
 
-const MainList = () => {
+   useEffect(() => {
+      getMoimData();
+   }, [category]);
    return (
       <CardList>
-         {dummyList.map((el, idx) => (
-            <Card
-               key={idx}
-               username={el.username}
-               userImage={el.userImage}
-               title={el.title}
-               content={el.content}
-               locate={el.locate}
-               price={el.price}
-            />
-         ))}
+         {loading ? (
+            <p>로딩중...</p>
+         ) : moimData.length !== 0 ? (
+            moimData.map((el: MainProps) => {
+               const priceString = el.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+               return (
+                  <Card
+                     key={el.meetingId}
+                     meetingId={el.meetingId}
+                     username={el.host.nickname}
+                     userImage={el.host.imageUrl}
+                     title={el.title}
+                     content={el.content}
+                     locate={el.address.addresses}
+                     price={priceString}
+                  />
+               );
+            })
+         ) : (
+            <p>해당하는 카테고리의 모임이 없습니다.</p>
+         )}
       </CardList>
    );
 };

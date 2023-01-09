@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import MyMeetings_mypage from '../../components/mypage/MyMeetings_mypage';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
+import { api } from '../../util/token';
 
 const Mypage = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -43,6 +44,7 @@ const Mypage = () => {
    };
 
    useEffect(() => {
+      console.log(axios.defaults.headers.common.Authorization);
       // 통신
       axios
          .all([
