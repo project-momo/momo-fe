@@ -23,7 +23,7 @@ interface LoginProps {
 const Header = ({ OpenModal }: LoginProps) => {
    const [isLoginState, setIsLoginState] = useRecoilState(isLogin);
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const route = useRouter();
+   const router = useRouter();
 
    useEffect(() => {
       if (localStorage.getItem('RefreshToken') !== null) {
@@ -42,6 +42,7 @@ const Header = ({ OpenModal }: LoginProps) => {
       localStorage.removeItem('AccessToken');
       localStorage.removeItem('RefreshToken');
       setIsLoginState(false);
+      router.push('/');
    };
 
    // const userInfo = async () => {
@@ -68,7 +69,7 @@ const Header = ({ OpenModal }: LoginProps) => {
                <div>
                   {isLoginState ? (
                      <>
-                        <HeaderButton onClick={() => route.push('/mypage')} label="MY" />
+                        <HeaderButton onClick={() => router.push('/mypage')} label="MY" />
                         <HeaderButton onClick={logoutFunc} label="Logout" />
                      </>
                   ) : (
