@@ -26,7 +26,7 @@ const Dim = styled.div`
    align-items: center;
    justify-content: center;
    background-color: rgba(0, 0, 0, 0.7);
-   position: absolute;
+   position: fixed;
    top: 0;
    left: 0;
    z-index: 9999;

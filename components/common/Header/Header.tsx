@@ -15,6 +15,7 @@ const HeaderLayout = styled.div`
    position: fixed;
    top: 0;
    left: 0;
+   z-index: 999;
 `;
 
 interface LoginProps {
@@ -28,13 +29,12 @@ const Header = ({ OpenModal }: LoginProps) => {
    useEffect(() => {
       if (localStorage.getItem('RefreshToken') !== null) {
          setIsLoginState(true);
-         console.log(localStorage.getItem('RefreshToken'));
       } else {
          setIsLoginState(false);
       }
    }, []);
    const logoutFunc = async () => {
-      const hi = await axios.delete(`${API_URI}/auth/token`, {
+      await axios.delete(`${API_URI}/auth/token`, {
          headers: {
             RefreshToken: localStorage.getItem('AccessToken')
          }
@@ -42,15 +42,9 @@ const Header = ({ OpenModal }: LoginProps) => {
       localStorage.removeItem('AccessToken');
       localStorage.removeItem('RefreshToken');
       setIsLoginState(false);
+      window.location.reload();
    };
 
-   // const userInfo = async () => {
-   //   console.log(axios.defaults.headers.common['Authorization']);
-   //   const hoho = await axios.get(
-   //     'https://2ba7-39-116-11-157.jp.ngrok.io/mypage/profile',
-   //   );
-   //   console.log(hoho);
-   // };
    return (
       <HeaderLayout>
          <Wrapper>
@@ -86,9 +80,11 @@ const Header = ({ OpenModal }: LoginProps) => {
 export default Header;
 
 const Wrapper = styled.div`
+   position: fixed;
    height: 55px;
    width: 100%;
    background-color: #49515b;
+   z-index: 999;
 `;
 
 const InnerWrapper = styled.div`
@@ -100,6 +96,7 @@ const InnerWrapper = styled.div`
    display: flex;
    justify-content: space-between;
    position: relative;
+   z-index: 999;
 `;
 const H = styled.h1`
    font-weight: 700;

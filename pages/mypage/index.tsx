@@ -7,6 +7,7 @@ import { mypageAttendingMeetings, mypageHostMeetings, myProfile } from '../../at
 import { useEffect } from 'react';
 import axios from 'axios';
 import MyMeetings_mypage from '../../components/mypage/MyMeetings_mypage';
+import { api } from '../../util/token';
 
 const Mypage = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -16,6 +17,7 @@ const Mypage = () => {
    const setAttendingMeetings = useSetRecoilState(mypageAttendingMeetings);
 
    useEffect(() => {
+      console.log(axios.defaults.headers.common.Authorization);
       // 통신
       axios
          .all([
