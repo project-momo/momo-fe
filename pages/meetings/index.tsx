@@ -13,11 +13,7 @@ const Meetings = () => {
    useEffect(() => {
       // 통신
       axios
-         .get(API_URI + '/mypage/meetings/hosts?page=1&size=20', {
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })
+         .get(API_URI + '/mypage/meetings/hosts?page=1&size=20')
          .then(res => {
             setHostMeetings(res.data);
          })

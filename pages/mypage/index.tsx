@@ -46,21 +46,9 @@ const Mypage = () => {
       // 통신
       axios
          .all([
-            axios.get(API_URI + '/mypage/profile', {
-               headers: {
-                  Authorization: localStorage.getItem('AccessToken')
-               }
-            }),
-            axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20', {
-               headers: {
-                  Authorization: localStorage.getItem('AccessToken')
-               }
-            }),
-            axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20', {
-               headers: {
-                  Authorization: localStorage.getItem('AccessToken')
-               }
-            })
+            axios.get(API_URI + '/mypage/profile'),
+            axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20'),
+            axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20')
          ])
          .then(
             axios.spread((res1, res2, res3) => {
