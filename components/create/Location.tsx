@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface LocationProps {
    si: string;
-   gu: string[];
+   gu: number[];
    onClickSi: (value: string) => void;
    onClickGu: (value: number) => void;
 }
@@ -44,13 +44,14 @@ const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
             <LocationStyle>
                {locationDummy &&
                   locationDummy.map(el => (
-                     <li
-                        key={el.si}
-                        onClick={() => {
-                           onClickSi(el.si);
-                        }}
-                        className={el.si === si ? 'selectedSi' : ''}>
-                        {el.si}
+                     <li key={el.si}>
+                        <button
+                           onClick={() => {
+                              onClickSi(el.si);
+                           }}
+                           className={el.si === si ? 'selectedSi' : ''}>
+                           {el.si}
+                        </button>
                      </li>
                   ))}
             </LocationStyle>
@@ -60,13 +61,14 @@ const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
                   locationDummy.map(el => {
                      if (el.si === si) {
                         return el.gu.map(el => (
-                           <li
-                              key={el.id}
-                              onClick={() => {
-                                 onClickGu(el.id);
-                              }}
-                              className={gu.includes(el.id) ? 'selectedGu' : ''}>
-                              {el.name}
+                           <li key={el.id}>
+                              <button
+                                 onClick={() => {
+                                    onClickGu(el.id);
+                                 }}
+                                 className={gu.includes(el.id) ? 'selectedGu' : ''}>
+                                 {el.name}
+                              </button>
                            </li>
                         ));
                      }
@@ -99,21 +101,25 @@ const LocationStyle = styled.ul`
    display: flex;
    flex-wrap: wrap;
    width: 50%;
-   height: 300px;
+   height: fit-content;
+   max-height: 300px;
    overflow-y: scroll;
 
    li {
       width: 50%;
+   }
+   li button {
+      width: 100%;
       padding: 12px 10px;
       border-radius: 10px;
-      cursor: pointer;
+      text-align: left;
    }
-   li.selectedSi {
+   li button.selectedSi {
       background-color: #d4e6ff;
       color: #6a6ff2;
       transition: background-color 0.2s ease-in-out;
    }
-   li.selectedGu {
+   li button.selectedGu {
       color: #6a6ff2;
    }
 
