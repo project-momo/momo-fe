@@ -8,10 +8,10 @@ env:
   NEXT_PUBLIC_API_URI: ${{ secrets.NEXT_PUBLIC_API_URI }}
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
         
       - name: Install dependencies
         run: npm install
