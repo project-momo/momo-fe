@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { modalState, selectedMeeting } from '../../atoms/mypage/atoms';
 import Application from './Application';
@@ -8,6 +9,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
    const setType = useSetRecoilState(modalState);
    const setSelectedMeeting = useSetRecoilState(selectedMeeting);
    const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+   const [hasAccordion, setAccordionState] = useState(false);
    let newApplications, confirmedApplications, meetingInfo;
 
    // 참여 모임
@@ -24,10 +26,23 @@ const MyMeetingCard = ({ data, participant }: any) => {
       confirmedApplications = data.applications.confirmed;
    }
 
-   const deleteMeeting = () => {
-      setType('deleteMeeting');
+   const closeMeeting = () => {
+      setType('closeMeeting');
       setSelectedMeeting({ id: data.meetingId });
    };
+
+   const cancelMeeting = () => {
+      setType('cancelMeeting');
+      setSelectedMeeting({ id: data.meetingId });
+   };
+
+   useEffect(() => {
+      if (newApplications.length === 0 && confirmedApplications.length === 0) {
+         setAccordionState(false);
+      } else if (newApplications.length > 0 || confirmedApplications.length > 0) {
+         setAccordionState(true);
+      }
+   }, []);
 
    return (
       <div id="detail">
@@ -58,27 +73,42 @@ const MyMeetingCard = ({ data, participant }: any) => {
                         data-bs-target={`#collapse${data.meetingId}`}
                         aria-expanded="true"
                         aria-controls={`collapse${data.meetingId}`}>
-                        <Button text="참가 신청 현황" icon />
+                        <Button
+                           func={() => setSelectedMeeting({ id: data.meetingId })}
+                           text="참가 신청 현황"
+                           icon={hasAccordion}
+                        />
                      </div>
                   ) : (
                      <div data-bs-toggle="modal" data-bs-target="#myModal">
-                        <Button text="참가 신청 현황" meetingInfo={meetingInfo} modal />
+                        <Button
+                           func={() => setSelectedMeeting({ id: data.meetingId })}
+                           text="참가 신청 현황"
+                           meetingInfo={meetingInfo}
+                           modal
+                        />
                      </div>
                   )}
 
                   {data.isOpen && (
                      <div>
-                        <Basic>모임 변경</Basic>
-                        <Basic onClick={deleteMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
-                           모임 취소
-                        </Basic>
+                        {!participant && <Basic className="halfWidth">모임 변경</Basic>}
+                        {!participant ? (
+                           <Basic onClick={closeMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
+                              모임 마감
+                           </Basic>
+                        ) : (
+                           <Basic onClick={cancelMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
+                              모임 취소
+                           </Basic>
+                        )}
                      </div>
                   )}
                </div>
             </h2>
 
             {/* 신정 현황 확인 */}
-            {!participant && (
+            {!participant && hasAccordion && (
                <div
                   id={`collapse${data.meetingId}`}
                   className="accordion-collapse collapse  application-status"
