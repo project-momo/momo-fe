@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { QnaType } from '../../atoms/qna/atom';
 import UserImage from './../../assets/images/userimg.svg';
-import IconModify from './../../assets/images/icon_mdify.svg';
-import IconDelete from './../../assets/images/icon_delete.svg';
-import { QnaType } from './QnaList';
-import { useRecoilValue } from 'recoil';
-import { myProfile } from '../../atoms/mypage/atoms';
 import QnaInput from './QnaInput';
 
 interface QnaCompoType {
@@ -40,7 +36,7 @@ const Qna = ({ qna }: QnaCompoType) => {
                         </CommentWarp>
                      ))}
                      <WriteAnswerBtn onClick={() => settoggleWriteAnswer(!toggleWriteAnswer)}>답변 작성</WriteAnswerBtn>
-                     {toggleWriteAnswer && <QnaInput type="answer" />}
+                     {toggleWriteAnswer && <QnaInput type="answer" qid={qna.questionId} />}
                   </>
                )}
             </SecondUl>
