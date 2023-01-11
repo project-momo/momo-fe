@@ -34,8 +34,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
         run: |
-          aws s3 cp \
-            --recursive \
+          aws s3 sync \
             --region ap-northeast-2 \
-            dist s3://momo-deploy.site
+            build s3://momo-deploy.site \
+            --delete
         working-directory: ./
