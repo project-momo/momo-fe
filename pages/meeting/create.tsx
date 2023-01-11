@@ -203,12 +203,8 @@ const Create = () => {
       console.log('전송!', data);
 
       axios
-         .post(`${API_URI}/meetings`, data, {
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })
-         .then(res => console.log('성공', res))
+         .post(`${API_URI}/meetings`, data)
+         .then()
          .catch(err => console.log('에러', err));
    };
 

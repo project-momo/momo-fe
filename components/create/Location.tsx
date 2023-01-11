@@ -28,7 +28,6 @@ const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
       axios
          .get(`${API_URI}/addresses`)
          .then(res => {
-            console.log('성공', res);
             SetlocationDummy(res.data);
          })
          .catch(err => console.log('에러', err));
