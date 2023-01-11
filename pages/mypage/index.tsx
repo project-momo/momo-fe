@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import MyMeetings_mypage from '../../components/mypage/MyMeetings_mypage';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
-import { api } from '../../util/token';
 
 const Mypage = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -21,6 +20,7 @@ const Mypage = () => {
 
    // 결제창 띄우기 테스트 완료
    const startPayment = async () => {
+      // GET /payments/success?paymentKey=PAYMENT_KEY&orderId=ORDER_ID&amount=10000
       const tossPayments = await loadTossPayments(clientKey);
 
       tossPayments
@@ -29,6 +29,9 @@ const Mypage = () => {
             orderId: 'fHpRP7cw3gOEn1w0PZd-W', // 주문 id
             orderName: `임채영`, // 결제 이름
             customerName: 'test', // 판매자, 판매처 이름
+            customerEmail: 'user@test.com',
+            // createDate: '2023-01-10',
+            // paySuccessYn: '결제 전',
             successUrl: 'http://localhost:3000/payment/success', // 성공시 리다이렉트 주소
             failUrl: 'http://localhost:3000/payment/failed' // 실패시 리다이렉트 주소
          })
@@ -44,7 +47,7 @@ const Mypage = () => {
    };
 
    useEffect(() => {
-      console.log(axios.defaults.headers.common.Authorization);
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       // 통신
       axios
          .all([
