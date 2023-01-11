@@ -1,5 +1,5 @@
 # .github/workflows/main.yml
-name: client
+name: momo-fe
 on:
   push:
     branches:
