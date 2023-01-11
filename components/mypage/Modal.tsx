@@ -7,7 +7,8 @@ import Withdraw from '../common/Modal/ModalCompo/Withdraw';
 import { useRecoilValue } from 'recoil';
 import { modalState } from '../../atoms/mypage/atoms';
 import RejectApplication from '../common/Modal/ModalCompo/RejectApplication';
-import DeleteMeeting from '../common/Modal/ModalCompo/DeleteMeeting';
+import CloseMeeting from '../common/Modal/ModalCompo/CloseMeeting';
+import AcceptApplication from '../common/Modal/ModalCompo/AcceptApplication';
 
 const Modal = () => {
    const type = useRecoilValue(modalState);
@@ -45,8 +46,10 @@ const Modal = () => {
                         routeBtnPath="/"
                      />
                   )}
-                  {/* 모임 삭제 모달 */}
-                  {type === 'deleteMeeting' && <DeleteMeeting />}
+                  {/* 모임 마감 모달 */}
+                  {type === 'closeMeeting' && <CloseMeeting />}
+                  {/* 신청 수락 모달 */}
+                  {type === 'accept' && <AcceptApplication />}
                   {/* 신청 반려 사유 모달 */}
                   {type === 'cancel' && <RejectApplication />}
                   {/* 참가 신청 현황 모달 */}
