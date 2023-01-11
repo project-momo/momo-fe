@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  NEXT_PUBLIC_API_URI: ${{ secrets.NEXT_PUBLIC_API_URI }}
 jobs:
   build:
     runs-on: ubuntu-20.04
