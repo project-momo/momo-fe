@@ -1,23 +1,25 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { qnaListState } from '../../atoms/qna/atom';
+import { setSubDataObject } from '../../atoms/sub/atom';
 import IconCommentAdd from './../../assets/images/icon_cmment_add.svg';
 
 interface QnaInputType {
    type: string;
+   qid?: number;
 }
 
-const QnaInput = ({ type }: QnaInputType) => {
+const QnaInput = ({ type, qid }: QnaInputType) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const meeting_id = 3;
-   const question_id = 1;
+
+   const { meetingId } = useRecoilValue(setSubDataObject);
 
    const url =
       type === 'question'
-         ? `${API_URI}/meetings/${meeting_id}/questions`
-         : `${API_URI}/meetings/${meeting_id}/questions/${question_id}/answers`;
+         ? `${API_URI}/meetings/${meetingId}/questions`
+         : `${API_URI}/meetings/${meetingId}/questions/${qid}/answers`;
 
    const setQnaList = useSetRecoilState(qnaListState);
    const [content, setContent] = useState('');
@@ -30,17 +32,8 @@ const QnaInput = ({ type }: QnaInputType) => {
       }
 
       axios
-         .post(
-            url,
-            { content },
-            {
-               headers: {
-                  Authorization: localStorage.getItem('AccessToken')
-               }
-            }
-         )
+         .post(url, { content })
          .then(res => {
-            console.log('성공', res);
             setQnaList(res.data);
             setContent('');
          })

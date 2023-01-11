@@ -203,12 +203,8 @@ const Create = () => {
       console.log('전송!', data);
 
       axios
-         .post(`${API_URI}/meetings`, data, {
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })
-         .then(res => console.log('성공', res))
+         .post(`${API_URI}/meetings`, data)
+         .then()
          .catch(err => console.log('에러', err));
    };
 
@@ -473,6 +469,10 @@ export const Flex = styled.div`
 export const RadioButtons = styled.div`
    margin-bottom: 15px;
 
+   > label {
+      display: inline-flex;
+      align-items: center;
+   }
    > label:not(:last-of-type) {
       margin-right: 20px;
    }
@@ -483,8 +483,6 @@ export const RadioButtons = styled.div`
    input[type='radio'],
    input[type='checkbox'] + label {
       margin-right: 5px;
-      width: 1em;
-      height: 1em;
       border: 1.5px solid gray;
    }
    input[type='radio']:hover,
@@ -493,6 +491,8 @@ export const RadioButtons = styled.div`
    }
 
    input[type='radio'] {
+      width: 1em;
+      height: 1em;
       appearance: none;
       border-radius: 50%;
       transition: border 0.1s ease-in-out;
@@ -501,14 +501,12 @@ export const RadioButtons = styled.div`
       border: 5px solid #6a6ff2;
    }
 
-   input[type='checkbox'] + label {
-      width: 0.9em;
-      height: 0.9em;
-   }
    input[type='checkbox'] {
       display: none;
    }
    input[type='checkbox'] + label {
+      width: 0.9em;
+      height: 0.9em;
       display: inline-block;
       position: relative;
       border-radius: 3px;

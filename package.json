@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
@@ -15,6 +15,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@tosspayments/payment-sdk": "^1.2.5",
+    "@svgr/webpack": "^6.5.1",
     "@types/react-datepicker": "^4.8.0",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.2.1",
