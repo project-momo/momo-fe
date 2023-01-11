@@ -34,3 +34,8 @@ export const selectedMeeting = atom<any>({
    key: 'selectedMeeting',
    default: {}
 });
+
+export const selectedReservation = atom<any>({
+   key: 'selectedReservation',
+   default: {}
+});

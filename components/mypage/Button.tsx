@@ -16,9 +16,10 @@ export const Button = (props: any) => {
       if (props.modal) {
          setType('applicationStatus');
          setMeetingInfo(props.meetingInfo);
-      } else {
+      } else if (props.icon) {
          setActive(!isActive);
       }
+      props.func();
    };
 
    return (
