@@ -8,10 +8,10 @@ env:
   NEXT_PUBLIC_API_URI: ${{ secrets.NEXT_PUBLIC_API_URI }}
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         
       - name: Install dependencies
         run: npm install
@@ -33,5 +33,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_EC2_METADATA_DISABLED: true
-        run: aws s3 sync --region ap-northeast-2 build s3://momo-deploy.site --delete
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            dist s3://momo-deploy.site
         working-directory: ./
