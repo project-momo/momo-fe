@@ -137,6 +137,10 @@ export const MeetingWrapper = styled(BasicWrapper)`
             justify-content: space-between;
             margin-top: 5px;
             button {
+               width: 100%;
+            }
+            .halfWidth,
+            .halfWidth + button {
                width: 49%;
             }
          }

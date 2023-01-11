@@ -11,6 +11,7 @@ const Attending = () => {
    const setAttendingMeetings = useSetRecoilState(mypageAttendingMeetings);
 
    useEffect(() => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       // 통신
       axios
          .get(API_URI + '/mypage/meetings/participants?page=1&size=20')

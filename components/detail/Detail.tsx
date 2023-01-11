@@ -11,7 +11,7 @@ import ModalDetail from './ModalDetail';
 // eslint-disable-next-line import/no-unresolved
 import QnaInput from './QnaInput';
 import SubModal from './SubModal';
-import QnAList from './QnaList';
+import QnaList from './QnAList';
 interface DetailProps {
    userImage: string;
    username: string;
@@ -57,7 +57,7 @@ const Detail = ({ userImage, username, location, gu, content, title, meetingId }
                {qnaListLength}개 <ToggleImg open={toggleQna} src={IconToggle} alt="toggle" />
             </button>
          </ListTitle>
-         {toggleQna && <QnAList />}
+         {toggleQna && <QnaList />}
          <QnaInput type="question" />
       </DetailLayout>
    );
