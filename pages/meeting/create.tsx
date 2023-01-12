@@ -22,7 +22,7 @@ import { Button } from '../../components/common/Button';
 const Create = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
 
-   const [category, setCategory] = useState('LIFESTYLE');
+   const [category, setCategory] = useState('라이프스타일');
    const [title, setTitle] = useState('');
    const [content, setContent] = useState('');
    const [tags, setTags] = useState<string[]>([]);
