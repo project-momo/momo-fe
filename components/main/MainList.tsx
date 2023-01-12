@@ -3,6 +3,9 @@ import Card from './Card';
 import UserImg from './../../assets/images/userimg.svg';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { nowCategoryState } from '../../atoms/sub/atom';
+import { useRouter } from 'next/router';
 
 interface MainProps {
    host: { nickname: string; imageUrl: string };
@@ -18,18 +21,23 @@ interface MainProps {
    meetingId: number;
 }
 interface CategoryProps {
-   category: string;
+   category?: string;
 }
 const MainList = ({ category }: CategoryProps) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const [moimData, setModimData] = useState([] as any);
    const [error, setError] = useState('' as string | unknown);
    const [loading, setLoading] = useState(true);
+   const { query } = useRouter();
+   // const setCategory = useRecoilValue(nowCategoryState);
    const getMoimData = async () => {
       try {
-         const data = await axios.get(`${API_URI}/meetings?&category=${category}&page=1&size=18`).then(el => {
-            setModimData(el.data.content);
-         });
+         const data = await axios
+            .get(`${API_URI}/meetings?&category=${query.category ? query.category : ''}&page=1&size=18`)
+            .then(el => {
+               console.log(el);
+               setModimData(el.data.content);
+            });
       } catch (error) {
          setError(error);
       } finally {

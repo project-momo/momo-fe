@@ -69,3 +69,8 @@ export const setSubDataObject = atom<SubDataType>({
       }
    }
 });
+
+export const nowCategoryState = atom<string | string[]>({
+   key: 'nowCategoryState',
+   default: ''
+});

@@ -17,7 +17,7 @@ const Home: NextPage = () => {
          <CenterSection>
             <Title label="전체" />
             <MainTags />
-            <MainList category="" />
+            <MainList />
          </CenterSection>
          <RightSection>
             <RightBox label="실시간 핫한 모임" imgLink={IconHot} childrens={<RankList />} />
