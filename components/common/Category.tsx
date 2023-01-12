@@ -49,48 +49,58 @@ export const Category = () => {
          <Ul>
             <Li>
                <Link href="/" className={isActive(undefined) ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="All" />
                   <p>전체</p>
                </Link>
             </Li>
             <Li>
                <Link href="/LIFESTYLE" className={isActive('LIFESTYLE') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconLifestyle} alt="Lifestyle" />
                   <p>라이프스타일</p>
                </Link>
             </Li>
             <Li>
                <Link href="/EDU" className={isActive('EDU') ? 'active' : ''}>
+                  {' '}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconEdu} alt="edu" />
                   <p>교육</p>
                </Link>
             </Li>
             <Li>
                <Link href="/MEDIA" className={isActive('MEDIA') ? 'active' : ''}>
+                  {' '}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconMedia} alt="MEDIA" />
                   <p>미디어</p>
                </Link>
             </Li>
             <Li>
                <Link href="/DEVELOP" className={isActive('DEVELOP') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="DEVELOP" />
                   <p>개발</p>
                </Link>
             </Li>
             <Li>
                <Link href="/FINANCE" className={isActive('FINANCE') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="FINANCE" />
                   <p>금융</p>
                </Link>
             </Li>
             <Li>
                <Link href="/SOCIAL" className={isActive('SOCIAL') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="SOCIAL" />
                   <p>소셜</p>
                </Link>
             </Li>
             <Li>
                <Link href="/AI" className={isActive('AI') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="AI" />
                   <p>AI</p>
                </Link>

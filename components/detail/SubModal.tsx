@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { setIsShareModalOpen } from '../../atoms/sub/atom';
 
 const SubModal = () => {

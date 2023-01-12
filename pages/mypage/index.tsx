@@ -7,7 +7,6 @@ import { mypageAttendingMeetings, mypageHostMeetings, myProfile } from '../../at
 import { useEffect } from 'react';
 import axios from 'axios';
 import MyMeetings_mypage from '../../components/mypage/MyMeetings_mypage';
-import { api } from '../../util/token';
 
 const Mypage = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -19,6 +18,7 @@ const Mypage = () => {
    useEffect(() => {
       console.log(axios.defaults.headers.common.Authorization);
       // 통신
+      // eslint-disable-next-line import/no-named-as-default-member
       axios
          .all([
             axios.get(API_URI + '/mypage/profile', {
@@ -38,6 +38,7 @@ const Mypage = () => {
             })
          ])
          .then(
+            // eslint-disable-next-line import/no-named-as-default-member
             axios.spread((res1, res2, res3) => {
                setMyInfo(res1.data);
                setHostMeetings(res2.data);

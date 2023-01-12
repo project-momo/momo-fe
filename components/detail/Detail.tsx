@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Modal } from '../common/Modal/Modal';
 import { qnaListLengthState } from '../../atoms/qna/selector';
 // eslint-disable-next-line import/no-unresolved
 import { SubTitle } from '../common/SubTitle';
 import IconMore from './../../assets/images/icon_more.svg';
 import IconToggle from './../../assets/images/icon_toggle.svg';
-import ModalDetail from './ModalDetail';
 // eslint-disable-next-line import/no-unresolved
 import QnaInput from './QnaInput';
 import SubModal from './SubModal';
@@ -22,7 +20,7 @@ interface DetailProps {
    meetingId: number;
 }
 
-const Detail = ({ userImage, username, location, gu, content, title, meetingId }: DetailProps) => {
+const Detail = ({ userImage, username, location, gu, content, title }: DetailProps) => {
    const qnaListLength = useRecoilValue(qnaListLengthState);
    const [toggleQna, setToggleQna] = useState(true);
    const [toggleModal, setToggleModal] = useState(false);

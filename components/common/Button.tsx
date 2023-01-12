@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './button.module.css';
-type Props = {
-   className?: string;
-};
+
 interface ButtonProps {
    /**
     * Is this the principal call to action on the page?
