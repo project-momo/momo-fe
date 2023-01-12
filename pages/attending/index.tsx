@@ -11,15 +11,11 @@ const Attending = () => {
    const setAttendingMeetings = useSetRecoilState(mypageAttendingMeetings);
 
    useEffect(() => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       // 통신
       axios
-         .get(API_URI + '/mypage/meetings/participants?page=1&size=20', {
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })
+         .get(API_URI + '/mypage/meetings/participants?page=1&size=20')
          .then(res => {
-            console.log(res.data);
             setAttendingMeetings(res.data);
          })
          .catch(err => console.log(err));

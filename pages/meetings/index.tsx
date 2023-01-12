@@ -1,6 +1,6 @@
 import { CenterSection } from '../../styles/style';
 import MyCategory from '../../components/mypage/MyCategory';
-import MyMeetings_host from '../../components/mypage/MyMettings_host';
+import MyMeetings_host from '../../components/mypage/MyMeetings_host';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
@@ -11,13 +11,10 @@ const Meetings = () => {
    const setHostMeetings = useSetRecoilState(mypageHostMeetings);
 
    useEffect(() => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       // 통신
       axios
-         .get(API_URI + '/mypage/meetings/hosts?page=1&size=20', {
-            headers: {
-               Authorization: localStorage.getItem('AccessToken')
-            }
-         })
+         .get(API_URI + '/mypage/meetings/hosts?page=1&size=20')
          .then(res => {
             setHostMeetings(res.data);
          })

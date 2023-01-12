@@ -21,11 +21,21 @@ export const myPoint = atom<any>({
 });
 
 export const modalState = atom<string>({
-    key: 'modalState',
-    default: ''
-})
+   key: 'modalState',
+   default: ''
+});
 
 export const meetingInfo = atom<any>({
-    key: 'meetingInfo',
-    default: {}
-})
+   key: 'meetingInfo',
+   default: {}
+});
+
+export const selectedMeeting = atom<any>({
+   key: 'selectedMeeting',
+   default: {}
+});
+
+export const selectedReservation = atom<any>({
+   key: 'selectedReservation',
+   default: {}
+});

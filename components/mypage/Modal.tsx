@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import { CloseBtn } from '../common/Modal/Modal';
 import IconClose from '../../assets/images/icon_close.svg';
 import MoimModal from '../common/Modal/ModalCompo/MoimModal';
-import { ColorBtn } from '../common/Modal/ModalCompo/ModalBtn';
 import ApplicationStatus from '../common/Modal/ModalCompo/ApplicationStatus';
 import Withdraw from '../common/Modal/ModalCompo/Withdraw';
 import { useRecoilValue } from 'recoil';
 import { modalState } from '../../atoms/mypage/atoms';
+import RejectApplication from '../common/Modal/ModalCompo/RejectApplication';
+import CloseMeeting from '../common/Modal/ModalCompo/CloseMeeting';
+import AcceptApplication from '../common/Modal/ModalCompo/AcceptApplication';
 
 const Modal = () => {
    const type = useRecoilValue(modalState);
@@ -44,17 +46,14 @@ const Modal = () => {
                         routeBtnPath="/"
                      />
                   )}
+                  {/* 모임 마감 모달 */}
+                  {type === 'closeMeeting' && <CloseMeeting />}
+                  {/* 신청 수락 모달 */}
+                  {type === 'accept' && <AcceptApplication />}
                   {/* 신청 반려 사유 모달 */}
-                  {type === 'cancel' && (
-                     <>
-                        <p className="title">참가 신청 반려</p>
-                        <textarea placeholder="신청 반려 사유를 작성해주세요."></textarea>
-                        <ColorBtn>신청 반려</ColorBtn>
-                     </>
-                  )}
+                  {type === 'cancel' && <RejectApplication />}
                   {/* 참가 신청 현황 모달 */}
                   {type === 'applicationStatus' && <ApplicationStatus />}
-
                   {/* 적립금 출금 모달 */}
                   {type === 'withdraw' && <Withdraw />}
                </div>

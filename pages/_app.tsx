@@ -9,10 +9,12 @@ import { useEffect, useState } from 'react';
 import { Modal } from '../components/common/Modal/Modal';
 import LoginModal from '../components/common/Modal/ModalCompo/LoginModal';
 import Header from '../components/common/Header/Header';
+import axios from 'axios';
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
    const [isModalOpen, setIsModalOpen] = useState(false);
+
    const CloseModal = () => {
       setIsModalOpen(!isModalOpen);
    };
@@ -20,6 +22,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       setIsModalOpen(!isModalOpen);
    };
    useEffect(() => {
+      const token = localStorage.getItem('AccessToken');
+
+      if (token) {
+         axios.defaults.headers.common['Authorization'] = token;
+      }
       typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
    }, []);
 

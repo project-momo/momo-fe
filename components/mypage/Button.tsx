@@ -11,12 +11,15 @@ export const Button = (props: any) => {
    const [isActive, setActive] = useState(false);
 
    const btnHandler = () => {
+      console.log(props);
+
       if (props.modal) {
          setType('applicationStatus');
          setMeetingInfo(props.meetingInfo);
-      } else {
+      } else if (props.icon) {
          setActive(!isActive);
       }
+      props.func();
    };
 
    return (
@@ -27,7 +30,7 @@ export const Button = (props: any) => {
    );
 };
 
-const Basic = styled.button`
+export const Basic = styled.button`
    background-color: white;
    color: #3f3f3f;
    border: 1px solid #dddddd;
