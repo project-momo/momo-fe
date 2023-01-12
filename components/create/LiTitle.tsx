@@ -4,17 +4,19 @@ interface LiTitleProps {
    main: string;
    sub?: string;
    error?: string;
+   preview?: string;
 }
 
 interface ErrorType {
    error?: string;
+   preview?: string;
 }
 
-const LiTitle = ({ main, sub, error }: LiTitleProps) => {
+const LiTitle = ({ main, sub, error, preview }: LiTitleProps) => {
    return (
-      <LiTtileStyle error={error}>
+      <LiTtileStyle error={error} preview={preview}>
          <span>{main}</span>
-         <span>{error ? error : sub}</span>
+         <span>{preview ? preview : error ? error : sub}</span>
       </LiTtileStyle>
    );
 };
@@ -30,6 +32,6 @@ const LiTtileStyle = styled.div<ErrorType>`
    }
    > span:nth-child(2) {
       margin-left: 20px;
-      color: ${props => props.error && 'red'};
+      color: ${props => (props.preview ? '#444BFF' : props.error && 'red')};
    }
 `;
