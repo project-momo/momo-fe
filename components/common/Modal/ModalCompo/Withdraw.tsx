@@ -80,7 +80,7 @@ const Withdraw = () => {
    };
 
    // 출금하기
-   const withdraw = (e: any) => {
+   const withdraw = () => {
       const inputPoint = Number(point.replace('원', '').split(',').join(''));
       if (inputPoint === 0) {
          return alert('출금할 적립금을 입력해주세요.');

@@ -48,10 +48,10 @@ const AlertIcon = styled.button<{ icon: string }>`
    background-size: cover;
    margin-left: 5px;
 `;
-const Alert = styled.div`
-   position: absolute;
-   top: -20px;
-`;
+// const Alert = styled.div`
+//    position: absolute;
+//    top: -20px;
+// `;
 
 const PriceInfo = styled.div`
    display: flex;
