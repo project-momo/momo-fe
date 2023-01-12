@@ -27,6 +27,7 @@ const Application = ({ data, confirmed }: any) => {
             <div className="application">
                <div className="profile">
                   <div className="imgBox">
+                     {/* eslint-disable-next-line @next/next/no-img-element */}
                      <img src={data.imageUrl} alt="" />
                   </div>
                   <p>{data.nickname}</p>

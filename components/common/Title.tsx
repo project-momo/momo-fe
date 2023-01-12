@@ -9,6 +9,6 @@ const TitleText = styled.p`
    font-size: 40px;
    font-weight: 700;
 `;
-export const Title = ({ label, ...props }: ButtonProps) => {
+export const Title = ({ label }: ButtonProps) => {
    return <TitleText>{label}</TitleText>;
 };

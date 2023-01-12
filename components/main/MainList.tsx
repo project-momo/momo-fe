@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
-import UserImg from './../../assets/images/userimg.svg';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -23,15 +22,15 @@ interface CategoryProps {
 const MainList = ({ category }: CategoryProps) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const [moimData, setModimData] = useState([] as any);
-   const [error, setError] = useState('' as string | unknown);
+   // const [error, setError] = useState('' as string | unknown);
    const [loading, setLoading] = useState(true);
    const getMoimData = async () => {
       try {
-         const data = await axios.get(`${API_URI}/meetings?&category=${category}&page=1&size=18`).then(el => {
+         await axios.get(`${API_URI}/meetings?&category=${category}&page=1&size=18`).then(el => {
             setModimData(el.data.content);
          });
       } catch (error) {
-         setError(error);
+         // setError(error);
       } finally {
          setLoading(false);
       }

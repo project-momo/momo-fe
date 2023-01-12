@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { CenterSection, RightSection } from '../styles/style';
 import Category from '../components/common/Category';
 import { Title } from '../components/common/Title';
