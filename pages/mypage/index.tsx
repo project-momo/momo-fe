@@ -49,6 +49,7 @@ const Mypage = () => {
    useEffect(() => {
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       // 통신
+      // eslint-disable-next-line import/no-named-as-default-member
       axios
          .all([
             axios.get(API_URI + '/mypage/profile'),
@@ -56,6 +57,7 @@ const Mypage = () => {
             axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20')
          ])
          .then(
+            // eslint-disable-next-line import/no-named-as-default-member
             axios.spread((res1, res2, res3) => {
                setMyInfo(res1.data);
                setHostMeetings(res2.data);

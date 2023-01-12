@@ -8,6 +8,7 @@ export const RightSubTitle = ({ label, imgLink }: RightSubTitleProps) => {
    return (
       <div>
          <Text>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={imgLink} alt={'SubtitleImg'} />
             {label}
          </Text>
