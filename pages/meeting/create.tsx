@@ -22,7 +22,7 @@ import { Button } from '../../components/common/Button';
 const Create = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
 
-   const [category, setCategory] = useState('LIFESTYLE');
+   const [category, setCategory] = useState('라이프스타일');
    const [title, setTitle] = useState('');
    const [content, setContent] = useState('');
    const [tags, setTags] = useState<string[]>([]);
@@ -32,6 +32,7 @@ const Create = () => {
 
    const [si, setSi] = useState('');
    const [gu, setGu] = useState<number[]>([]);
+   const [addressPreview, setAddressPreview] = useState<string[]>([]);
    const [addressInfo, setAddressInfo] = useState('');
 
    const [datePolicy, setDatePolicy] = useState('ONE_DAY');
@@ -67,16 +68,18 @@ const Create = () => {
       setSi(value);
    };
 
-   const onClickGu = (value: number) => {
-      if (gu.includes(value)) {
-         setGu([...gu.filter(el => el !== value)]);
+   const onClickGu = (id: number, name: string) => {
+      if (gu.includes(id)) {
+         setGu([...gu.filter(el => el !== id)]);
+         setAddressPreview([...addressPreview.filter(el => el !== `${si} ${name}`)]);
       } else {
          if (gu.length >= 3) {
             alert('최대 3개까지 선택이 가능 합니다.');
             return;
          }
 
-         setGu([...gu, value]);
+         setGu([...gu, id]);
+         setAddressPreview([...addressPreview, `${si} ${name}`]);
       }
    };
 
@@ -215,7 +218,7 @@ const Create = () => {
             <SubTitle>지금 올라오는 모임</SubTitle>
             <Ul>
                <Li>
-                  <LiTitle main="카테고리" sub="카테고리를 선택해주세요." error={categoryError} />
+                  <LiTitle main="카테고리" sub="카테고리를 선택해주세요." error={categoryError} preview={category} />
                   <Categorys category={category} setCategory={setCategory} />
                </Li>
                <Li>
@@ -239,7 +242,12 @@ const Create = () => {
                   <Tags tags={tags} onClickTag={onClickTag} />
                </Li>
                <Li>
-                  <LiTitle main="위치" sub="최대 3개까지 선택이 가능 합니다." error={addressIdsError} />
+                  <LiTitle
+                     main="위치"
+                     sub="최대 3개까지 선택이 가능 합니다."
+                     error={addressIdsError}
+                     preview={addressPreview.join(` , `)}
+                  />
                   <Location si={si} gu={gu} onClickSi={onClickSi} onClickGu={onClickGu} />
                </Li>
                <Li>

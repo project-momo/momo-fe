@@ -53,7 +53,8 @@ export const MeetingWrapper = styled(BasicWrapper)`
       justify-content: center;
       min-height: 138px;
       &.empty {
-         button {
+         button,
+         a {
             font-size: 16px;
             font-weight: 600;
             color: #444bff;
@@ -136,6 +137,10 @@ export const MeetingWrapper = styled(BasicWrapper)`
             justify-content: space-between;
             margin-top: 5px;
             button {
+               width: 100%;
+            }
+            .halfWidth,
+            .halfWidth + button {
                width: 49%;
             }
          }

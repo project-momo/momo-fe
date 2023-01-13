@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
-import { label } from '../common/Header/HeaderButton.stories';
 import FreeDate from '../create/Date/FreeDate';
 import OneDate from '../create/Date/OneDate';
 import PeriodDate from '../create/Date/PeriodDate';
@@ -22,13 +21,13 @@ interface DetailProps {
 }
 const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
    const datePolicy = dateTime.datePolicy;
-   const [startDate, setStartDate] = useState<any>(dateTime.startDate);
-   const [endDate, setEndDate] = useState<any>(dateTime.endDate);
+   // const [startDate, setStartDate] = useState<any>(dateTime.startDate);
+   // const [endDate, setEndDate] = useState<any>(dateTime.endDate);
 
-   const onCheckDayWeeks = () => {
-      console.log('week');
-      console.log(startDate, endDate);
-   };
+   // const onCheckDayWeeks = () => {
+   //    console.log('week');
+   //    console.log(startDate, endDate);
+   // };
    const dpSetting = {
       dateFormat: 'yyyy-MM-dd',
       dateFormatCalendar: 'yyyy.MM',
@@ -128,13 +127,13 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
 
 export default ModalDetail;
 
-const DetailWrap = styled.div`
-   min-width: 700px;
-   height: 70vh;
-   padding-bottom: 100px;
-   padding-top: 80px;
-   position: relative;
-`;
+// const DetailWrap = styled.div`
+//    min-width: 700px;
+//    height: 70vh;
+//    padding-bottom: 100px;
+//    padding-top: 80px;
+//    position: relative;
+// `;
 const TitleWrap = styled.div`
    padding-bottom: 10px;
    border-bottom: 1px solid #cecece;

@@ -10,42 +10,44 @@ const Categorys = ({ category, setCategory }: CategorysProps) => {
    return (
       <CategorysStyle>
          <li>
-            <button onClick={() => setCategory('LIFESTYLE')} className={category === 'LIFESTYLE' ? 'selected' : ''}>
+            <button
+               onClick={() => setCategory('라이프스타일')}
+               className={category === '라이프스타일' ? 'selected' : ''}>
                라이프스타일
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('DESIGN')} className={category === 'DESIGN' ? 'selected' : ''}>
+            <button onClick={() => setCategory('디자인')} className={category === '디자인' ? 'selected' : ''}>
                디자인
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('MEDIA')} className={category === 'MEDIA' ? 'selected' : ''}>
+            <button onClick={() => setCategory('미디어')} className={category === '미디어' ? 'selected' : ''}>
                미디어
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('DEVELOP')} className={category === 'DEVELOP' ? 'selected' : ''}>
+            <button onClick={() => setCategory('개발')} className={category === '개발' ? 'selected' : ''}>
                개발
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('EDU')} className={category === 'EDU' ? 'selected' : ''}>
+            <button onClick={() => setCategory('교육')} className={category === '교육' ? 'selected' : ''}>
                교육
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('FINANCE')} className={category === 'FINANCE' ? 'selected' : ''}>
+            <button onClick={() => setCategory('금융')} className={category === '금융' ? 'selected' : ''}>
                금융
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('SOCIAL')} className={category === 'SOCIAL' ? 'selected' : ''}>
+            <button onClick={() => setCategory('소셜')} className={category === '소셜' ? 'selected' : ''}>
                소셜
             </button>
          </li>
          <li>
-            <button onClick={() => setCategory('AI')} className={category === 'AI' ? 'selected' : ''}>
+            <button onClick={() => setCategory('인공지능')} className={category === '인공지능' ? 'selected' : ''}>
                인공지능
             </button>
          </li>

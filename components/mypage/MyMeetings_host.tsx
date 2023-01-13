@@ -2,6 +2,7 @@ import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
 import { useRecoilValue } from 'recoil';
 import { hostMeeting_closed, hostMeeting_opened } from '../../atoms/mypage/selector';
+import Link from 'next/link';
 
 const MyMeetings_host = () => {
    const host_openedMeetings = useRecoilValue(hostMeeting_opened);
@@ -20,7 +21,7 @@ const MyMeetings_host = () => {
                host_openedMeetings.map((meeting: any) => <MyMeetingCard data={meeting} key={meeting.meetingId} />)
             ) : (
                <div className="card-basic empty">
-                  <button>모임 찾아보기</button>
+                  <Link href={'/meeting/create'}>모임 등록하기</Link>
                </div>
             )}
          </MeetingWrapper>

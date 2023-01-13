@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/named
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Modal } from './Modal';
@@ -21,14 +20,12 @@ export const ModalLayout = Template.bind({});
 ModalLayout.args = {};
 export const MoimModalLayout = Template.bind({});
 MoimModalLayout.args = {
-   childrens: (
+   children: (
       <MoimModal
          title="로그인"
          subTitle="등록된 모임을 확인해보세요."
          mainBtnLabel="모임 확인하기"
          routeBtnLabel="다른 모임 살펴보기"
-         mainBtnPath={''}
-         routeBtnPath={''}
       />
    )
 };

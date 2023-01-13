@@ -90,16 +90,16 @@ const SecondUl = styled.ul`
    margin-left: 45px;
 `;
 
-const Icon = styled.button<{ buttonImg: string }>`
-   font-size: 0;
-   padding: 0;
-   width: 16px;
-   height: 16px;
-   background-image: url(${p => `${p.buttonImg}`});
-   background-size: cover;
-   background-repeat: none;
-   margin-left: 10px;
-`;
+// const Icon = styled.button<{ buttonImg: string }>`
+//    font-size: 0;
+//    padding: 0;
+//    width: 16px;
+//    height: 16px;
+//    background-image: url(${p => `${p.buttonImg}`});
+//    background-size: cover;
+//    background-repeat: none;
+//    margin-left: 10px;
+// `;
 
 const WriteAnswerBtn = styled.button`
    margin-bottom: 8px;

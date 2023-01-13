@@ -1,15 +1,25 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { modalState } from '../../atoms/mypage/atoms';
+import { modalState, selectedReservation } from '../../atoms/mypage/atoms';
 import { useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 
 const Application = ({ data, confirmed }: any) => {
    const uuid = uuidv4();
    const setType = useSetRecoilState(modalState);
+   const setReservationId = useSetRecoilState(selectedReservation);
    const [isActive, setActive] = useState(false);
-   console.log(data);
+
+   const applicationHandler = (e: any) => {
+      console.log(data);
+      if (e.target.name === '수락') {
+         setType('accept');
+      } else if (e.target.name === '취소') {
+         setType('cancel');
+      }
+      setReservationId({ id: data.userId });
+   };
 
    return (
       <div className="accordion-item application-list">
@@ -17,6 +27,7 @@ const Application = ({ data, confirmed }: any) => {
             <div className="application">
                <div className="profile">
                   <div className="imgBox">
+                     {/* eslint-disable-next-line @next/next/no-img-element */}
                      <img src={data.imageUrl} alt="" />
                   </div>
                   <p>{data.nickname}</p>
@@ -38,8 +49,10 @@ const Application = ({ data, confirmed }: any) => {
                </div>
                {!confirmed ? (
                   <div className="btn-wrapper">
-                     <button>수락</button>
-                     <button onClick={() => setType('cancel')} data-bs-toggle="modal" data-bs-target="#myModal">
+                     <button name="수락" onClick={applicationHandler} data-bs-toggle="modal" data-bs-target="#myModal">
+                        수락
+                     </button>
+                     <button name="취소" onClick={applicationHandler} data-bs-toggle="modal" data-bs-target="#myModal">
                         취소
                      </button>
                   </div>

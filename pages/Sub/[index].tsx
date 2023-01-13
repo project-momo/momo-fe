@@ -26,7 +26,7 @@ const Sub = () => {
             .then(res => {
                setSubData(res.data);
             })
-            .catch(e => setError(true));
+            .catch(() => setError(true));
       }
    };
    useEffect(() => {
