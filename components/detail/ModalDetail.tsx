@@ -5,6 +5,7 @@ import { label } from '../common/Header/HeaderButton.stories';
 import FreeDate from '../create/Date/FreeDate';
 import OneDate from '../create/Date/OneDate';
 import PeriodDate from '../create/Date/PeriodDate';
+import TimeList from './TimeList';
 interface DetailProps {
    title: string;
    price: number;
@@ -34,6 +35,42 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
       withPortal: true
    };
    const [dates, setDates] = useState<any>('');
+
+   const [isOnFocus, setIsFocus] = useState<number | undefined>(-1);
+   const [clickTime, setClickTime] = useState<any>([-1, null]);
+   const [startTime, endTime] = clickTime;
+   const maxTime = 2;
+
+   const TimeListSetting = (el: number) => {
+      if (endTime === null) {
+         if (startTime === -1) {
+            setClickTime([el, null]);
+         } else if (el > startTime && el < startTime + maxTime + 1) {
+            setClickTime([clickTime[0], el]);
+         } else if (el === startTime) {
+            setClickTime([-1, null]);
+         }
+      } else {
+         setClickTime([el, null]);
+      }
+   };
+   const IsActive = (time: number) => {
+      if (endTime !== null) {
+         if (time > startTime && time < endTime) {
+            return true;
+         }
+      } else {
+         if (isOnFocus && startTime) {
+            if (time <= isOnFocus && time > startTime && time < startTime + maxTime + 1) {
+               return true;
+            }
+            return false;
+         }
+      }
+   };
+   const arrayList = Array(12)
+      .fill(0)
+      .map((_, i) => 10 + i);
    return (
       <>
          <TitleWrap>
@@ -48,7 +85,7 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
          </TitleWrap>
          <SelectSection>
             <SubTitle>날짜선택</SubTitle>
-            {/* {datePolicy === 'ONE_DAY' && <OneDate date={date} setDate={setDate} dpSetting={dpSetting} />} */}
+            {datePolicy === 'ONE_DAY' && <OneDate date={dates} setDate={setDates} dpSetting={dpSetting} />}
             {/* {datePolicy === 'PERIOD' && (
                <PeriodDate
                   startDate={startDate}
@@ -60,21 +97,23 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
                />
             )} */}
             {datePolicy === 'FREE' && <FreeDate dates={dates} setDates={setDates} dpSetting={dpSetting} />}
-            {/* <SubTitle>시간선택</SubTitle>
-            <TimeTable>
-               <TimeList>
-                  <span>10:00</span>
-               </TimeList>
-               <TimeList>
-                  <span>11:00</span>
-               </TimeList>
-               <TimeList>
-                  <span>12:00</span>
-               </TimeList>
-               <TimeList>
-                  <span>13:00</span>
-               </TimeList>
-            </TimeTable> */}
+            <SubTitle>
+               시간선택 <span>* 최대 {maxTime}시간 선택 가능합니다.</span>
+            </SubTitle>
+            <TimeTableWrap>
+               {arrayList.map((el, idx) => (
+                  <TimeList
+                     key={idx}
+                     onMouseEnter={() => setIsFocus(el)}
+                     onMouseLeave={() => setIsFocus(-1)}
+                     onClick={() => TimeListSetting(el)}
+                     className={
+                        startTime === el ? 'startTime' : endTime === el ? 'endtime' : IsActive(el) ? 'hoveractive' : ''
+                     }
+                     time={`${el}:00`}
+                  />
+               ))}
+            </TimeTableWrap>
             <Button
                size="bigBold"
                disabled={false}
@@ -105,6 +144,18 @@ const Title = styled.p`
    font-weight: 700px;
    line-height: 1.5;
 `;
+const TimeTableWrap = styled.div`
+   display: flex;
+   flex-wrap: nowrap;
+   max-width: 800px;
+   padding: 10px 0;
+   overflow-y: auto;
+   margin-bottom: 30px;
+   div:last-child {
+      border: none;
+   }
+`;
+
 const MbrPrtcp = styled.p`
    font-size: 16px;
    line-height: 1.5;
@@ -117,10 +168,15 @@ const SelectSection = styled.div`
 const SubTitle = styled.p`
    font-size: 16px;
    font-weight: 700;
+   margin-top: 24px;
+   span {
+      font-weight: 400;
+      padding-left: 15px;
+      font-size: 12px;
+      opacity: 0.8;
+   }
 `;
 
-const TimeTable = styled.div``;
-const TimeList = styled.div``;
 const BtnWrap = styled.div`
    position: absolute;
    bottom: 0px;
