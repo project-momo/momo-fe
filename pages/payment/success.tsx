@@ -29,7 +29,7 @@ const Succeess = () => {
                route.push('/attending');
             }
          })
-         .catch(err => {
+         .catch(() => {
             route.push('/payment/failed');
          });
    }, []);
