@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 interface TimeListProps {
-   time: string;
+   time: number;
    className: string;
    onMouseEnter: () => any;
    onMouseLeave: () => any;
@@ -10,7 +10,7 @@ interface TimeListProps {
 const TimeList = ({ time, className, onMouseEnter, onMouseLeave, onClick }: TimeListProps) => {
    return (
       <List onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onClick} className={className}>
-         {time}
+         {time} : 00 ~ <br /> {time + 1} : 00
       </List>
    );
 };
@@ -18,11 +18,13 @@ const TimeList = ({ time, className, onMouseEnter, onMouseLeave, onClick }: Time
 export default TimeList;
 
 const List = styled.div`
-   width: 100px;
-   padding: 20px;
+   padding: 15px 35px;
+   line-height: 1.5;
    background-color: #ebf1f9;
    border-right: 1px solid #d9d9d9;
    text-align: center;
+   cursor: pointer;
+   white-space: nowrap;
    &.startTime {
       background-color: #78aaff;
       color: white;

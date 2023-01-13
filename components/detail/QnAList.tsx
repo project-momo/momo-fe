@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { qnaListState } from '../../atoms/qna/atom';
 import { setSubDataObject } from '../../atoms/sub/atom';
@@ -9,13 +10,14 @@ const QnaList = () => {
 
    const { meetingId } = useRecoilValue(setSubDataObject);
    const [qnaList, setQnaList] = useRecoilState(qnaListState);
-
-   axios
-      .get(`${API_URI}/meetings/${meetingId}/qna`)
-      .then(res => {
-         setQnaList(res.data);
-      })
-      .catch(err => console.log('에러', err));
+   useEffect(() => {
+      axios
+         .get(`${API_URI}/meetings/${meetingId}/qna`)
+         .then(res => {
+            setQnaList(res.data);
+         })
+         .catch(err => console.log('에러', err));
+   }, []);
 
    return <>{qnaList && qnaList.map(qna => <Qna qna={qna} key={qna.questionId} />)}</>;
 };

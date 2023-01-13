@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
 import FreeDate from '../create/Date/FreeDate';
 import OneDate from '../create/Date/OneDate';
 import PeriodDate from '../create/Date/PeriodDate';
+import DaySelect from './DaySelect';
 import TimeList from './TimeList';
 interface DetailProps {
    title: string;
@@ -21,13 +22,12 @@ interface DetailProps {
 }
 const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
    const datePolicy = dateTime.datePolicy;
-   // const [startDate, setStartDate] = useState<any>(dateTime.startDate);
-   // const [endDate, setEndDate] = useState<any>(dateTime.endDate);
 
-   // const onCheckDayWeeks = () => {
-   //    console.log('week');
-   //    console.log(startDate, endDate);
-   // };
+   const startNum = +dateTime.startTime.split(':')[0];
+   const endNum = +dateTime.endTime.split(':')[0];
+   const arrayList = Array(endNum - startNum + 1)
+      .fill(0)
+      .map((_, i) => startNum + i);
    const dpSetting = {
       dateFormat: 'yyyy-MM-dd',
       dateFormatCalendar: 'yyyy.MM',
@@ -37,16 +37,15 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
 
    const [isOnFocus, setIsFocus] = useState<number | undefined>(-1);
    const [clickTime, setClickTime] = useState<any>([-1, null]);
-   const [startTime, endTime] = clickTime;
-   const maxTime = 2;
+   const [startTimeSet, endTimeSet] = clickTime;
 
    const TimeListSetting = (el: number) => {
-      if (endTime === null) {
-         if (startTime === -1) {
+      if (endTimeSet === null) {
+         if (startTimeSet === -1) {
             setClickTime([el, null]);
-         } else if (el > startTime && el < startTime + maxTime + 1) {
+         } else if (el > startTimeSet && el < startTimeSet + dateTime.maxTime) {
             setClickTime([clickTime[0], el]);
-         } else if (el === startTime) {
+         } else if (el === startTimeSet) {
             setClickTime([-1, null]);
          }
       } else {
@@ -54,22 +53,20 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
       }
    };
    const IsActive = (time: number) => {
-      if (endTime !== null) {
-         if (time > startTime && time < endTime) {
+      if (endTimeSet !== null) {
+         if (time > startTimeSet && time < endTimeSet) {
             return true;
          }
       } else {
-         if (isOnFocus && startTime) {
-            if (time <= isOnFocus && time > startTime && time < startTime + maxTime + 1) {
+         if (isOnFocus && startTimeSet) {
+            if (time <= isOnFocus && time > startTimeSet && time < startTimeSet + dateTime.maxTime) {
                return true;
             }
             return false;
          }
       }
    };
-   const arrayList = Array(12)
-      .fill(0)
-      .map((_, i) => 10 + i);
+
    return (
       <>
          <TitleWrap>
@@ -79,25 +76,15 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
                   ? '자유 일정을 선택해주세요.'
                   : datePolicy === 'PERIOD'
                   ? '주중 일정을 확인해주세요.'
+                  : datePolicy === 'ONE_DAY'
+                  ? '일정을 확인 해 주세요'
                   : '단체 만남 1/7 (남은 자리 : 6명)'}
             </MbrPrtcp>
          </TitleWrap>
          <SelectSection>
-            <SubTitle>날짜선택</SubTitle>
-            {datePolicy === 'ONE_DAY' && <OneDate date={dates} setDate={setDates} dpSetting={dpSetting} />}
-            {/* {datePolicy === 'PERIOD' && (
-               <PeriodDate
-                  startDate={startDate}
-                  endDate={endDate}
-                  setStartDate={setStartDate}
-                  setEndDate={setEndDate}
-                  onCheckDayWeeks={onCheckDayWeeks}
-                  dpSetting={dpSetting}
-               />
-            )} */}
-            {datePolicy === 'FREE' && <FreeDate dates={dates} setDates={setDates} dpSetting={dpSetting} />}
+            <DaySelect datePolicy={datePolicy} dateTime={dateTime} />
             <SubTitle>
-               시간선택 <span>* 최대 {maxTime}시간 선택 가능합니다.</span>
+               시간선택 <span>* 최대 {dateTime.maxTime}시간 선택 가능합니다.</span>
             </SubTitle>
             <TimeTableWrap>
                {arrayList.map((el, idx) => (
@@ -107,9 +94,15 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
                      onMouseLeave={() => setIsFocus(-1)}
                      onClick={() => TimeListSetting(el)}
                      className={
-                        startTime === el ? 'startTime' : endTime === el ? 'endtime' : IsActive(el) ? 'hoveractive' : ''
+                        startTimeSet === el
+                           ? 'startTime'
+                           : endTimeSet === el
+                           ? 'endtime'
+                           : IsActive(el)
+                           ? 'hoveractive'
+                           : ''
                      }
-                     time={`${el}:00`}
+                     time={el}
                   />
                ))}
             </TimeTableWrap>

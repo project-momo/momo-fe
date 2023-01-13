@@ -22,6 +22,7 @@ interface DetailProps {
 
 const Detail = ({ userImage, username, location, gu, content, title }: DetailProps) => {
    const qnaListLength = useRecoilValue(qnaListLengthState);
+
    const [toggleQna, setToggleQna] = useState(true);
    const [toggleModal, setToggleModal] = useState(false);
 
