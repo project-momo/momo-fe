@@ -6,7 +6,7 @@ interface LocationProps {
    si: string;
    gu: number[];
    onClickSi: (value: string) => void;
-   onClickGu: (value: number) => void;
+   onClickGu: (id: number, name: string) => void;
 }
 
 interface LocationDummyType {
@@ -63,7 +63,7 @@ const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
                            <li key={el.id}>
                               <button
                                  onClick={() => {
-                                    onClickGu(el.id);
+                                    onClickGu(el.id, el.name);
                                  }}
                                  className={gu.includes(el.id) ? 'selectedGu' : ''}>
                                  {el.name}

@@ -31,7 +31,7 @@ const Time = ({ startTime, endTime, setStartTime, setEndTime }: TimeProps) => {
             timeIntervals={60}
             timeCaption="종료 시간"
             minTime={startTime}
-            maxTime={new Date().setHours(23, 0, 0, 0)}
+            maxTime={new Date().setHours(23) as unknown as Date}
             selected={endTime}
             onChange={(selectedDate: SetStateAction<Date | [Date | null, Date | null] | null>) => {
                setEndTime(selectedDate);
