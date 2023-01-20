@@ -11,7 +11,8 @@ interface CardProps {
 }
 
 const Card = ({ username, userImage, title, content, locate, price, meetingId }: CardProps) => {
-   const shortLocate = locate[0].split(' ')[1];
+   const shortLocate = locate.length !== 0 ? locate[0].split(' ')[1] : '';
+   console.log(locate);
    return (
       <CardWrap>
          <a href={`/Sub/${meetingId}`}>

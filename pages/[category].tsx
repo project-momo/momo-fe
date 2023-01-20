@@ -10,9 +10,18 @@ import RankList from '../components/main/RankList';
 import Notice from '../components/rightLayout/Notice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { nowCategoryState } from '../atoms/sub/atom';
 
 const CategoryRoute = () => {
    const { query } = useRouter();
+   const [nowCategory, setNowCategory] = useRecoilState(nowCategoryState);
+
+   if (query.category) {
+      setNowCategory(query.category);
+   } else if (query.category === undefined) {
+      setNowCategory('');
+   }
 
    const [nowTab, setNowTab] = useState('전체');
    const [nowTabENG, setNowTabENG] = useState<any>('');
