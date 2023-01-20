@@ -9,32 +9,34 @@ const Tags = ({ tags, onClickTag }: TagsProps) => {
    return (
       <TagsStyle>
          <li>
-            <button onClick={() => onClickTag('MENTORING')} className={tags.includes('MENTORING') ? 'selected' : ''}>
+            <button onClick={() => onClickTag('멘토링')} className={tags.includes('멘토링') ? 'selected' : ''}>
                멘토링
             </button>
          </li>
          <li>
-            <button onClick={() => onClickTag('ONLINE')} className={tags.includes('ONLINE') ? 'selected' : ''}>
+            <button onClick={() => onClickTag('온라인')} className={tags.includes('온라인') ? 'selected' : ''}>
                온라인
             </button>
          </li>
          <li>
-            <button onClick={() => onClickTag('OFFLINE')} className={tags.includes('OFFLINE') ? 'selected' : ''}>
+            <button
+               onClick={() => onClickTag('오프라인모임')}
+               className={tags.includes('오프라인모임') ? 'selected' : ''}>
                오프라인모임
             </button>
          </li>
          <li>
-            <button onClick={() => onClickTag('STUDY')} className={tags.includes('STUDY') ? 'selected' : ''}>
+            <button onClick={() => onClickTag('스터디')} className={tags.includes('스터디') ? 'selected' : ''}>
                스터디
             </button>
          </li>
          <li>
-            <button onClick={() => onClickTag('MEETING')} className={tags.includes('MEETING') ? 'selected' : ''}>
+            <button onClick={() => onClickTag('모임')} className={tags.includes('모임') ? 'selected' : ''}>
                모임
             </button>
          </li>
          <li>
-            <button onClick={() => onClickTag('FIVE')} className={tags.includes('FIVE') ? 'selected' : ''}>
+            <button onClick={() => onClickTag('5인이상')} className={tags.includes('5인이상') ? 'selected' : ''}>
                5인이상
             </button>
          </li>
