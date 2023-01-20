@@ -32,7 +32,7 @@ const MainList = ({ category }: CategoryProps) => {
          await axios
             .get(`${API_URI}/meetings?&category=${query.category ? query.category : ''}&page=1&size=18`)
             .then(el => {
-               console.log(el);
+               // console.log(el);
                setModimData(el.data.content);
             });
       } catch (error) {

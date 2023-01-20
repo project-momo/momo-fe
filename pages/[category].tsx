@@ -66,12 +66,6 @@ const CategoryRoute = () => {
          <RightSection>
             <RightBox label="실시간 핫한 모임" imgLink={IconHot} childrens={<RankList />} />
             <RightBox label="알려드립니다!" imgLink={IconNotice} childrens={<Notice />} />
-            {/* <Link href="/Test">
-               폴더 안 페이지 클릭
-            </Link>
-            <Link href="/test2">
-               같은 경로 페이지 클릭
-            </Link> */}
          </RightSection>
       </>
    );

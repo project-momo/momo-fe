@@ -24,9 +24,9 @@ const Sub = () => {
    const setQnaList = useSetRecoilState(qnaListState);
 
    const getData = async () => {
-      if (query.index) {
+      if (query.id) {
          await api
-            .get(`/meetings/${query.index}`)
+            .get(`/meetings/${query.id}`)
             .then(res => {
                setSubData(res.data);
                setQnaList(res.data.questions);
@@ -36,7 +36,7 @@ const Sub = () => {
    };
    useEffect(() => {
       getData();
-   }, [query.index]);
+   }, [query.id]);
    console.log(subData);
 
    return (

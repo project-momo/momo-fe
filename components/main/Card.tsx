@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
+
 interface CardProps {
    username: string;
    userImage: string;
@@ -12,10 +14,10 @@ interface CardProps {
 
 const Card = ({ username, userImage, title, content, locate, price, meetingId }: CardProps) => {
    const shortLocate = locate.length !== 0 ? locate[0].split(' ')[1] : '';
-   console.log(locate);
+   // console.log(locate);
    return (
       <CardWrap>
-         <a href={`/Sub/${meetingId}`}>
+         <Link href={`/Sub/${meetingId}/`}>
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>
@@ -30,7 +32,7 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId }:
                   {price === '0' ? null : <span> | {price}원 </span>}
                </p>
             </MoreInfo>
-         </a>
+         </Link>
       </CardWrap>
    );
 };
