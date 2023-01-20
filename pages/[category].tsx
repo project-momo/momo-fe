@@ -10,12 +10,12 @@ import RankList from '../components/main/RankList';
 import Notice from '../components/rightLayout/Notice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { nowCategoryState } from '../atoms/sub/atom';
 
 const CategoryRoute = () => {
    const { query } = useRouter();
-   const [nowCategory, setNowCategory] = useRecoilState(nowCategoryState);
+   const setNowCategory = useSetRecoilState(nowCategoryState);
 
    if (query.category) {
       setNowCategory(query.category);

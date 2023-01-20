@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import { nowCategoryState } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
 
 interface MainProps {
@@ -31,7 +29,7 @@ const MainList = ({ category }: CategoryProps) => {
    // const setCategory = useRecoilValue(nowCategoryState);
    const getMoimData = async () => {
       try {
-         const data = await axios
+         await axios
             .get(`${API_URI}/meetings?&category=${query.category ? query.category : ''}&page=1&size=18`)
             .then(el => {
                console.log(el);
