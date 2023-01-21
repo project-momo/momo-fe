@@ -4,6 +4,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { myProfile } from '../../atoms/mypage/atoms';
+// import Image from 'next/image';
 
 const Profile = () => {
    const myInfo = useRecoilValue(myProfile);
@@ -12,10 +13,7 @@ const Profile = () => {
       <ProfileWrapper className="half">
          <p className="title">내 정보</p>
          <div className="card-basic">
-            <div className="profile-imgBox">
-               {/* eslint-disable-next-line @next/next/no-img-element */}
-               <img src="" alt="" />
-            </div>
+            <div className="profile-imgBox">{/* <Image src="" alt="" /> */}</div>
             <div className="profile-txt">
                <p className="nickname">{myInfo.nickname}</p>
                <p className="email">{myInfo.email}</p>

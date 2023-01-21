@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { modalState, selectedReservation } from '../../atoms/mypage/atoms';
 import { useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
+import Image from 'next/image';
 
 const Application = ({ data, confirmed }: any) => {
    const uuid = uuidv4();
@@ -27,8 +28,7 @@ const Application = ({ data, confirmed }: any) => {
             <div className="application">
                <div className="profile">
                   <div className="imgBox">
-                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                     <img src={data.imageUrl} alt="" />
+                     <Image src={data.imageUrl} alt="" />
                   </div>
                   <p>{data.nickname}</p>
                </div>

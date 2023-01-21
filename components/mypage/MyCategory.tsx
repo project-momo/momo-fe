@@ -5,6 +5,7 @@ import crown from '../../assets/images/icon_crown.svg';
 import heart from '../../assets/images/icon_heart.svg';
 import piggyBank from '../../assets/images/icon_piggy.svg';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 const MyCategory = () => {
    const router = useRouter();
@@ -14,29 +15,25 @@ const MyCategory = () => {
          <Ul>
             <Li>
                <Link href="/mypage" className={pathname === '/mypage' ? 'active' : ''}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={user} alt="" />
+                  <Image src={user} alt="" />
                   <p>마이페이지</p>
                </Link>
             </Li>
             <Li>
                <Link href="/meetings" className={pathname === '/meetings' ? 'active' : ''}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={crown} alt="" />
+                  <Image src={crown} alt="" />
                   <p>만든 모임 목록</p>
                </Link>
             </Li>
             <Li>
                <Link href="/attending" className={pathname === '/attending' ? 'active' : ''}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={heart} alt="" />
+                  <Image src={heart} alt="" />
                   <p>참여 모임 목록</p>
                </Link>
             </Li>
             <Li>
                <Link href="/point" className={pathname === '/point' ? 'active' : ''}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={piggyBank} alt="" />
+                  <Image src={piggyBank} alt="" />
                   <p>적립금</p>
                </Link>
             </Li>
