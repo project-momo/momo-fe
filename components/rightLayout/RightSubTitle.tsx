@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 interface RightSubTitleProps {
@@ -9,7 +8,7 @@ export const RightSubTitle = ({ label, imgLink }: RightSubTitleProps) => {
    return (
       <div>
          <Text>
-            <Image src={imgLink} alt={'SubtitleImg'} />
+            <img src={imgLink} alt={'SubtitleImg'} />
             {label}
          </Text>
       </div>

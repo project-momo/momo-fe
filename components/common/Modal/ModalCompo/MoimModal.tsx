@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
@@ -21,7 +20,7 @@ const MoimModal = ({ title, subTitle, mainBtnLabel, mainBtnPath, routeBtnLabel, 
          <SubTitle>{subTitle}</SubTitle>
          <ModalBtn mainBtnLabel={mainBtnLabel} mainBtnPath={mainBtnPath} />
          <RouteBtn onClick={() => router.push(routeBtnPath)} data-bs-dismiss="modal">
-            {routeBtnLabel} <Image src={IconArrow} alt="modal" />
+            {routeBtnLabel} <img src={IconArrow} alt="modal" />
          </RouteBtn>
       </>
    );
