@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`html,
+const GlobalStyle = createGlobalStyle`
+  html,
   body {
     width: 100vw;
     position: absolute;
