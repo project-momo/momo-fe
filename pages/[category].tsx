@@ -10,12 +10,12 @@ import RankList from '../components/main/RankList';
 import Notice from '../components/rightLayout/Notice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { nowCategoryState } from '../atoms/sub/atom';
 
 const CategoryRoute = () => {
    const { query } = useRouter();
-   const setNowCategory = useSetRecoilState(nowCategoryState);
+   const [nowCategory, setNowCategory] = useRecoilState(nowCategoryState);
 
    if (query.category) {
       setNowCategory(query.category);
@@ -66,6 +66,12 @@ const CategoryRoute = () => {
          <RightSection>
             <RightBox label="실시간 핫한 모임" imgLink={IconHot} childrens={<RankList />} />
             <RightBox label="알려드립니다!" imgLink={IconNotice} childrens={<Notice />} />
+            {/* <Link href="/Test">
+               폴더 안 페이지 클릭
+            </Link>
+            <Link href="/test2">
+               같은 경로 페이지 클릭
+            </Link> */}
          </RightSection>
       </>
    );

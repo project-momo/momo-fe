@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Image from 'next/image';
 import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -53,7 +52,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
             type={type}
          />
          <SubmitBtn onClick={onSubmit} type2={type}>
-            <Image src={IconCommentAdd} alt="commentAdd" />
+            <img src={IconCommentAdd} alt="commentAdd" />
          </SubmitBtn>
       </InputWarp>
    );

@@ -6,7 +6,6 @@ import IconLifestyle from './../../assets/images/icon_lifestyle.svg';
 import IconEdu from './../../assets/images/icon_edu.svg';
 import IconMedia from './../../assets/images/icon_media.svg';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 
 export const Layout = styled.div`
    width: 277px;
@@ -50,51 +49,49 @@ export const Category = () => {
          <Ul>
             <Li>
                <Link href="/" className={isActive(undefined) ? 'active' : ''}>
-                  <Image src={IconAll} alt="All" />
+                  <img src={IconAll} alt="All" />
                   <p>전체</p>
                </Link>
             </Li>
             <Li>
                <Link href="/LIFESTYLE" className={isActive('LIFESTYLE') ? 'active' : ''}>
-                  <Image src={IconLifestyle} alt="Lifestyle" />
+                  <img src={IconLifestyle} alt="Lifestyle" />
                   <p>라이프스타일</p>
                </Link>
             </Li>
             <Li>
                <Link href="/EDU" className={isActive('EDU') ? 'active' : ''}>
-                  {' '}
-                  <Image src={IconEdu} alt="edu" />
+                  <img src={IconEdu} alt="edu" />
                   <p>교육</p>
                </Link>
             </Li>
             <Li>
                <Link href="/MEDIA" className={isActive('MEDIA') ? 'active' : ''}>
-                  {' '}
-                  <Image src={IconMedia} alt="MEDIA" />
+                  <img src={IconMedia} alt="MEDIA" />
                   <p>미디어</p>
                </Link>
             </Li>
             <Li>
                <Link href="/DEVELOP" className={isActive('DEVELOP') ? 'active' : ''}>
-                  <Image src={IconAll} alt="DEVELOP" />
+                  <img src={IconAll} alt="DEVELOP" />
                   <p>개발</p>
                </Link>
             </Li>
             <Li>
                <Link href="/FINANCE" className={isActive('FINANCE') ? 'active' : ''}>
-                  <Image src={IconAll} alt="FINANCE" />
+                  <img src={IconAll} alt="FINANCE" />
                   <p>금융</p>
                </Link>
             </Li>
             <Li>
                <Link href="/SOCIAL" className={isActive('SOCIAL') ? 'active' : ''}>
-                  <Image src={IconAll} alt="SOCIAL" />
+                  <img src={IconAll} alt="SOCIAL" />
                   <p>소셜</p>
                </Link>
             </Li>
             <Li>
                <Link href="/AI" className={isActive('AI') ? 'active' : ''}>
-                  <Image src={IconAll} alt="AI" />
+                  <img src={IconAll} alt="AI" />
                   <p>AI</p>
                </Link>
             </Li>
