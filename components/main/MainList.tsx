@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { nowCategoryState } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
+import { mainTagList, selectCategory } from '../../atoms/atom';
+import { api } from '../../util/token';
 
 interface MainProps {
    host: { nickname: string; imageUrl: string };
@@ -26,15 +28,20 @@ const MainList = ({ category }: CategoryProps) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const [moimData, setModimData] = useState([] as any);
    // const [error, setError] = useState('' as string | unknown);
+   const nowSelectCategory = useRecoilValue(selectCategory);
+   const selectTags = useRecoilValue(mainTagList);
    const [loading, setLoading] = useState(true);
-   const { query } = useRouter();
    // const setCategory = useRecoilValue(nowCategoryState);
+   console.log(selectTags);
    const getMoimData = async () => {
       try {
-         const data = await axios
-            .get(`${API_URI}/meetings?&category=${query.category ? query.category : ''}&page=1&size=18`)
+         const data = await api
+            .get(
+               `${API_URI}/meetings?&category=${nowSelectCategory}${
+                  selectTags !== '' ? `&tag=${selectTags}` : ''
+               }&page=1&size=18`
+            )
             .then(el => {
-               console.log(el);
                setModimData(el.data.content);
             });
       } catch (error) {
@@ -46,7 +53,7 @@ const MainList = ({ category }: CategoryProps) => {
 
    useEffect(() => {
       getMoimData();
-   }, [category]);
+   }, [nowSelectCategory, selectTags]);
    return (
       <CardList>
          {loading ? (
@@ -79,6 +86,12 @@ export default MainList;
 const CardList = styled.div`
    width: 100%;
    display: flex;
-   justify-content: space-between;
+   justify-content: start;
    flex-wrap: wrap;
+   .card_wrap:nth-child(3n-1) {
+      margin-left: 16px;
+   }
+   .card_wrap:nth-child(3n) {
+      margin-left: 16px;
+   }
 `;
