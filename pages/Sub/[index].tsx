@@ -44,7 +44,14 @@ const Sub = () => {
          {isModalOpen ? (
             <Modal
                CloseModal={() => setIsModalOpen(!isModalOpen)}
-               childrens={<ModalDetail dateTime={subData.dateTime} price={subData.price} title={subData.title} />}
+               childrens={
+                  <ModalDetail
+                     meetingId={subData.meetingId}
+                     dateTime={subData.dateTime}
+                     price={subData.price}
+                     title={subData.title}
+                  />
+               }
             />
          ) : null}
          {modalOpen ? <Modal CloseModal={() => setModalOpen(!modalOpen)} childrens={<ShareModal />} /> : null}
