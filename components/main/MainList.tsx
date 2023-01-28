@@ -31,7 +31,6 @@ const MainList = ({ category }: CategoryProps) => {
    const selectTags = useRecoilValue(mainTagListmain);
    const [loading, setLoading] = useState(true);
    // const setCategory = useRecoilValue(nowCategoryState);
-   console.log(selectTags);
    const getMoimData = async () => {
       try {
          const data = await api

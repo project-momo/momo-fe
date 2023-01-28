@@ -74,7 +74,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
    useEffect(() => {
       api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
          .then(el => {
-            // console.log(el);
+            console.log(el);
             setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
          })
          .catch(err => {

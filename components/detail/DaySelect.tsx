@@ -24,7 +24,6 @@ const DaySelect = ({ datePolicy, dateTime, meetingId }: SelectProps) => {
    const [yearOver, monthOver, dateOver] = dateTime.endDate.toString().split('-');
    const [freeDateState, freeSetDate] = useRecoilState(freeDate);
    useEffect(() => {
-      console.log(freeDateState);
       if (freeDateState !== null) {
          api.get(`/meetings/${meetingId}/reservations/dates/${freeDateState.toISOString().split('T')[0]}`).then(el =>
             console.log(el)

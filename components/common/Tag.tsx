@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { mainTagList } from '../../atoms/atom';
+import { mainTagList, mainTagListmain } from '../../atoms/atom';
 
 interface TagProps {
    label: string;
@@ -9,7 +9,7 @@ interface TagProps {
 }
 
 export const Tag = ({ label, ...props }: TagProps) => {
-   const [tags, setTags] = useRecoilState(mainTagList);
+   const [tags, setTags] = useRecoilState(mainTagListmain);
 
    const Toggle = () => {
       if (tags === label) {
