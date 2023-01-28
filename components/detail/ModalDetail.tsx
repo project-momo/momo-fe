@@ -72,14 +72,12 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
 
    const [oneDayPersonal, setOndayPersonal] = useState<number[]>([0, 0]);
    useEffect(() => {
-      if (datePolicy === 'ONE_DAY') {
-         api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
-            .then(el => {
-               console.log(el);
-               setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
-            })
-            .catch(err => console.log('error', err));
-      }
+      api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
+         .then(el => {
+            console.log(el);
+            setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
+         })
+         .catch(err => console.log('error', err));
    }, []);
 
    return (
@@ -108,6 +106,12 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
                   </>
                )}
                {datePolicy === 'ONE_DAY' && (
+                  <>
+                     <br />
+                     {startNum}:00 ~ {endNum}:00
+                  </>
+               )}
+               {datePolicy === 'PERIOD' && (
                   <>
                      <br />
                      {startNum}:00 ~ {endNum}:00
