@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import { nowCategoryState } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
-import { mainTagList, selectCategory } from '../../atoms/atom';
+import { mainTagList, mainTagListmain, selectCategory } from '../../atoms/atom';
 import { api } from '../../util/token';
+import { useRecoilValue } from 'recoil';
 
 interface MainProps {
    host: { nickname: string; imageUrl: string };
@@ -29,7 +28,7 @@ const MainList = ({ category }: CategoryProps) => {
    const [moimData, setModimData] = useState([] as any);
    // const [error, setError] = useState('' as string | unknown);
    const nowSelectCategory = useRecoilValue(selectCategory);
-   const selectTags = useRecoilValue(mainTagList);
+   const selectTags = useRecoilValue(mainTagListmain);
    const [loading, setLoading] = useState(true);
    // const setCategory = useRecoilValue(nowCategoryState);
    console.log(selectTags);

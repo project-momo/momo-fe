@@ -1,7 +1,8 @@
 import { atom } from 'recoil';
+import { v1 } from 'uuid';
 
 export const setIsShareModalOpen = atom<boolean>({
-   key: 'setIsShareModalOpen',
+   key: `setIsShareModalOpen/${v1()}`,
    default: false
 });
 
@@ -37,7 +38,7 @@ interface SubDataType {
    };
 }
 export const setSubDataObject = atom<SubDataType>({
-   key: 'setSubDataObject',
+   key: `setSubDataObject/${v1()}`,
    default: {
       address: {
          addressInfo: '',
@@ -71,7 +72,7 @@ export const setSubDataObject = atom<SubDataType>({
 });
 
 export const nowCategoryState = atom<string | string[]>({
-   key: 'nowCategoryState',
+   key: `nowCategoryState/${v1()}`,
    default: ''
 });
 export const freeDate = atom<any>({

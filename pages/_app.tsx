@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import { ContentLayout, GrayLayout } from '../styles/style';
@@ -10,6 +9,7 @@ import { Modal } from '../components/common/Modal/Modal';
 import LoginModal from '../components/common/Modal/ModalCompo/LoginModal';
 import Header from '../components/common/Header/Header';
 import axios from 'axios';
+import GlobalStyle from '../styles/GlobalStyle';
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
    return (
       <RecoilRoot>
+         <GlobalStyle />
          {isModalOpen ? <Modal CloseModal={CloseModal} childrens={<LoginModal />} /> : null}
          <GrayLayout>
             <ContentLayout>

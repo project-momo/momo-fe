@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { api } from '../../util/token';
 import { Button } from '../common/Button';
-import FreeDate from '../create/Date/FreeDate';
-import OneDate from '../create/Date/OneDate';
-import PeriodDate from '../create/Date/PeriodDate';
+// import FreeDate from '../create/Date/FreeDate';
+// import OneDate from '../create/Date/OneDate';
+// import PeriodDate from '../create/Date/PeriodDate';
 import DaySelect from './DaySelect';
 import TimeList from './TimeList';
 interface DetailProps {
@@ -31,12 +31,12 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
    const arrayList = Array(endNum - startNum + 1)
       .fill(0)
       .map((_, i) => startNum + i);
-   const dpSetting = {
-      dateFormat: 'yyyy-MM-dd',
-      dateFormatCalendar: 'yyyy.MM',
-      withPortal: true
-   };
-   const [dates, setDates] = useState<any>('');
+   // const dpSetting = {
+   //    dateFormat: 'yyyy-MM-dd',
+   //    dateFormatCalendar: 'yyyy.MM',
+   //    withPortal: true
+   // };
+   // const [dates, setDates] = useState<any>('');
 
    const [isOnFocus, setIsFocus] = useState<number | undefined>(-1);
    const [clickTime, setClickTime] = useState<any>([-1, null]);
@@ -74,10 +74,12 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
    useEffect(() => {
       api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
          .then(el => {
-            console.log(el);
+            // console.log(el);
             setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
          })
-         .catch(err => console.log('error', err));
+         .catch(err => {
+            // console.log('error', err);
+         });
    }, []);
 
    return (
@@ -217,9 +219,9 @@ const SubTitle = styled.p`
    }
 `;
 
-const BtnWrap = styled.div`
-   position: absolute;
-   bottom: 0px;
-   width: 100%;
-   left: 0px;
-`;
+// const BtnWrap = styled.div`
+//    position: absolute;
+//    bottom: 0px;
+//    width: 100%;
+//    left: 0px;
+// `;

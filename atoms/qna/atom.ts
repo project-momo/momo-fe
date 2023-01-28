@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { v1 } from 'uuid';
 
 export interface QnaType {
    questionId: number;
@@ -31,4 +32,4 @@ interface AnswererType {
    imageUrl: null;
 }
 
-export const qnaListState = atom<QnaType[]>({ key: 'qnaState', default: [] });
+export const qnaListState = atom<QnaType[]>({ key: `qnaState/${v1()}`, default: [] });

@@ -52,7 +52,6 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
             type={type}
          />
          <SubmitBtn onClick={onSubmit} type2={type}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={IconCommentAdd} alt="commentAdd" />
          </SubmitBtn>
       </InputWarp>
