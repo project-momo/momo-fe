@@ -15,14 +15,12 @@ const DateFreePicker = ({ dates }: FreeProps) => {
    const activeDate = (date: any) => {
       const [year, month, datee] = date.toISOString().split('T')[0].split('-');
       const datee2 = +datee + 1;
-      return true;
       if (dates.indexOf(`${year}-${month}-${datee2}`) === -1) {
          return false;
       } else {
          return true;
       }
    };
-   console.log(date);
    return (
       <div>
          <CustomDatePicker

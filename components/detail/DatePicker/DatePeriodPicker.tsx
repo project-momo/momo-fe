@@ -40,15 +40,9 @@ const DatePeriodPicker = ({ startDates, endDate, dayWeeks }: FreeProps) => {
          return false;
       }
       if (month > endMonth) {
-         console.log('왜 실행안?', month);
          if (datee2 > endDatee) return false;
          return false;
       }
-
-      //
-
-      //
-
       for (let i = 0; i < filterArray.length; i++) {
          if (date.getDay() === 0) {
             if (7 === filterArray[i]) {
