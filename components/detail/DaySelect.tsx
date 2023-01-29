@@ -25,9 +25,8 @@ const DaySelect = ({ datePolicy, dateTime, meetingId }: SelectProps) => {
    const [freeDateState, freeSetDate] = useRecoilState(freeDate);
    useEffect(() => {
       if (freeDateState !== null) {
-         api.get(`/meetings/${meetingId}/reservations/dates/${freeDateState.toISOString().split('T')[0]}`).then(el =>
-            console.log(el)
-         );
+         console.log(freeDateState.toISOString().split('T')[0]);
+         api.get(`/meetings/${meetingId}/reservations/dates/2023-02-15`).then(el => console.log(el));
       }
    }, [freeDateState]);
    const weekObject = {
