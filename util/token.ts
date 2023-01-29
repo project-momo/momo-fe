@@ -58,12 +58,14 @@ api.interceptors.response.use(
          })
          .then(res => {
             console.log('aa');
+            alert('재전송중');
             if (res.status === 200) {
                const accessToken = res.data.accessToken;
                const refreshToken = res.data.refreshToken;
                parseJwt(accessToken);
                localStorage.setItem('AccessToken', accessToken);
                axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+               api.defaults.headers.common['Authorization'] = `${accessToken}`;
                localStorage.setItem('RefreshToken', refreshToken);
                // setRefreshToken(refreshToken);
                // 새로 받은 토큰 저장 및 원래 요청 다시 보내기
@@ -72,9 +74,12 @@ api.interceptors.response.use(
             }
          })
          .catch(err => {
-            console.log('error! 최종');
-            localStorage.removeItem('AccessToken');
-            localStorage.removeItem('RefreshToken');
+            alert('로그인을 다시 진행해주세요');
+            window.location.href = '/';
+            err;
+
+            // localStorage.removeItem('AccessToken');
+            // localStorage.removeItem('RefreshToken');
             // removeRefreshToken();
             // window.location.href = '/';
          });

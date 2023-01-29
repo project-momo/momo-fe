@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { isLogin } from '../../atoms/atom';
 import { api } from '../../util/token';
 import { Button } from '../common/Button';
 // import FreeDate from '../create/Date/FreeDate';
@@ -21,9 +23,11 @@ interface DetailProps {
       dayWeeks: [];
       dates: string[];
    };
+   setIsModalOpen: any;
 }
-const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
+const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: DetailProps) => {
    const datePolicy = dateTime.datePolicy;
+   const isLoginState = useRecoilValue(isLogin);
 
    const startNum = +dateTime.startTime.split(':')[0];
    const endNum = +dateTime.endTime.split(':')[0];
@@ -71,11 +75,41 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
 
    const [oneDayPersonal, setOndayPersonal] = useState<number[]>([0, 0]);
    useEffect(() => {
-      api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then(el => {
-         console.log(el);
-         setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
-      });
+      if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
+         api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then(el => {
+            console.log(el);
+            setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
+         });
+      }
    }, []);
+
+   const [memoState, setMemoState] = useState('');
+
+   const MemoChange = (e: any) => {
+      setMemoState(e.target.value);
+   };
+
+   const submitMoim = () => {
+      if (!isLoginState) {
+         alert('로그인을 진행해주세요');
+      } else {
+         api.post(`/meetings/${meetingId}/reservations`, {
+            dateInfo: {
+               reservationDate: dateTime.startDate,
+               startTime: dateTime.startTime,
+               endTime: dateTime.endTime
+            },
+            amount: price,
+            reservationMemo: memoState
+         }).then(el => {
+            if (el !== undefined) {
+               alert('예약이 완료되었습니다!');
+               setIsModalOpen(false);
+            }
+         });
+         // .catch(err => alert('error'));
+      }
+   };
 
    return (
       <>
@@ -140,6 +174,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
                )
                // /meetings/1/reservations/dates/2022-01-01
             }
+            <Memo>
+               메모를 입력해주세요
+               <textarea onChange={e => MemoChange(e)} value={memoState} />
+            </Memo>
             <BtnPosition>
                <Button
                   size="bigBold"
@@ -147,6 +185,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
                   backgroundColor="#444bff"
                   priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   label=""
+                  onClick={submitMoim}
                />
             </BtnPosition>
          </SelectSection>
@@ -163,6 +202,21 @@ export default ModalDetail;
 //    padding-top: 80px;
 //    position: relative;
 // `;
+const Memo = styled.div`
+   width: 100%;
+   textarea {
+      width: 100%;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      border: none;
+      height: 84px;
+      font-size: 15px;
+      padding: 16px 20px;
+   }
+   textarea:focus {
+      outline: 2px solid #9093f3;
+   }
+`;
 const TitleWrap = styled.div`
    padding-bottom: 10px;
    border-bottom: 1px solid #cecece;
@@ -191,7 +245,6 @@ const MbrPrtcp = styled.p`
 `;
 const SelectSection = styled.div`
    height: calc(70vh - 180px);
-   overflow-x: auto;
    position: relative;
    padding-bottom: 90px;
 `;
