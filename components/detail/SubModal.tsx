@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -31,10 +32,12 @@ const SubModal = () => {
             <button onClick={() => setModalOpen(!modalOpen)}>공유하기</button>
          </List>
          <List>
-            <button>게시글 수정</button>
+            <Link href={`/meeting/update/${meetingId}`}>
+               <button>모임 수정</button>
+            </Link>
          </List>
          <List>
-            <button onClick={handleDeleteMeeting}>게시글 삭제</button>
+            <button onClick={handleDeleteMeeting}>모임 삭제</button>
          </List>
          {myPost}
       </ModalWarp>
