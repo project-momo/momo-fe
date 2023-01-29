@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -20,12 +21,34 @@ export const Title = () => {
       SOCIAL: '소셜'
    };
    return (
-      <TitleText>
-         {nowSelectCategory !== 'search'
-            ? nowSelectCategory === ''
-               ? '전체'
-               : categoryObject[nowSelectCategory]
-            : SearchText}
-      </TitleText>
+      <TitleWarp>
+         <TitleText>
+            {nowSelectCategory !== 'search'
+               ? nowSelectCategory === ''
+                  ? '전체'
+                  : categoryObject[nowSelectCategory]
+               : SearchText}
+         </TitleText>
+         <Link href={'/meeting/create'}>모임 제작하러 가기 ></Link>
+      </TitleWarp>
    );
 };
+
+const TitleWarp = styled.div`
+   display: flex;
+   width: 100%;
+   justify-content: space-between;
+   align-items: center;
+   a{
+      display: flex;
+      align-items: center;
+      width: 220px;
+   height: 50px;
+   border-radius: 10px;
+   background-color: #d2e2ff;
+   color: #200d74;
+justify-content: center;
+   font-size: 15px;
+   font-weight: 700;
+   }
+`;
