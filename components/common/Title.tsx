@@ -46,7 +46,7 @@ const TitleWarp = styled.div`
    height: 50px;
    border-radius: 10px;
    background-color: #d2e2ff;
-   color: #200d74;
+   color: #000000;
 justify-content: center;
    font-size: 15px;
    font-weight: 700;
