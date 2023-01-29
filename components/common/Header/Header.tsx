@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HeaderButton } from './HeaderButton';
 import IconSearch from '../../..//assets/images/icon_search.svg';
-import { useRecoilState } from 'recoil';
-import { isLogin } from '../../../atoms/atom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { isLogin, mainTagListmain, searchValueAtom, selectCategory, setMoimDataArray } from '../../../atoms/atom';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { api } from '../../../util/token';
 
 const HeaderLayout = styled.div`
    background-color: #49515b;
@@ -45,20 +46,87 @@ const Header = ({ OpenModal }: LoginProps) => {
       router.push('/');
    };
 
+   const [searchIsFocus, setSearchisFocus] = useState(false);
+   const [searchValue, setSearchValue] = useRecoilState(searchValueAtom);
+   const [selectcategoryState, setSelectCategory] = useRecoilState(selectCategory);
+
+   const searchValueChange = (e: any) => {
+      setSearchValue(e.target.value);
+   };
+   const isFocusSearch = () => {
+      setSearchisFocus(true);
+   };
+   const isBlurSearch = () => {
+      setSearchisFocus(false);
+   };
+
+   const keyEventSearch = (e: any) => {
+      if (e.keyCode == 13) {
+         console.log('작동');
+         postSearch();
+      }
+   };
+   const searchClickBtn = () => {
+      postSearch();
+   };
+   const [moimData, setModimData] = useRecoilState(setMoimDataArray);
+   const [selectTags, setSelectTags] = useRecoilState(mainTagListmain);
+
+   const postSearch = async () => {
+      setSelectCategory('search');
+      try {
+         await api
+            .get(
+               `${API_URI}/meetings?&keyword=${searchValue}${
+                  selectTags !== '' ? `&tag=${selectTags}` : ''
+               }&page=1&size=18`
+            )
+            .then(el => {
+               setModimData(el.data.content);
+            });
+      } catch (error) {
+         // setError(error);
+      }
+   };
+   const goMain = () => {
+      setSelectCategory('');
+      setSelectTags('');
+   };
+   useEffect(() => {
+      if (selectcategoryState === 'search') {
+         postSearch();
+      }
+   }, [selectTags]);
    return (
       <HeaderLayout>
          <Wrapper>
             <InnerWrapper>
                <div>
-                  <Link href="/">
+                  <Link onClick={goMain} href="/">
                      <H>Momo</H>
                   </Link>
                </div>
-               <Input id="Search" />
-               <FloatingSearch htmlFor="Search">
-                  <FloatingSearchicon htmlFor="Search" background={IconSearch}></FloatingSearchicon>
-                  <FloatingSearchLabel htmlFor="Search">검색하기</FloatingSearchLabel>
-               </FloatingSearch>
+               <Input
+                  onChange={e => searchValueChange(e)}
+                  onKeyDown={e => keyEventSearch(e)}
+                  value={searchValue}
+                  id="Search"
+                  onFocus={isFocusSearch}
+                  onBlur={isBlurSearch}
+               />
+               {searchIsFocus || searchValue !== '' ? (
+                  <FloatingSearch htmlFor="Search">
+                     <FloatingSearchiconBtn onClick={searchClickBtn} className="rightBtn" background={IconSearch}>
+                        search
+                     </FloatingSearchiconBtn>
+                  </FloatingSearch>
+               ) : (
+                  <FloatingSearch htmlFor="Search">
+                     <FloatingSearchicon htmlFor="Search" background={IconSearch}></FloatingSearchicon>
+                     <FloatingSearchLabel htmlFor="Search">검색하기</FloatingSearchLabel>
+                  </FloatingSearch>
+               )}
+
                <div>
                   {isLoginState ? (
                      <>
@@ -133,6 +201,9 @@ const Input = styled.input`
    height: 34px;
    border-radius: 20px;
    padding: 0 15px;
+   :focus {
+      outline: black;
+   }
    ::placeholder {
       text-align: center;
       transition: 0.3;
@@ -149,4 +220,17 @@ const FloatingSearchicon = styled.label<{ background: string }>`
    top: 50%;
    left: calc(50% - 40px);
    transform: translate(-50%, -50%);
+`;
+const FloatingSearchiconBtn = styled.button<{ background: string }>`
+   display: inline-block;
+   width: 18px;
+   height: 18px;
+   background-image: url(${props => `${props.background}`});
+   background-position: 100% 100%;
+   background-size: cover;
+   position: absolute;
+   top: 50%;
+   right: 10px;
+   transform: translate(-50%, -50%);
+   font-size: 0;
 `;

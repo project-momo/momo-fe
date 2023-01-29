@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <>
          <Category />
          <CenterSection>
-            <Title label="전체" />
+            <Title />
             <MainTags />
             <MainList />
          </CenterSection>
