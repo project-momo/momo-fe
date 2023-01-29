@@ -24,3 +24,21 @@ export const selectCategory = atom<string>({
    key: `selectCategory/${v1()}`,
    default: ''
 });
+
+export const mainSearchText = atom<string>({
+   key: `mainSearchText/${v1()}`,
+   default: ''
+});
+export const nowSearchText = atom<string>({
+   key: `nowSearchText/${v1()}`,
+   default: ''
+});
+export const setMoimDataArray = atom<any>({
+   key: `setMoimDataArray/${v1()}`,
+   default: []
+});
+
+export const searchValueAtom = atom<any>({
+   key: `searchValueAtom/${v1()}`,
+   default: ''
+});

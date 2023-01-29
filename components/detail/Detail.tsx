@@ -94,6 +94,7 @@ const UserCard = styled.div<{ backImg: string }>`
       background-image: url(${p => `${p.backImg}`});
       background-position: cover;
       border-radius: 30px;
+      background-size: cover;
       height: 45px;
       width: 45px;
       margin-right: 14px;

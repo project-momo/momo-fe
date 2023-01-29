@@ -11,6 +11,7 @@ if (typeof window !== 'undefined') {
       axios.defaults.headers.common['Authorization'] = `${localStorage.getItem('AccessToken')}`;
    }
 }
+
 console.log(axios.defaults.headers.common.Authorization);
 const parseJwt = (token: any) => {
    const base64Url = token.split('.')[1];
@@ -44,10 +45,11 @@ api.interceptors.response.use(
       // if (error && error.response.status === '' && refreshToken) {
       const instance = axios.create();
       instance.defaults.headers.post['Content-Type'] = 'application/json';
+      instance.defaults.headers.common['refreshtoken'] = refreshToken;
       delete originalRequest.headers.Authorization;
       delete instance.defaults.headers.common['Authorization'];
       return instance
-         .post(`${API_URI}/auth/token/refresh`, {
+         .put(`https://momo-api.shop/auth/token`, {
             transformRequest: (data: any, headers: any) => {
                delete headers.common['Authorization'];
                return data;
@@ -74,7 +76,7 @@ api.interceptors.response.use(
             }
          })
          .catch(err => {
-            // alert('로그인을 다시 진행해주세요');
+            alert('로그인을 다시 진행해주세요');
             // window.location.href = '/';
             err;
 

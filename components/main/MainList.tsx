@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
-import { mainTagListmain, selectCategory } from '../../atoms/atom';
+import { mainTagListmain, searchValueAtom, selectCategory, setMoimDataArray } from '../../atoms/atom';
 import { api } from '../../util/token';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 interface MainProps {
    host: { nickname: string; imageUrl: string };
@@ -23,11 +23,12 @@ interface MainProps {
 // }
 const MainList = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-   const [moimData, setModimData] = useState([] as any);
+   const [moimData, setModimData] = useRecoilState(setMoimDataArray);
    // const [error, setError] = useState('' as string | unknown);
    const nowSelectCategory = useRecoilValue(selectCategory);
-   const selectTags = useRecoilValue(mainTagListmain);
+   const [selectTags, setSelectTage] = useRecoilState(mainTagListmain);
    const [loading, setLoading] = useState(true);
+   const setSearchValue = useSetRecoilState(searchValueAtom);
    // const setCategory = useRecoilValue(nowCategoryState);
    const getMoimData = async () => {
       try {
@@ -48,8 +49,14 @@ const MainList = () => {
    };
 
    useEffect(() => {
-      getMoimData();
+      if (nowSelectCategory !== 'search') {
+         getMoimData();
+         setSearchValue('');
+      }
    }, [nowSelectCategory, selectTags]);
+   useEffect(() => {
+      setSelectTage('');
+   }, [nowSelectCategory]);
    return (
       <CardList>
          {loading ? (
