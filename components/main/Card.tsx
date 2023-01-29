@@ -17,7 +17,7 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId }:
    // console.log(locate);
    return (
       <CardWrap className="card_wrap">
-         <Link href={`/Sub/${meetingId}`}>
+         <Link href={`/sub/${meetingId}`}>
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>

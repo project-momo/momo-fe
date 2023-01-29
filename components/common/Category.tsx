@@ -22,17 +22,20 @@ export const Ul = styled.ul`
    position: fixed;
 `;
 export const Li = styled.li`
-   button {
+   button,
+   a {
       display: flex;
       align-items: center;
       padding: 10px 20px;
       border-radius: 50px;
       cursor: pointer;
    }
-   button.active {
+   button.active,
+   a.active {
       background-color: #ecf4ff;
    }
-   button p {
+   button p,
+   a p {
       font-size: 16px;
       font-weight: 700;
       padding-left: 9px;
