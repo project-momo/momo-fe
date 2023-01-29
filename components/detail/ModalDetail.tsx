@@ -197,10 +197,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
                )
                // /meetings/1/reservations/dates/2022-01-01
             }
-            {/* <Memo>
+            <Memo>
                메모를 입력해주세요
                <textarea onChange={e => MemoChange(e)} value={memoState} />
-            </Memo> */}
+            </Memo>
             {datePolicy === 'FREE' ? (
                <BtnPosition>
                   <Button
@@ -231,6 +231,29 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
 };
 
 export default ModalDetail;
+
+// const DetailWrap = styled.div`
+//    min-width: 700px;
+//    height: 70vh;
+//    padding-bottom: 100px;
+//    padding-top: 80px;
+//    position: relative;
+// `;
+const Memo = styled.div`
+   width: 100%;
+   textarea {
+      width: 100%;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      border: none;
+      height: 84px;
+      font-size: 15px;
+      padding: 16px 20px;
+   }
+   textarea:focus {
+      outline: 2px solid #9093f3;
+   }
+`;
 
 const TitleWrap = styled.div`
    padding-bottom: 10px;
