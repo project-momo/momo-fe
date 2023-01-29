@@ -1,22 +1,34 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { isLogin } from '../../atoms/atom';
 import { setIsShareModalOpen } from '../../atoms/sub/atom';
-
-const SubModal = () => {
+interface SubProps {
+   hostId: number;
+}
+const SubModal = ({ hostId }: SubProps) => {
    const myPost = true;
    const [modalOpen, setModalOpen] = useRecoilState(setIsShareModalOpen);
+   const isLoginState = useRecoilValue(isLogin);
    return (
       <ModalWarp>
          <List>
             <button onClick={() => setModalOpen(!modalOpen)}>공유하기</button>
          </List>
-         <List>
-            <button>게시글 수정</button>
-         </List>
-         <List>
-            <button>게시글 삭제</button>
-         </List>
+         {
+            // && localStorage.getItem('userId') === `${hostId}`
+            isLoginState ? (
+               <>
+                  <List>
+                     <button>게시글 수정</button>
+                  </List>
+                  <List>
+                     <button>게시글 삭제</button>
+                  </List>
+               </>
+            ) : null
+         }
+
          {myPost}
       </ModalWarp>
    );
