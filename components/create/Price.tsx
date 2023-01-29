@@ -1,5 +1,5 @@
-import { NumberInput, RadioButtons } from '../../pages/meeting/create';
 import { useState, SetStateAction } from 'react';
+import { NumberInput, RadioButtons } from '../../pages/meeting/create';
 
 interface PriceProps {
    datePolicy: string;
@@ -27,7 +27,7 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
                disabled={pricePolicy === 'FREE' && true}
                min={0}
                value={price}
-               onChange={e => setPrice(e.target.value)}
+               onChange={(e: { target: { value: SetStateAction<string | number> } }) => setPrice(e.target.value)}
             />
          </label>
          <label>
