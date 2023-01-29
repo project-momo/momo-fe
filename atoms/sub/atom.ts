@@ -47,6 +47,7 @@ export const setSubDataObject = atom<SubDataType>({
          addressInfo: '',
          addresses: []
       },
+      addressIds: [],
       category: '',
       content: '',
       host: {
