@@ -7,7 +7,7 @@ export const nameState = atom<number>({
 });
 
 export const mainTagListmain = atom<string>({
-   key: 'mainTagList',
+   key: `mainTagList/${v1()}`,
    default: ''
 });
 export const mainTagList = atom<string[]>({
@@ -21,6 +21,6 @@ export const isLogin = atom<boolean>({
 });
 
 export const selectCategory = atom<string>({
-   key: 'selectCategory',
+   key: `selectCategory/${v1()}`,
    default: ''
 });

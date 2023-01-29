@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { freeDate } from '../../atoms/sub/atom';
 import { api } from '../../util/token';
 import DateFreePicker from './DatePicker/DateFreePicker';
-import DatePeriodPicker from './DatePicker/DatePeriodPicker';
 interface SelectProps {
    meetingId: number;
    datePolicy: string;
@@ -22,12 +21,11 @@ interface SelectProps {
 const DaySelect = ({ datePolicy, dateTime, meetingId }: SelectProps) => {
    const [year, month, date] = dateTime.startDate.toString().split('-');
    const [yearOver, monthOver, dateOver] = dateTime.endDate.toString().split('-');
-   const [freeDateState, freeSetDate] = useRecoilState(freeDate);
+   const freeDateState = useRecoilValue(freeDate);
    useEffect(() => {
       if (freeDateState !== null) {
-         api.get(`/meetings/${meetingId}/reservations/dates/${freeDateState.toISOString().split('T')[0]}`).then(el =>
-            console.log(el)
-         );
+         console.log(freeDateState.toISOString().split('T')[0]);
+         api.get(`/meetings/${meetingId}/reservations/dates/2023-02-15`).then(el => console.log(el));
       }
    }, [freeDateState]);
    const weekObject = {

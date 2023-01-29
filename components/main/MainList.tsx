@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { mainTagList, mainTagListmain, selectCategory } from '../../atoms/atom';
+import { mainTagListmain, selectCategory } from '../../atoms/atom';
 import { api } from '../../util/token';
 import { useRecoilValue } from 'recoil';
 
@@ -20,10 +18,10 @@ interface MainProps {
    price: number;
    meetingId: number;
 }
-interface CategoryProps {
-   category?: string;
-}
-const MainList = ({ category }: CategoryProps) => {
+// interface CategoryProps {
+//    category?: string;
+// }
+const MainList = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const [moimData, setModimData] = useState([] as any);
    // const [error, setError] = useState('' as string | unknown);
@@ -33,7 +31,7 @@ const MainList = ({ category }: CategoryProps) => {
    // const setCategory = useRecoilValue(nowCategoryState);
    const getMoimData = async () => {
       try {
-         const data = await api
+         await api
             .get(
                `${API_URI}/meetings?&category=${nowSelectCategory}${
                   selectTags !== '' ? `&tag=${selectTags}` : ''

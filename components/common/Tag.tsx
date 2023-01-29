@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { mainTagList, mainTagListmain } from '../../atoms/atom';
+import { mainTagListmain } from '../../atoms/atom';
 
 interface TagProps {
    label: string;

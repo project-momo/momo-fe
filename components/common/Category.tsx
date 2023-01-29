@@ -1,11 +1,9 @@
-import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import IconAll from './../../assets/images/icon_all.svg';
 import IconLifestyle from './../../assets/images/icon_lifestyle.svg';
 import IconEdu from './../../assets/images/icon_edu.svg';
 import IconMedia from './../../assets/images/icon_media.svg';
-import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { selectCategory } from '../../atoms/atom';
 
@@ -45,7 +43,6 @@ export const Li = styled.li`
 `;
 
 export const Category = () => {
-   const { query } = useRouter();
    const [nowCategoryState, setNowCategoryState] = useRecoilState(selectCategory);
    const isActive = (now: string | undefined) => {
       return now === nowCategoryState ? true : false;

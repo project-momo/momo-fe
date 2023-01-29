@@ -28,7 +28,15 @@ interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ disabled = false, size, backgroundColor, priceLabel, label, ...props }: ButtonProps) => {
+export const Button = ({
+   disabled = false,
+   size,
+   backgroundColor,
+   priceLabel,
+   label,
+   onClick,
+   ...props
+}: ButtonProps) => {
    const mode = disabled ? styles.storybook_button__disabled : styles.storybook_button__primary;
    return (
       <button
@@ -36,6 +44,7 @@ export const Button = ({ disabled = false, size, backgroundColor, priceLabel, la
          className={[styles.storybook_button, styles[`storybook_button__${size}`], mode].join(' ')}
          style={{ backgroundColor }}
          disabled={disabled}
+         onClick={onClick}
          {...props}>
          {priceLabel ? (
             <>
