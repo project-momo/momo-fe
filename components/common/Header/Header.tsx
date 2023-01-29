@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HeaderButton } from './HeaderButton';
 import IconSearch from '../../..//assets/images/icon_search.svg';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { isLogin, mainTagListmain, searchValueAtom, selectCategory, setMoimDataArray } from '../../../atoms/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+   isLogin,
+   mainTagListmain,
+   nowSearchText,
+   searchValueAtom,
+   selectCategory,
+   setMoimDataArray
+} from '../../../atoms/atom';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -69,11 +76,14 @@ const Header = ({ OpenModal }: LoginProps) => {
    const searchClickBtn = () => {
       postSearch();
    };
-   const [moimData, setModimData] = useRecoilState(setMoimDataArray);
+   const setModimData = useSetRecoilState(setMoimDataArray);
    const [selectTags, setSelectTags] = useRecoilState(mainTagListmain);
-
+   const setnowSearchText = useSetRecoilState(nowSearchText);
+   const route = useRouter();
    const postSearch = async () => {
+      route.push(`/search/${searchValue}`);
       setSelectCategory('search');
+      setnowSearchText(searchValue);
       try {
          await api
             .get(

@@ -29,6 +29,10 @@ export const mainSearchText = atom<string>({
    key: `mainSearchText/${v1()}`,
    default: ''
 });
+export const nowSearchText = atom<string>({
+   key: `nowSearchText/${v1()}`,
+   default: ''
+});
 export const setMoimDataArray = atom<any>({
    key: `setMoimDataArray/${v1()}`,
    default: []

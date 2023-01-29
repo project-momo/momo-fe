@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { searchValueAtom, selectCategory } from '../../atoms/atom';
+import { nowSearchText, searchValueAtom, selectCategory } from '../../atoms/atom';
 
 const TitleText = styled.p`
    font-size: 40px;
@@ -9,7 +9,7 @@ const TitleText = styled.p`
 `;
 export const Title = () => {
    const nowSelectCategory = useRecoilValue(selectCategory);
-   const searchValue = useRecoilValue(searchValueAtom);
+   const SearchText = useRecoilValue(nowSearchText);
    console.log('nowSelectCategory', nowSelectCategory);
    const categoryObject = {
       LIFESTYLE: '라이프 스타일',
@@ -25,7 +25,7 @@ export const Title = () => {
             ? nowSelectCategory === ''
                ? '전체'
                : categoryObject[nowSelectCategory]
-            : searchValue}
+            : SearchText}
       </TitleText>
    );
 };
