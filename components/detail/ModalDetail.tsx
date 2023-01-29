@@ -118,8 +118,8 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
             <MbrPrtcp>
                {datePolicy === 'FREE'
                   ? '자유 일정을 선택해주세요.'
-                  : datePolicy === 'PERIOD'
-                  ? '주중 일정을 확인해주세요.'
+                  : datePolicy === 'PERIOD' && oneDayPersonal[1] === 1
+                  ? `주중 일정을 확인해주세요.`
                   : datePolicy === 'ONE_DAY' && oneDayPersonal[1] === 1
                   ? '일정을 확인 해 주세요'
                   : `단체 만남 ${oneDayPersonal[0]}/${oneDayPersonal[1]} (남은 자리 : ${
@@ -178,16 +178,30 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
                메모를 입력해주세요
                <textarea onChange={e => MemoChange(e)} value={memoState} />
             </Memo>
-            <BtnPosition>
-               <Button
-                  size="bigBold"
-                  disabled={false}
-                  backgroundColor="#444bff"
-                  priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  label=""
-                  onClick={submitMoim}
-               />
-            </BtnPosition>
+            {datePolicy === 'FREE' ? (
+               <BtnPosition>
+                  <Button
+                     size="bigBold"
+                     disabled={false}
+                     backgroundColor="#444bff"
+                     priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                     label=""
+                     onClick={submitMoim}
+                  />
+               </BtnPosition>
+            ) : (
+               <BtnPosition>
+                  <Button
+                     size="bigBold"
+                     backgroundColor="#444bff"
+                     priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                     label=""
+                     onClick={submitMoim}
+                     // eslint-disable-next-line react/jsx-no-duplicate-props
+                     disabled={oneDayPersonal[1] - oneDayPersonal[0] === 0}
+                  />
+               </BtnPosition>
+            )}
          </SelectSection>
       </>
    );
