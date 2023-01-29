@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { freeDate } from '../../atoms/sub/atom';
+import { api } from '../../util/token';
 import DateFreePicker from './DatePicker/DateFreePicker';
+import DatePeriodPicker from './DatePicker/DatePeriodPicker';
 interface SelectProps {
+   meetingId: number;
    datePolicy: string;
    dateTime: {
       datePolicy: string;
@@ -14,8 +19,26 @@ interface SelectProps {
       dates: string[];
    };
 }
-const DaySelect = ({ datePolicy, dateTime }: SelectProps) => {
+const DaySelect = ({ datePolicy, dateTime, meetingId }: SelectProps) => {
    const [year, month, date] = dateTime.startDate.toString().split('-');
+   const [yearOver, monthOver, dateOver] = dateTime.endDate.toString().split('-');
+   const [freeDateState, freeSetDate] = useRecoilState(freeDate);
+   useEffect(() => {
+      if (freeDateState !== null) {
+         api.get(`/meetings/${meetingId}/reservations/dates/${freeDateState.toISOString().split('T')[0]}`).then(el =>
+            console.log(el)
+         );
+      }
+   }, [freeDateState]);
+   const weekObject = {
+      7: '일',
+      1: '월',
+      2: '화',
+      3: '수',
+      4: '목',
+      5: '금',
+      6: '토'
+   };
    return (
       <Wrapper>
          {datePolicy === 'ONE_DAY' ? (
@@ -37,7 +60,25 @@ const DaySelect = ({ datePolicy, dateTime }: SelectProps) => {
                <DateFreePicker dates={dateTime.dates} />
             </>
          )}
-         {/* {datePolicy === 'PERIOD' &&      <SubTitle>날짜선택</SubTitle> <FreeDate dates={dates} setDates={setDates} dpSetting={dpSetting} />} */}
+         {datePolicy === 'PERIOD' && (
+            <OneDayText>
+               모임 날짜 <br />
+               <span>
+                  {year}년 {month}월 {date}일 ~ {yearOver}년 {monthOver}월 {dateOver}일 <br />매 주
+                  <b>
+                     {' '}
+                     {dateTime.dayWeeks.map(el => {
+                        return ` ${weekObject[el]}요일`;
+                     })}
+                  </b>
+               </span>
+               {/* <DatePeriodPicker
+                  dayWeeks={dateTime.dayWeeks}
+                  startDates={dateTime.startDate}
+                  endDate={dateTime.endDate}
+               /> */}
+            </OneDayText>
+         )}
       </Wrapper>
    );
 };

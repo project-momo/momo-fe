@@ -16,8 +16,8 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId }:
    const shortLocate = locate.length !== 0 ? locate[0].split(' ')[1] : '';
    // console.log(locate);
    return (
-      <CardWrap>
-         <Link href={`/Sub/${meetingId}/`}>
+      <CardWrap className="card_wrap">
+         <Link href={`/Sub/${meetingId}`}>
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { api } from '../../util/token';
 import { Button } from '../common/Button';
 // import FreeDate from '../create/Date/FreeDate';
 // import OneDate from '../create/Date/OneDate';
@@ -9,6 +11,7 @@ import TimeList from './TimeList';
 interface DetailProps {
    title: string;
    price: number;
+   meetingId: number;
    dateTime: {
       datePolicy: string;
       startDate: Date;
@@ -20,7 +23,7 @@ interface DetailProps {
       dates: string[];
    };
 }
-const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
+const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
    const datePolicy = dateTime.datePolicy;
 
    const startNum = +dateTime.startTime.split(':')[0];
@@ -67,6 +70,18 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
       }
    };
 
+   const [oneDayPersonal, setOndayPersonal] = useState<number[]>([0, 0]);
+   useEffect(() => {
+      api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
+         .then(el => {
+            console.log(el);
+            setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
+         })
+         .catch(err => {
+            // console.log('error', err);
+         });
+   }, []);
+
    return (
       <>
          <TitleWrap>
@@ -76,43 +91,69 @@ const ModalDetail = ({ title, dateTime, price }: DetailProps) => {
                   ? '자유 일정을 선택해주세요.'
                   : datePolicy === 'PERIOD'
                   ? '주중 일정을 확인해주세요.'
-                  : datePolicy === 'ONE_DAY'
+                  : datePolicy === 'ONE_DAY' && oneDayPersonal[1] === 1
                   ? '일정을 확인 해 주세요'
-                  : '단체 만남 1/7 (남은 자리 : 6명)'}
+                  : `단체 만남 ${oneDayPersonal[0]}/${oneDayPersonal[1]} (남은 자리 : ${
+                       oneDayPersonal[1] - oneDayPersonal[0]
+                    }명)`}
             </MbrPrtcp>
          </TitleWrap>
          <SelectSection>
-            <DaySelect datePolicy={datePolicy} dateTime={dateTime} />
+            <DaySelect meetingId={meetingId} datePolicy={datePolicy} dateTime={dateTime} />
             <SubTitle>
-               시간선택 <span>* 최대 {dateTime.maxTime}시간 선택 가능합니다.</span>
+               모임 시간{' '}
+               {datePolicy === 'FREE' && (
+                  <>
+                     선택 <span>* 최대 {dateTime.maxTime}시간 선택 가능합니다.</span>
+                  </>
+               )}
+               {datePolicy === 'ONE_DAY' && (
+                  <>
+                     <br />
+                     {startNum}:00 ~ {endNum}:00
+                  </>
+               )}
+               {datePolicy === 'PERIOD' && (
+                  <>
+                     <br />
+                     {startNum}:00 ~ {endNum}:00
+                  </>
+               )}
             </SubTitle>
-            <TimeTableWrap>
-               {arrayList.map((el, idx) => (
-                  <TimeList
-                     key={idx}
-                     onMouseEnter={() => setIsFocus(el)}
-                     onMouseLeave={() => setIsFocus(-1)}
-                     onClick={() => TimeListSetting(el)}
-                     className={
-                        startTimeSet === el
-                           ? 'startTime'
-                           : endTimeSet === el
-                           ? 'endtime'
-                           : IsActive(el)
-                           ? 'hoveractive'
-                           : ''
-                     }
-                     time={el}
-                  />
-               ))}
-            </TimeTableWrap>
-            <Button
-               size="bigBold"
-               disabled={false}
-               backgroundColor="#444bff"
-               priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-               label=""
-            />
+            {
+               datePolicy === 'FREE' && (
+                  <TimeTableWrap>
+                     {arrayList.map((el, idx) => (
+                        <TimeList
+                           key={idx}
+                           onMouseEnter={() => setIsFocus(el)}
+                           onMouseLeave={() => setIsFocus(-1)}
+                           onClick={() => TimeListSetting(el)}
+                           className={
+                              startTimeSet === el
+                                 ? 'startTime'
+                                 : endTimeSet === el
+                                 ? 'endtime'
+                                 : IsActive(el)
+                                 ? 'hoveractive'
+                                 : ''
+                           }
+                           time={el}
+                        />
+                     ))}
+                  </TimeTableWrap>
+               )
+               // /meetings/1/reservations/dates/2022-01-01
+            }
+            <BtnPosition>
+               <Button
+                  size="bigBold"
+                  disabled={false}
+                  backgroundColor="#444bff"
+                  priceLabel={price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  label=""
+               />
+            </BtnPosition>
          </SelectSection>
       </>
    );
@@ -156,6 +197,15 @@ const MbrPrtcp = styled.p`
 const SelectSection = styled.div`
    height: calc(70vh - 180px);
    overflow-x: auto;
+   position: relative;
+   padding-bottom: 90px;
+`;
+
+const BtnPosition = styled.div`
+   position: absolute;
+   width: 100%;
+   bottom: 0px;
+   left: 0px;
 `;
 const SubTitle = styled.p`
    font-size: 16px;

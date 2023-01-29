@@ -1,4 +1,6 @@
 import React, { SetStateAction, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { freeDate } from '../../../atoms/sub/atom';
 import { CustomDatePicker } from '../../../pages/meeting/create';
 interface FreeProps {
    dates: string[];
@@ -9,7 +11,7 @@ const DateFreePicker = ({ dates }: FreeProps) => {
       dateFormatCalendar: 'yyyy.MM',
       withPortal: true
    };
-   const [date, setDate] = useState<any>(null);
+   const [date, setDate] = useRecoilState(freeDate);
    const activeDate = (date: any) => {
       const [year, month, datee] = date.toISOString().split('T')[0].split('-');
       const datee2 = +datee + 1;

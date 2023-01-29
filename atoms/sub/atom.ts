@@ -75,3 +75,7 @@ export const nowCategoryState = atom<string | string[]>({
    key: `nowCategoryState/${v1()}`,
    default: ''
 });
+export const freeDate = atom<any>({
+   key: 'freeDate',
+   default: null
+});

@@ -6,6 +6,8 @@ import IconLifestyle from './../../assets/images/icon_lifestyle.svg';
 import IconEdu from './../../assets/images/icon_edu.svg';
 import IconMedia from './../../assets/images/icon_media.svg';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { selectCategory } from '../../atoms/atom';
 
 export const Layout = styled.div`
    width: 277px;
@@ -22,17 +24,17 @@ export const Ul = styled.ul`
    position: fixed;
 `;
 export const Li = styled.li`
-   a {
+   button {
       display: flex;
       align-items: center;
       padding: 10px 20px;
       border-radius: 50px;
       cursor: pointer;
    }
-   a.active {
+   button.active {
       background-color: #ecf4ff;
    }
-   a p {
+   button p {
       font-size: 16px;
       font-weight: 700;
       padding-left: 9px;
@@ -41,59 +43,72 @@ export const Li = styled.li`
 
 export const Category = () => {
    const { query } = useRouter();
+   const [nowCategoryState, setNowCategoryState] = useRecoilState(selectCategory);
    const isActive = (now: string | undefined) => {
-      return now === query.category ? true : false;
+      return now === nowCategoryState ? true : false;
    };
    return (
       <Layout>
          <Ul>
             <Li>
-               <Link href="/" className={isActive(undefined) ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('')} className={isActive('') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="All" />
                   <p>전체</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/LIFESTYLE" className={isActive('LIFESTYLE') ? 'active' : ''}>
+               <button
+                  onClick={() => setNowCategoryState('LIFESTYLE')}
+                  className={isActive('LIFESTYLE') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconLifestyle} alt="Lifestyle" />
                   <p>라이프스타일</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/EDU" className={isActive('EDU') ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('EDU')} className={isActive('EDU') ? 'active' : ''}>
+                  {' '}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconEdu} alt="edu" />
                   <p>교육</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/MEDIA" className={isActive('MEDIA') ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('MEDIA')} className={isActive('MEDIA') ? 'active' : ''}>
+                  {' '}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconMedia} alt="MEDIA" />
                   <p>미디어</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/DEVELOP" className={isActive('DEVELOP') ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('DEVELOP')} className={isActive('DEVELOP') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="DEVELOP" />
                   <p>개발</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/FINANCE" className={isActive('FINANCE') ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('FINANCE')} className={isActive('FINANCE') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="FINANCE" />
                   <p>금융</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/SOCIAL" className={isActive('SOCIAL') ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('SOCIAL')} className={isActive('SOCIAL') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="SOCIAL" />
                   <p>소셜</p>
-               </Link>
+               </button>
             </Li>
             <Li>
-               <Link href="/AI" className={isActive('AI') ? 'active' : ''}>
+               <button onClick={() => setNowCategoryState('AI')} className={isActive('AI') ? 'active' : ''}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="AI" />
                   <p>AI</p>
-               </Link>
+               </button>
             </Li>
          </Ul>
       </Layout>
