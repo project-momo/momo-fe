@@ -9,6 +9,7 @@ import { Button } from '../common/Button';
 // import PeriodDate from '../create/Date/PeriodDate';
 import DaySelect from './DaySelect';
 import TimeList from './TimeList';
+import { loadTossPayments } from '@tosspayments/payment-sdk';
 interface DetailProps {
    title: string;
    price: number;
@@ -89,7 +90,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
       setMemoState(e.target.value);
    };
 
-   const submitMoim = () => {
+   const submitMoim = async () => {
+      const clientKey: any = process.env.NEXT_PUBLIC_CLIENT_KEY;
+      const tossPayments = await loadTossPayments(clientKey);
+
       if (!isLoginState) {
          alert('로그인을 진행해주세요');
       } else {
@@ -101,10 +105,37 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
             },
             amount: price,
             reservationMemo: memoState
-         }).then(el => {
-            if (el !== undefined) {
-               alert('예약이 완료되었습니다!');
-               setIsModalOpen(false);
+         }).then(res => {
+            console.log(res);
+            if (res) {
+               const fetchData = {
+                  ...res.data,
+                  successUrl: 'http://localhost:3000/payments/success',
+                  failUrl: 'http://localhost:3000/payments/failed'
+               };
+
+               console.log(res.data);
+
+               tossPayments
+                  .requestPayment('카드', fetchData)
+                  .then(res => {
+                     console.log(res);
+                     // 성공시 alert('예약이 완료되었습니다!');
+                  })
+                  .catch(function (error) {
+                     if (error.code === 'USER_CANCEL') {
+                        // 결제 고객이 결제창을 닫았을 때 에러 처리
+                        alert('결제가 취소되었습니다.');
+                     } else if (error.code === 'INVALID_CARD_COMPANY') {
+                        // 유효하지 않은 카드 코드에 대한 에러 처리
+                        alert('유효하지 않은 카드입니다.');
+                     }
+                  });
+            } else {
+               if (res !== undefined) {
+                  alert('예약이 완료되었습니다!');
+                  setIsModalOpen(false);
+               }
             }
          });
          // .catch(err => alert('error'));
