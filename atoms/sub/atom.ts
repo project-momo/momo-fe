@@ -76,6 +76,11 @@ export const nowCategoryState = atom<string | string[]>({
    default: ''
 });
 export const freeDate = atom<any>({
-   key: 'freeDate',
+   key: `freeDate/${v1()}`,
    default: null
+});
+
+export const totalPrice = atom<number>({
+   key: `totalPrice/${v1()}`,
+   default: 0
 });

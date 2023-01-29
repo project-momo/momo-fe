@@ -22,8 +22,7 @@ const Price = ({ OpenModal, price, open }: PriceProps) => {
          </PriceInfo>
          <Button
             onClick={OpenModal}
-            // disabled={openState}
-            disabled={false}
+            disabled={openState}
             label={openState ? '모집 완료' : '참여하기'}
             size="smallBold"
          />

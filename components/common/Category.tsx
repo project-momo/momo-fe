@@ -4,8 +4,13 @@ import IconAll from './../../assets/images/icon_all.svg';
 import IconLifestyle from './../../assets/images/icon_lifestyle.svg';
 import IconEdu from './../../assets/images/icon_edu.svg';
 import IconMedia from './../../assets/images/icon_media.svg';
+import IconDevelop from './../../assets/images/icon_develop.svg';
+import IconFinance from './../../assets/images/icon_finance.svg';
+import IconAi from './../../assets/images/icon_ai.svg';
+import IconSocial from './../../assets/images/icon_social.svg';
 import { useRecoilState } from 'recoil';
 import { selectCategory } from '../../atoms/atom';
+import { useRouter } from 'next/router';
 
 export const Layout = styled.div`
    width: 277px;
@@ -47,11 +52,20 @@ export const Category = () => {
    const isActive = (now: string | undefined) => {
       return now === nowCategoryState ? true : false;
    };
+   const route = useRouter();
+   const categoryMoveOnClick = (label: string) => {
+      if (window) {
+         if (window.location.pathname !== '/') {
+            route.push('/');
+         }
+      }
+      setNowCategoryState(label);
+   };
    return (
       <Layout>
          <Ul>
             <Li>
-               <button onClick={() => setNowCategoryState('')} className={isActive('') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('')} className={isActive('') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconAll} alt="All" />
                   <p>전체</p>
@@ -59,7 +73,7 @@ export const Category = () => {
             </Li>
             <Li>
                <button
-                  onClick={() => setNowCategoryState('LIFESTYLE')}
+                  onClick={() => categoryMoveOnClick('LIFESTYLE')}
                   className={isActive('LIFESTYLE') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconLifestyle} alt="Lifestyle" />
@@ -67,7 +81,7 @@ export const Category = () => {
                </button>
             </Li>
             <Li>
-               <button onClick={() => setNowCategoryState('EDU')} className={isActive('EDU') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('EDU')} className={isActive('EDU') ? 'active' : ''}>
                   {' '}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconEdu} alt="edu" />
@@ -75,7 +89,7 @@ export const Category = () => {
                </button>
             </Li>
             <Li>
-               <button onClick={() => setNowCategoryState('MEDIA')} className={isActive('MEDIA') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('MEDIA')} className={isActive('MEDIA') ? 'active' : ''}>
                   {' '}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={IconMedia} alt="MEDIA" />
@@ -83,31 +97,31 @@ export const Category = () => {
                </button>
             </Li>
             <Li>
-               <button onClick={() => setNowCategoryState('DEVELOP')} className={isActive('DEVELOP') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('DEVELOP')} className={isActive('DEVELOP') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="DEVELOP" />
+                  <img src={IconDevelop} alt="DEVELOP" />
                   <p>개발</p>
                </button>
             </Li>
             <Li>
-               <button onClick={() => setNowCategoryState('FINANCE')} className={isActive('FINANCE') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('FINANCE')} className={isActive('FINANCE') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="FINANCE" />
+                  <img src={IconFinance} alt="FINANCE" />
                   <p>금융</p>
                </button>
             </Li>
             <Li>
-               <button onClick={() => setNowCategoryState('SOCIAL')} className={isActive('SOCIAL') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('SOCIAL')} className={isActive('SOCIAL') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="SOCIAL" />
+                  <img src={IconSocial} alt="SOCIAL" />
                   <p>소셜</p>
                </button>
             </Li>
             <Li>
-               <button onClick={() => setNowCategoryState('AI')} className={isActive('AI') ? 'active' : ''}>
+               <button onClick={() => categoryMoveOnClick('AI')} className={isActive('AI') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="AI" />
-                  <p>AI</p>
+                  <img src={IconAi} alt="AI" />
+                  <p>인공지능</p>
                </button>
             </Li>
          </Ul>

@@ -28,29 +28,25 @@ interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({
-   disabled = false,
-   size,
-   backgroundColor,
-   priceLabel,
-   label,
-   onClick,
-   ...props
-}: ButtonProps) => {
+export const Button = ({ size, backgroundColor, priceLabel, label, disabled, onClick, ...props }: ButtonProps) => {
    const mode = disabled ? styles.storybook_button__disabled : styles.storybook_button__primary;
    return (
       <button
+         disabled={disabled}
          type="button"
          className={[styles.storybook_button, styles[`storybook_button__${size}`], mode].join(' ')}
          style={{ backgroundColor }}
-         disabled={disabled}
          onClick={onClick}
          {...props}>
          {priceLabel ? (
-            <>
-               {' '}
-               <span className={styles.price}>{priceLabel}</span> 원 <br /> 결제하고 시작하기{' '}
-            </>
+            disabled ? (
+               <span>모집이 마감되었습니다.</span>
+            ) : (
+               <>
+                  {' '}
+                  <span className={styles.price}>{priceLabel}</span> 원 <br /> 결제하고 시작하기{' '}
+               </>
+            )
          ) : (
             label
          )}
