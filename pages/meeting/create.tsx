@@ -12,6 +12,7 @@ import Time from '../../components/create/Time';
 import Price from '../../components/create/Price';
 import LiTitle from '../../components/create/LiTitle';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 // date picker
 import DatePicker from 'react-datepicker';
@@ -20,6 +21,7 @@ import Location from '../../components/create/Location';
 import { Button } from '../../components/common/Button';
 
 const Create = () => {
+   const router = useRouter();
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
 
    const [category, setCategory] = useState('라이프스타일');
@@ -203,11 +205,11 @@ const Create = () => {
          return;
       }
 
-      console.log('전송!', data);
-
       axios
          .post(`${API_URI}/meetings`, data)
-         .then()
+         .then(() => {
+            router.push('/');
+         })
          .catch(err => console.log('에러', err));
    };
 

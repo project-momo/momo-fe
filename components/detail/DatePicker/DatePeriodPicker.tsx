@@ -1,8 +1,4 @@
-import React, { SetStateAction, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { freeDate } from '../../../atoms/sub/atom';
 import { CustomDatePicker } from '../../../pages/meeting/create';
-import { addDays } from 'date-fns';
 interface FreeProps {
    startDates: any;
    endDate: any;
@@ -56,12 +52,12 @@ const DatePeriodPicker = ({ startDates, endDate, dayWeeks }: FreeProps) => {
 
       return true;
    };
-   const exclude = (date: any) => {
-      if (date.getDate() === 2) {
-         return false;
-      }
-      return true;
-   };
+   // const exclude = (date: any) => {
+   //    if (date.getDate() === 2) {
+   //       return false;
+   //    }
+   //    return true;
+   // };
    const none = () => {
       return null;
    };

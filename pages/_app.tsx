@@ -10,6 +10,7 @@ import LoginModal from '../components/common/Modal/ModalCompo/LoginModal';
 import Header from '../components/common/Header/Header';
 import axios from 'axios';
 import GlobalStyle from '../styles/GlobalStyle';
+import Head from 'next/head';
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -31,16 +32,21 @@ function MyApp({ Component, pageProps }: AppProps) {
    }, []);
 
    return (
-      <RecoilRoot>
-         <GlobalStyle />
-         {isModalOpen ? <Modal CloseModal={CloseModal} childrens={<LoginModal />} /> : null}
-         <GrayLayout>
-            <ContentLayout>
-               <Header OpenModal={OpenModal} />
-               <Component {...pageProps} />
-            </ContentLayout>
-         </GrayLayout>
-      </RecoilRoot>
+      <>
+         <Head>
+            <title>모모 Momo</title>
+         </Head>
+         <RecoilRoot>
+            <GlobalStyle />
+            {isModalOpen ? <Modal CloseModal={CloseModal} childrens={<LoginModal />} /> : null}
+            <GrayLayout>
+               <ContentLayout>
+                  <Header OpenModal={OpenModal} />
+                  <Component {...pageProps} />
+               </ContentLayout>
+            </GrayLayout>
+         </RecoilRoot>
+      </>
    );
 }
 

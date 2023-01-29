@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction } from 'react';
 import { useRecoilState } from 'recoil';
 import { freeDate } from '../../../atoms/sub/atom';
 import { CustomDatePicker } from '../../../pages/meeting/create';
