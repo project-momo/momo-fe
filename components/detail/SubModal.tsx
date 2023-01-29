@@ -1,27 +1,22 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 
 const SubModal = () => {
-   const router = useRouter();
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
 
    const myPost = true;
    const [modalOpen, setModalOpen] = useRecoilState(setIsShareModalOpen);
-   const { meetingId } = useRecoilValue(setSubDataObject);
+   const [subObject, setSubDateObject] = useRecoilState(setSubDataObject);
 
    const handleDeleteMeeting = () => {
-      if (confirm('정말 삭제하시겠습니까?')) {
-         // TODO. API 변경
+      if (confirm('모임을 마감하시겠습니까?')) {
          axios
-            .delete(`${API_URI}/meetings/${meetingId}`)
-            .then(() => {
-               router.push('/');
-            })
+            .delete(`${API_URI}/meetings/${subObject.meetingId}`)
+            .then(() => setSubDateObject({ ...subObject, meetingState: '모집 완료' }))
             .catch(err => console.log('에러', err));
       }
    };
@@ -32,12 +27,12 @@ const SubModal = () => {
             <button onClick={() => setModalOpen(!modalOpen)}>공유하기</button>
          </List>
          <List>
-            <Link href={`/meeting/update/${meetingId}`}>
+            <Link href={`/meeting/update/${subObject.meetingId}`}>
                <button>모임 수정</button>
             </Link>
          </List>
          <List>
-            <button onClick={handleDeleteMeeting}>모임 삭제</button>
+            <button onClick={handleDeleteMeeting}>모임 마감</button>
          </List>
          {myPost}
       </ModalWarp>
