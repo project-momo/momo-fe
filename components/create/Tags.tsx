@@ -19,10 +19,8 @@ const Tags = ({ tags, onClickTag }: TagsProps) => {
             </button>
          </li>
          <li>
-            <button
-               onClick={() => onClickTag('오프라인모임')}
-               className={tags.includes('오프라인모임') ? 'selected' : ''}>
-               오프라인모임
+            <button onClick={() => onClickTag('오프라인')} className={tags.includes('오프라인') ? 'selected' : ''}>
+               오프라인
             </button>
          </li>
          <li>
@@ -36,8 +34,8 @@ const Tags = ({ tags, onClickTag }: TagsProps) => {
             </button>
          </li>
          <li>
-            <button onClick={() => onClickTag('5인이상')} className={tags.includes('5인이상') ? 'selected' : ''}>
-               5인이상
+            <button onClick={() => onClickTag('5인 이상')} className={tags.includes('5인 이상') ? 'selected' : ''}>
+               5인 이상
             </button>
          </li>
       </TagsStyle>

@@ -1,11 +1,30 @@
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { setIsShareModalOpen } from '../../atoms/sub/atom';
+import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 
 const SubModal = () => {
+   const router = useRouter();
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+
    const myPost = true;
    const [modalOpen, setModalOpen] = useRecoilState(setIsShareModalOpen);
+   const { meetingId } = useRecoilValue(setSubDataObject);
+
+   const handleDeleteMeeting = () => {
+      if (confirm('정말 삭제하시겠습니까?')) {
+         // TODO. API 변경
+         axios
+            .delete(`${API_URI}/meetings/${meetingId}`)
+            .then(() => {
+               router.push('/');
+            })
+            .catch(err => console.log('에러', err));
+      }
+   };
+
    return (
       <ModalWarp>
          <List>
@@ -15,7 +34,7 @@ const SubModal = () => {
             <button>게시글 수정</button>
          </List>
          <List>
-            <button>게시글 삭제</button>
+            <button onClick={handleDeleteMeeting}>게시글 삭제</button>
          </List>
          {myPost}
       </ModalWarp>

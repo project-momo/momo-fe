@@ -11,7 +11,9 @@ const MyMeetingCard = ({ data, participant }: any) => {
    const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    const [hasAccordion, setAccordionState] = useState(false);
    const setApplications = useSetRecoilState(applications);
-   let newApplications, confirmedApplications, meetingInfo;
+   let newApplications = [];
+   let confirmedApplications = [];
+   let meetingInfo;
 
    // 참여 모임
    if (participant) {
