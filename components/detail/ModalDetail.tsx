@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -30,7 +28,6 @@ interface DetailProps {
 const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: DetailProps) => {
    const datePolicy = dateTime.datePolicy;
    const isLoginState = useRecoilValue(isLogin);
-   const router = useRouter();
 
    const startNum = +dateTime.startTime.split(':')[0];
    const endNum = +dateTime.endTime.split(':')[0];
@@ -79,14 +76,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
    const [oneDayPersonal, setOndayPersonal] = useState<number[]>([0, 0]);
    useEffect(() => {
       if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
-         api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
-            .then(el => {
-               console.log(el);
-               setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
-            })
-            .catch(err => {
-               // console.log('error', err);
-            });
+         api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then(el => {
+            console.log(el);
+            setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
+         });
       }
    }, []);
 

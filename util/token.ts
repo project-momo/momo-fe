@@ -76,6 +76,7 @@ api.interceptors.response.use(
          .catch(err => {
             alert('로그인을 다시 진행해주세요');
             window.location.href = '/';
+            err;
 
             // localStorage.removeItem('AccessToken');
             // localStorage.removeItem('RefreshToken');
