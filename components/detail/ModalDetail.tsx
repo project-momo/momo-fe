@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { api } from '../../util/token';
@@ -72,14 +71,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId }: DetailProps) => {
 
    const [oneDayPersonal, setOndayPersonal] = useState<number[]>([0, 0]);
    useEffect(() => {
-      api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`)
-         .then(el => {
-            console.log(el);
-            setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
-         })
-         .catch(err => {
-            // console.log('error', err);
-         });
+      api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then(el => {
+         console.log(el);
+         setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
+      });
    }, []);
 
    return (
