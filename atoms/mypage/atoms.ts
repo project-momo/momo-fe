@@ -40,3 +40,8 @@ export const selectedReservation = atom<any>({
    key: `selectedReservation/${v1()}`,
    default: {}
 });
+
+export const applications = atom<any>({
+   key: `applications/${v1()}`,
+   default: {}
+});

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { modalState, selectedMeeting } from '../../atoms/mypage/atoms';
+import { applications, modalState, selectedMeeting } from '../../atoms/mypage/atoms';
 import Application from './Application';
 import { Basic, Button } from './Button';
 import Modal from './Modal';
@@ -10,6 +10,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
    const setSelectedMeeting = useSetRecoilState(selectedMeeting);
    const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    const [hasAccordion, setAccordionState] = useState(false);
+   const setApplications = useSetRecoilState(applications);
    let newApplications, confirmedApplications, meetingInfo;
 
    // 참여 모임
@@ -22,6 +23,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
       };
       // 만든 모임
    } else {
+      setApplications(data.applications);
       newApplications = data.applications.requests;
       confirmedApplications = data.applications.confirmed;
    }
