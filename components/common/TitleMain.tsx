@@ -18,7 +18,8 @@ export const TitleMain = () => {
       MEDIA: '미디어',
       DEVELOP: '개발',
       FINANCE: '금융',
-      SOCIAL: '소셜'
+      SOCIAL: '소셜',
+      AI:'인공지능'
    };
    return (
       <TitleWarp>

@@ -4,6 +4,10 @@ import IconAll from './../../assets/images/icon_all.svg';
 import IconLifestyle from './../../assets/images/icon_lifestyle.svg';
 import IconEdu from './../../assets/images/icon_edu.svg';
 import IconMedia from './../../assets/images/icon_media.svg';
+import IconDevelop from './../../assets/images/icon_develop.svg';
+import IconFinance from './../../assets/images/icon_finance.svg';
+import IconAi from './../../assets/images/icon_ai.svg';
+import IconSocial from './../../assets/images/icon_social.svg';
 import { useRecoilState } from 'recoil';
 import { selectCategory } from '../../atoms/atom';
 import { useRouter } from 'next/router';
@@ -95,29 +99,29 @@ export const Category = () => {
             <Li>
                <button onClick={() => categoryMoveOnClick('DEVELOP')} className={isActive('DEVELOP') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="DEVELOP" />
+                  <img src={IconDevelop} alt="DEVELOP" />
                   <p>개발</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('FINANCE')} className={isActive('FINANCE') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="FINANCE" />
+                  <img src={IconFinance} alt="FINANCE" />
                   <p>금융</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('SOCIAL')} className={isActive('SOCIAL') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="SOCIAL" />
+                  <img src={IconSocial} alt="SOCIAL" />
                   <p>소셜</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('AI')} className={isActive('AI') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="AI" />
-                  <p>AI</p>
+                  <img src={IconAi} alt="AI" />
+                  <p>인공지능</p>
                </button>
             </Li>
          </Ul>
