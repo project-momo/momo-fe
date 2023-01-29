@@ -23,7 +23,6 @@ const MyMeetingCard = ({ data, participant }: any) => {
       };
       // 만든 모임
    } else {
-      setApplications(data.applications);
       newApplications = data.applications.requests;
       confirmedApplications = data.applications.confirmed;
    }
@@ -43,6 +42,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
          setAccordionState(false);
       } else if (newApplications.length > 0 || confirmedApplications.length > 0) {
          setAccordionState(true);
+         setApplications(data.applications);
       }
    }, []);
 
