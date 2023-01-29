@@ -11,6 +11,7 @@ if (typeof window !== 'undefined') {
       axios.defaults.headers.common['Authorization'] = `${localStorage.getItem('AccessToken')}`;
    }
 }
+
 console.log(axios.defaults.headers.common.Authorization);
 const parseJwt = (token: any) => {
    const base64Url = token.split('.')[1];
@@ -75,7 +76,7 @@ api.interceptors.response.use(
          })
          .catch(err => {
             alert('로그인을 다시 진행해주세요');
-            window.location.href = '/';
+            // window.location.href = '/';
             err;
 
             // localStorage.removeItem('AccessToken');

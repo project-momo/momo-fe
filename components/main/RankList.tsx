@@ -1,55 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Rank from './Rank';
 import UserImg from './../../assets/images/userImg2.svg';
+import { api } from '../../util/token';
 
-const dummyRank = [
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   },
-   {
-      imgLink: UserImg,
-      title: '창업은 아무나하나?!_ 창업자의 삶을 선택한다는 것'
-   }
-];
 const RankList = () => {
+   const [rankList, setRankList] = useState<any>([]);
+   useEffect(() => {
+      api.get(`/ranks`).then(el => {
+         setRankList(el.data);
+         console.log(el);
+      });
+   }, []);
    return (
       <RankListOl>
-         {dummyRank.map((el, idx) => (
-            <Rank key={idx} rankNum={`${idx + 1}`} imgLink={el.imgLink} title={el.title} />
+         {rankList.map((el: any, idx: number) => (
+            <Rank key={idx} rankNum={`${idx + 1}`} meetingId={el.meetingId} imgLink={el.imageUrl} title={el.title} />
          ))}
       </RankListOl>
    );

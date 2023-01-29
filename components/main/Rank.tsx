@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -5,16 +6,20 @@ interface RankProps {
    rankNum: string;
    imgLink: string;
    title: string;
+   meetingId: number;
 }
 interface ImgProps {
    imgprops: string;
 }
-const Rank = ({ rankNum, imgLink, title }: RankProps) => {
+const Rank = ({ rankNum, imgLink, title, meetingId }: RankProps) => {
+   console.log(imgLink);
    return (
       <RankLi>
-         <span className="rank">{rankNum}</span>
-         <RankImg className="userImg" imgprops={imgLink} />
-         <span className="title">{title}</span>
+         <Link href={`/sub/${meetingId}`}>
+            <span className="rank">{rankNum}</span>
+            <RankImg className="userImg" imgprops={imgLink} />
+            <span className="title">{title}</span>
+         </Link>
       </RankLi>
    );
 };
@@ -22,9 +27,11 @@ const Rank = ({ rankNum, imgLink, title }: RankProps) => {
 export default Rank;
 
 const RankLi = styled.li`
-   display: flex;
-   align-items: center;
-   margin-bottom: 8px;
+   a {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+   }
    span.title {
       width: 185px;
       display: inline-block;
