@@ -45,10 +45,11 @@ api.interceptors.response.use(
       // if (error && error.response.status === '' && refreshToken) {
       const instance = axios.create();
       instance.defaults.headers.post['Content-Type'] = 'application/json';
+      instance.defaults.headers.common['refreshtoken'] = refreshToken;
       delete originalRequest.headers.Authorization;
       delete instance.defaults.headers.common['Authorization'];
       return instance
-         .post(`${API_URI}/auth/token/refresh`, {
+         .put(`https://momo-api.shop/auth/token`, {
             transformRequest: (data: any, headers: any) => {
                delete headers.common['Authorization'];
                return data;
