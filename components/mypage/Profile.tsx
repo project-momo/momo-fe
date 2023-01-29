@@ -7,7 +7,7 @@ import { myProfile } from '../../atoms/mypage/atoms';
 
 const Profile = () => {
    const myInfo = useRecoilValue(myProfile);
-
+   console.log(myInfo);
    return (
       <ProfileWrapper className="half">
          <p className="title">내 정보</p>
@@ -17,10 +17,10 @@ const Profile = () => {
                <p className="nickname">{myInfo.nickname}</p>
                <p className="email">{myInfo.email}</p>
             </div>
-            <button className="edit">
+            {/* <button className="edit">
                <FontAwesomeIcon icon={faPen} />
                수정
-            </button>
+            </button> */}
          </div>
       </ProfileWrapper>
    );

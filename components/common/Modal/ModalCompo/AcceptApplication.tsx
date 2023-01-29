@@ -21,7 +21,9 @@ const AcceptApplication = () => {
    return (
       <>
          <p className="title">참가 신청 수락</p>
-         <ColorBtn onClick={acceptApplication}>신청 수락</ColorBtn>
+         <ColorBtn onClick={acceptApplication} data-bs-dismiss="modal">
+            신청 수락
+         </ColorBtn>
       </>
    );
 };
