@@ -20,8 +20,7 @@ const MoimModal = ({ title, subTitle, mainBtnLabel, mainBtnPath, routeBtnLabel, 
          <SubTitle>{subTitle}</SubTitle>
          <ModalBtn mainBtnLabel={mainBtnLabel} mainBtnPath={mainBtnPath} />
          <RouteBtn onClick={() => router.push(routeBtnPath)} data-bs-dismiss="modal">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {routeBtnLabel} <img src={IconArrow} alt="" />
+            {routeBtnLabel} <img src={IconArrow} alt="modal" />
          </RouteBtn>
       </>
    );

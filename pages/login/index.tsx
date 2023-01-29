@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSetRecoilState } from 'recoil';
 // eslint-disable-next-line import/no-unresolved
-import { isLogin } from '../../../atoms/atom';
+import { isLogin } from '../../atoms/atom';
 
 // interface DecodedProps {
 //    id: string;

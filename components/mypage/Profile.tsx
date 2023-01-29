@@ -12,10 +12,7 @@ const Profile = () => {
       <ProfileWrapper className="half">
          <p className="title">내 정보</p>
          <div className="card-basic">
-            <div className="profile-imgBox">
-               {/* eslint-disable-next-line @next/next/no-img-element */}
-               <img src="" alt="" />
-            </div>
+            <div className="profile-imgBox">{/* <img src="" alt="" /> */}</div>
             <div className="profile-txt">
                <p className="nickname">{myInfo.nickname}</p>
                <p className="email">{myInfo.email}</p>

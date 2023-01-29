@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { mainTagList } from '../../atoms/atom';
+import { mainTagList, mainTagListmain } from '../../atoms/atom';
 
 interface TagProps {
    label: string;
@@ -9,27 +9,29 @@ interface TagProps {
 }
 
 export const Tag = ({ label, ...props }: TagProps) => {
-   const [tags, setTags] = useRecoilState(mainTagList);
+   const [tags, setTags] = useRecoilState(mainTagListmain);
 
    const Toggle = () => {
-      setActive(!active);
-
-      if (tags.includes(label)) {
-         const newTag = tags.filter(el => el !== label);
-         setTags(newTag);
+      if (tags === label) {
+         setTags('');
       } else {
-         setTags(tags.concat(label));
+         setTags(label);
       }
+
+      // if (tags.includes(label)) {
+      //    const newTag = tags.filter(el => el !== label);
+      //    setTags(newTag);
+      // } else {
+      //    setTags(tags.concat(label));
+      // }
    };
 
    const isActive = () => {
-      return tags.includes(label);
+      return tags === label;
    };
 
-   const [active, setActive] = useState(isActive);
-
    return (
-      <TagCompo onClick={Toggle} className={active ? 'active' : ''} {...props}>
+      <TagCompo onClick={Toggle} className={isActive() ? 'active' : ''} {...props}>
          {label}
       </TagCompo>
    );

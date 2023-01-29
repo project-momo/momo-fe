@@ -2617,15 +2617,10 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-"@trysound/sax@0.2.0":
-  "integrity" "sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA=="
-  "resolved" "https://registry.npmjs.org/@trysound/sax/-/sax-0.2.0.tgz"
-  "version" "0.2.0"
-
 "@tosspayments/payment__types@^1.10.28":
-  "integrity" "sha512-5YtmWgjvtTYUIOIUS/l0V5zFuGzDvG7VgfNMYZjBrz3xOzzi3UIkKt0NLWW0v3HJ29JfWbhuiCXNI+zqJCRZFw=="
-  "resolved" "https://registry.npmjs.org/@tosspayments/payment__types/-/payment__types-1.10.28.tgz"
-  "version" "1.10.28"
+  "integrity" "sha512-/CN+1Q+JbaEumc5gtFaeUSyd3GCnNteIvouFLeggme9JjyWl0H8JmisilWOlVXy9yzRg9gp5r9ZRR3mXat9ubw=="
+  "resolved" "https://registry.npmjs.org/@tosspayments/payment__types/-/payment__types-1.56.0.tgz"
+  "version" "1.56.0"
   dependencies:
     "@tosspayments/sdk-constants" "^0.2.1"
 
@@ -2642,7 +2637,6 @@
   "version" "0.2.1"
   dependencies:
     "type-fest" "^2.11.2"
-
 
 "@types/aria-query@^4.2.0":
   "integrity" "sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig=="

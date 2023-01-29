@@ -9,36 +9,49 @@ import { useEffect, useState } from 'react';
 import ModalDetail from '../../components/detail/ModalDetail';
 import styled from 'styled-components';
 import ShareModal from '../../components/common/Modal/ModalCompo/ShareModal';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
 import { api } from '../../util/token';
+import { qnaListState } from '../../atoms/qna/atom';
+
 const Sub = () => {
    const { query } = useRouter();
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [modalOpen, setModalOpen] = useRecoilState(setIsShareModalOpen);
    const [subData, setSubData] = useRecoilState(setSubDataObject);
    const [error, setError] = useState(false);
+   const setQnaList = useSetRecoilState(qnaListState);
+
    const getData = async () => {
-      if (query.index) {
+      if (query.id) {
          await api
-            .get(`/meetings/${query.index}`)
+            .get(`/meetings/${query.id}`)
             .then(res => {
                setSubData(res.data);
+               setQnaList(res.data.questions);
             })
             .catch(() => setError(true));
       }
    };
    useEffect(() => {
       getData();
-   }, [query.index]);
+   }, [query.id]);
    console.log(subData);
+
    return (
       <>
          {isModalOpen ? (
             <Modal
                CloseModal={() => setIsModalOpen(!isModalOpen)}
-               childrens={<ModalDetail dateTime={subData.dateTime} price={subData.price} title={subData.title} />}
+               childrens={
+                  <ModalDetail
+                     meetingId={subData.meetingId}
+                     dateTime={subData.dateTime}
+                     price={subData.price}
+                     title={subData.title}
+                  />
+               }
             />
          ) : null}
          {modalOpen ? <Modal CloseModal={() => setModalOpen(!modalOpen)} childrens={<ShareModal />} /> : null}
