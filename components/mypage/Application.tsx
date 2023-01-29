@@ -12,13 +12,13 @@ const Application = ({ data, confirmed }: any) => {
    const [isActive, setActive] = useState(false);
 
    const applicationHandler = (e: any) => {
-      console.log(data);
+      console.log('application data : ', data);
       if (e.target.name === '수락') {
          setType('accept');
       } else if (e.target.name === '취소') {
          setType('cancel');
       }
-      setReservationId({ id: data.userId });
+      setReservationId({ id: data.reservationId });
    };
 
    return (
