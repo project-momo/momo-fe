@@ -10,6 +10,7 @@ import { Button } from '../common/Button';
 import DaySelect from './DaySelect';
 import TimeList from './TimeList';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
+import axios from 'axios';
 interface DetailProps {
    title: string;
    price: number;
@@ -91,13 +92,14 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
    };
 
    const submitMoim = async () => {
+      const API_URI = process.env.NEXT_PUBLIC_API_URI;
       const clientKey: any = process.env.NEXT_PUBLIC_CLIENT_KEY;
       const tossPayments = await loadTossPayments(clientKey);
 
       if (!isLoginState) {
          alert('로그인을 진행해주세요');
       } else {
-         api.post(`/meetings/${meetingId}/reservations`, {
+         const res = await axios.post(API_URI + `/meetings/${meetingId}/reservations`, {
             dateInfo: {
                reservationDate: dateTime.startDate,
                startTime: dateTime.startTime,
@@ -105,40 +107,30 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
             },
             amount: price,
             reservationMemo: memoState
-         }).then(res => {
-            console.log(res);
-            if (res) {
+         });
+
+         if (res !== undefined) {
+            if (res.status === 201 && res.data.amount > 0) {
                const fetchData = {
                   ...res.data,
                   successUrl: 'http://localhost:3000/payments/success',
                   failUrl: 'http://localhost:3000/payments/failed'
                };
 
-               console.log(res.data);
-
-               tossPayments
-                  .requestPayment('카드', fetchData)
-                  .then(res => {
-                     console.log(res);
-                     // 성공시 alert('예약이 완료되었습니다!');
-                  })
-                  .catch(function (error) {
-                     if (error.code === 'USER_CANCEL') {
-                        // 결제 고객이 결제창을 닫았을 때 에러 처리
-                        alert('결제가 취소되었습니다.');
-                     } else if (error.code === 'INVALID_CARD_COMPANY') {
-                        // 유효하지 않은 카드 코드에 대한 에러 처리
-                        alert('유효하지 않은 카드입니다.');
-                     }
-                  });
+               tossPayments.requestPayment('카드', fetchData).catch(function (error) {
+                  if (error.code === 'USER_CANCEL') {
+                     // 결제 고객이 결제창을 닫았을 때 에러 처리
+                     alert('결제가 취소되었습니다.');
+                  } else if (error.code === 'INVALID_CARD_COMPANY') {
+                     // 유효하지 않은 카드 코드에 대한 에러 처리
+                     alert('유효하지 않은 카드입니다.');
+                  }
+               });
             } else {
-               if (res !== undefined) {
-                  alert('예약이 완료되었습니다!');
-                  setIsModalOpen(false);
-               }
+               alert('예약이 완료되었습니다!');
+               setIsModalOpen(false);
             }
-         });
-         // .catch(err => alert('error'));
+         }
       }
    };
 
@@ -205,10 +197,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
                )
                // /meetings/1/reservations/dates/2022-01-01
             }
-            <Memo>
+            {/* <Memo>
                메모를 입력해주세요
                <textarea onChange={e => MemoChange(e)} value={memoState} />
-            </Memo>
+            </Memo> */}
             {datePolicy === 'FREE' ? (
                <BtnPosition>
                   <Button
@@ -240,28 +232,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
 
 export default ModalDetail;
 
-// const DetailWrap = styled.div`
-//    min-width: 700px;
-//    height: 70vh;
-//    padding-bottom: 100px;
-//    padding-top: 80px;
-//    position: relative;
-// `;
-const Memo = styled.div`
-   width: 100%;
-   textarea {
-      width: 100%;
-      background-color: #f0f0f0;
-      border-radius: 10px;
-      border: none;
-      height: 84px;
-      font-size: 15px;
-      padding: 16px 20px;
-   }
-   textarea:focus {
-      outline: 2px solid #9093f3;
-   }
-`;
 const TitleWrap = styled.div`
    padding-bottom: 10px;
    border-bottom: 1px solid #cecece;
