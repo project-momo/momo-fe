@@ -1,6 +1,7 @@
 import React from 'react';
 import Category from '../../components/common/Category';
 import { Title } from '../../components/common/Title';
+import { TitleMain } from '../../components/common/TitleMain';
 import MainList from '../../components/main/MainList';
 import MainTags from '../../components/main/MainTags';
 import RankList from '../../components/main/RankList';
@@ -16,7 +17,7 @@ const SearchCompo = () => {
       <>
          <Category />
          <CenterSection>
-            <Title />
+            <TitleMain />
             <MainTags />
             <MainList />
          </CenterSection>
