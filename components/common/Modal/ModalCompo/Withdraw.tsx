@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -6,6 +7,8 @@ import { SquareButton } from '../../../mypage/Button';
 import QuickBtn from './QuickBtn';
 
 const Withdraw = () => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const myInfo = useRecoilValue(myProfile);
    const myPoint = useRecoilValue(myProfile).point;
    // const [myPoint, setMyPoint] = useState(50000);
    const [message, setMessage] = useState('');
@@ -17,19 +20,21 @@ const Withdraw = () => {
    const quickBtn = ['5000', '10000', '50000', '100000'];
    const banks = [
       '은행명',
-      '산업은행',
-      '기업은행',
-      '우리은행',
-      '하나은행',
-      '농협',
-      '우체국',
-      '신한은행',
-      '외환은행',
-      '수협',
-      '신협',
-      '부산은행',
-      '새마을금고',
-      '경남은행'
+      '카카오뱅크',
+      '토스'
+      // '산업은행',
+      // '기업은행',
+      // '우리은행',
+      // '하나은행',
+      // '농협',
+      // '우체국',
+      // '신한은행',
+      // '외환은행',
+      // '수협',
+      // '신협',
+      // '부산은행',
+      // '새마을금고',
+      // '경남은행'
    ];
 
    // 출금가능 적립금 계산
@@ -81,6 +86,8 @@ const Withdraw = () => {
 
    // 출금하기
    const withdraw = () => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+
       const inputPoint = Number(point.replace('원', '').split(',').join(''));
       if (inputPoint === 0) {
          return alert('출금할 적립금을 입력해주세요.');
@@ -93,6 +100,28 @@ const Withdraw = () => {
       }
 
       // 통신
+
+      // const fetchData = {
+      //    amout: point,
+      //    accountInfo: {
+      //       name: '강지원',
+      //       bank: bank,
+      //       account: 1234567890123456
+      //    }
+      // };
+      const fetchData = {
+         amout: point,
+         accountInfo: {
+            name: myInfo.name,
+            bank: bank,
+            account: bankAccount
+         }
+      };
+      axios.post(API_URI + '/mypage/point/withdrawal', fetchData).then(res => {
+         if (res.status === 200) {
+            console.log(res);
+         }
+      });
    };
 
    return (
