@@ -1,4 +1,4 @@
-import { useEffect } from '@storybook/addons';
+import { useEffect } from 'react';
 
 const Failed = () => {
    useEffect(() => {
