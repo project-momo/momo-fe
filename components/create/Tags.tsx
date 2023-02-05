@@ -42,9 +42,7 @@ const Tags = ({ tags, handleClickTag }: TagsProps) => {
             </button>
          </li>
          <li>
-            <button
-               onClick={() => handleClickTag('5인 이상')}
-               className={tags && tags.includes('5인 이상') ? 'selected' : ''}>
+            <button onClick={() => handleClickTag('5인 이상')} className={tags.includes('5인 이상') ? 'selected' : ''}>
                5인 이상
             </button>
          </li>
