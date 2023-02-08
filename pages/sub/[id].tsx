@@ -69,7 +69,7 @@ const Sub = () => {
                      location={subData.address.addressInfo}
                      content={subData.content}
                      title={subData.title}
-                     meetingId={subData.meetingId}
+                     hostId={subData.host.userId}
                   />
                )}
             </CenterSection>

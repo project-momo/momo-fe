@@ -49,6 +49,8 @@ const Header = ({ OpenModal }: LoginProps) => {
       });
       localStorage.removeItem('AccessToken');
       localStorage.removeItem('RefreshToken');
+      localStorage.removeItem('userId');
+      // localStorage.clear();
       setIsLoginState(false);
       router.push('/');
    };
