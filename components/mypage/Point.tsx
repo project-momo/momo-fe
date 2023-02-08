@@ -2,15 +2,24 @@ import { BasicWrapper } from './mypage.style';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Modal from './Modal';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { modalState, myProfile } from '../../atoms/mypage/atoms';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Point = ({ myPoint }: any) => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const [myInfo, setMyInfo] = useRecoilState(myProfile);
    const router = useRouter();
-   const point = useRecoilValue(myProfile)
-      .point.toString()
-      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+   const point = myInfo.point.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    const setType = useSetRecoilState(modalState);
+
+   useEffect(() => {
+      if (myPoint) {
+         axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+         axios.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
+      }
+   });
 
    return (
       <PointWrapper className="half">
