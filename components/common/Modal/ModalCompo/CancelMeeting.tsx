@@ -14,16 +14,19 @@ const CancelMeeting = () => {
    const fetchData = { paymentKey: paymentKey };
 
    const cancelMeeting = async () => {
-      const res = await axios.delete(API_URI + `/meetings/${meetingId.id}`);
-      if (res.status === 204) {
-         alert('모임 취소가 완료되었습니다.');
-         axios
-            .delete(API_URI + `/meetings/${meetingId}/reservations/${reservationId}`, { data: fetchData })
-            .then(res => {
-               setHostMeetings(res.data);
-            })
-            .catch(err => console.log(err));
-      }
+      axios
+         .delete(API_URI + `/meetings/${meetingId.id}`)
+         .then(res => {
+            if (res.status === 204) {
+               alert('모임 취소가 완료되었습니다.');
+               axios
+                  .delete(API_URI + `/meetings/${meetingId}/reservations/${reservationId}`, { data: fetchData })
+                  .then(res => {
+                     setHostMeetings(res.data);
+                  });
+            }
+         })
+         .catch(err => alert(err.response.data.message));
    };
    return (
       <Wrapper>

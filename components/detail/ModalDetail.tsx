@@ -99,15 +99,17 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
       if (!isLoginState) {
          alert('로그인을 진행해주세요');
       } else {
-         const res = await axios.post(API_URI + `/meetings/${meetingId}/reservations`, {
-            dateInfo: {
-               reservationDate: dateTime.startDate,
-               startTime: dateTime.startTime,
-               endTime: dateTime.endTime
-            },
-            amount: price,
-            reservationMemo: memoState
-         });
+         const res = await axios
+            .post(API_URI + `/meetings/${meetingId}/reservations`, {
+               dateInfo: {
+                  reservationDate: dateTime.startDate,
+                  startTime: dateTime.startTime,
+                  endTime: dateTime.endTime
+               },
+               amount: price,
+               reservationMemo: memoState
+            })
+            .catch(e => alert(e.response.data.message));
 
          if (res !== undefined) {
             if (res.status === 201 && res.data.amount > 0) {
