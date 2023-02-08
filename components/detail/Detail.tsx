@@ -17,10 +17,10 @@ interface DetailProps {
    gu: string[];
    content: string;
    title: string;
-   meetingId: number;
+   hostId: number;
 }
 
-const Detail = ({ userImage, username, location, gu, content, title }: DetailProps) => {
+const Detail = ({ userImage, username, location, gu, content, title, hostId }: DetailProps) => {
    const qnaListLength = useRecoilValue(qnaListLengthState);
 
    const [toggleQna, setToggleQna] = useState(true);
@@ -29,7 +29,7 @@ const Detail = ({ userImage, username, location, gu, content, title }: DetailPro
    return (
       <DetailLayout>
          <MoreIcon onClick={() => setToggleModal(!toggleModal)} src={IconMore}></MoreIcon>
-         {toggleModal ? <SubModal /> : null}
+         {toggleModal ? <SubModal hostId={hostId} /> : null}
 
          <UserCard backImg={userImage}>
             <div></div>

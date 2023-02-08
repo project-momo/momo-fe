@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import React, { useEffect } from 'react';
 // import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/router';
@@ -7,11 +7,11 @@ import { useSetRecoilState } from 'recoil';
 // eslint-disable-next-line import/no-unresolved
 import { isLogin } from '../../../atoms/atom';
 
-// interface DecodedProps {
-//    id: string;
-//    nickname: string;
-//    exp: number;
-// }
+interface DecodedProps {
+   id: string;
+   nickname: string;
+   exp: number;
+}
 
 const Login = () => {
    // const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -22,10 +22,10 @@ const Login = () => {
 
    useEffect(() => {
       if (AccessToken) {
-         // const decoded: DecodedProps = jwt_decode(`${AccessToken}`);
-
+         const decoded: DecodedProps = jwt_decode(`${AccessToken}`);
          localStorage.setItem('AccessToken', `${AccessToken}`);
          localStorage.setItem('RefreshToken', `${RefreshToken}`);
+         localStorage.setItem('userId', `${decoded.id}`);
          axios.defaults.headers.common['Authorization'] = `${AccessToken}`;
 
          setIsLoginState(true);
