@@ -5,8 +5,8 @@ import styled from 'styled-components';
 interface LocationProps {
    si: string;
    gu: number[];
-   onClickSi: (value: string) => void;
-   onClickGu: (id: number, name: string) => void;
+   handleClickSi: (value: string) => void;
+   handleClickGu: (id: number, name: string) => void;
 }
 
 interface LocationDummyType {
@@ -19,7 +19,7 @@ interface GuType {
    name: string;
 }
 
-const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
+const Location = ({ si, gu, handleClickSi, handleClickGu }: LocationProps) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
 
    const [locationDummy, SetlocationDummy] = useState<LocationDummyType[]>([]);
@@ -46,7 +46,7 @@ const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
                      <li key={el.si}>
                         <button
                            onClick={() => {
-                              onClickSi(el.si);
+                              handleClickSi(el.si);
                            }}
                            className={el.si === si ? 'selectedSi' : ''}>
                            {el.si}
@@ -63,7 +63,7 @@ const Location = ({ si, gu, onClickSi, onClickGu }: LocationProps) => {
                            <li key={el.id}>
                               <button
                                  onClick={() => {
-                                    onClickGu(el.id, el.name);
+                                    handleClickGu(el.id, el.name);
                                  }}
                                  className={gu.includes(el.id) ? 'selectedGu' : ''}>
                                  {el.name}

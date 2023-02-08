@@ -17,6 +17,7 @@ interface SubDataType {
       addressInfo: string;
       addresses: string[];
    };
+   addressIds: number[];
    category: string;
    content: string;
    host: HostType;
@@ -25,6 +26,8 @@ interface SubDataType {
    price: number;
    title: string;
    questions: [];
+   tags: [];
+   personnel: number;
    meetingId: number;
    dateTime: {
       datePolicy: string;
@@ -44,6 +47,7 @@ export const setSubDataObject = atom<SubDataType>({
          addressInfo: '',
          addresses: []
       },
+      addressIds: [],
       category: '',
       content: '',
       host: {
@@ -57,6 +61,8 @@ export const setSubDataObject = atom<SubDataType>({
       price: 0,
       title: '',
       questions: [],
+      tags: [],
+      personnel: 1,
       meetingId: 0,
       dateTime: {
          datePolicy: '',

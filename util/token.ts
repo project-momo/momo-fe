@@ -85,7 +85,5 @@ api.interceptors.response.use(
             // removeRefreshToken();
             // window.location.href = '/';
          });
-      // }
-      return Promise.reject(error);
    }
 );

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
@@ -11,14 +13,10 @@ import FreeDate from '../../components/create/Date/FreeDate';
 import Time from '../../components/create/Time';
 import Price from '../../components/create/Price';
 import LiTitle from '../../components/create/LiTitle';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-
-// date picker
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import Location from '../../components/create/Location';
 import { Button } from '../../components/common/Button';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const Create = () => {
    const router = useRouter();
@@ -58,7 +56,7 @@ const Create = () => {
    const [personnelError, setPersonnelError] = useState('');
    const [priceError, setPriceError] = useState('');
 
-   const onClickTag = (value: string) => {
+   const handleClickTag = (value: string) => {
       if (tags.includes(value)) {
          setTags([...tags.filter(tag => tag !== value)]);
       } else {
@@ -66,11 +64,11 @@ const Create = () => {
       }
    };
 
-   const onClickSi = (value: string) => {
+   const handleClickSi = (value: string) => {
       setSi(value);
    };
 
-   const onClickGu = (id: number, name: string) => {
+   const handleClickGu = (id: number, name: string) => {
       if (gu.includes(id)) {
          setGu([...gu.filter(el => el !== id)]);
          setAddressPreview([...addressPreview.filter(el => el !== `${si} ${name}`)]);
@@ -85,7 +83,7 @@ const Create = () => {
       }
    };
 
-   const onCheckDayWeeks = (checkedDayWeeks: number) => {
+   const handleCheckDayWeeks = (checkedDayWeeks: number) => {
       if (dayWeeks.includes(checkedDayWeeks)) {
          setDayWeeks([...dayWeeks.filter(dayWeek => dayWeek !== checkedDayWeeks)]);
       } else {
@@ -216,8 +214,7 @@ const Create = () => {
    return (
       <div>
          <CenterSection>
-            <Title label="모임 만들기" />
-            <SubTitle>지금 올라오는 모임</SubTitle>
+            <Title marginBottom="20px" label="모임 만들기" />
             <Ul>
                <Li>
                   <LiTitle main="카테고리" sub="카테고리를 선택해주세요." error={categoryError} preview={category} />
@@ -241,7 +238,7 @@ const Create = () => {
                </Li>
                <Li>
                   <LiTitle main="태그" sub="1개 이상 선택해주세요." error={tagError} />
-                  <Tags tags={tags} onClickTag={onClickTag} />
+                  <Tags tags={tags} handleClickTag={handleClickTag} />
                </Li>
                <Li>
                   <LiTitle
@@ -250,7 +247,7 @@ const Create = () => {
                      error={addressIdsError}
                      preview={addressPreview.join(` , `)}
                   />
-                  <Location si={si} gu={gu} onClickSi={onClickSi} onClickGu={onClickGu} />
+                  <Location si={si} gu={gu} handleClickSi={handleClickSi} handleClickGu={handleClickGu} />
                </Li>
                <Li>
                   <LiTitle main="추가 주소 입력" sub="개인 정보 보호를 위해 정확한 주소를 입력하지 마세요." />
@@ -270,7 +267,7 @@ const Create = () => {
                         endDate={endDate}
                         setStartDate={setStartDate}
                         setEndDate={setEndDate}
-                        onCheckDayWeeks={onCheckDayWeeks}
+                        handleCheckDayWeeks={handleCheckDayWeeks}
                         dpSetting={dpSetting}
                      />
                   )}
@@ -322,20 +319,14 @@ const Create = () => {
 
 export default Create;
 
-const SubTitle = styled.p`
-   margin: 25px 0 20px 0;
-   font-size: 18px;
-   font-weight: 700;
-`;
-
-const Ul = styled.ul`
+export const Ul = styled.ul`
    background-color: white;
    border-radius: 15px;
    box-shadow: 1px 1px 10px 1px #dfdfdf;
    padding: 50px 60px;
 `;
 
-const Li = styled.li`
+export const Li = styled.li`
    margin-bottom: 35px;
 
    /* datepicker custom */
@@ -564,7 +555,7 @@ export const NumberInput = styled(Input)`
    }
 `;
 
-const TextArea = styled.textarea`
+export const TextArea = styled.textarea`
    background-color: #f5f5f5;
    border-radius: 15px;
    width: 100%;

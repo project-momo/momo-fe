@@ -9,6 +9,7 @@ import { modalState } from '../../atoms/mypage/atoms';
 import RejectApplication from '../common/Modal/ModalCompo/RejectApplication';
 import CloseMeeting from '../common/Modal/ModalCompo/CloseMeeting';
 import AcceptApplication from '../common/Modal/ModalCompo/AcceptApplication';
+import CancelMeeting from '../common/Modal/ModalCompo/CancelMeeting';
 
 const Modal = () => {
    const type = useRecoilValue(modalState);
@@ -48,6 +49,8 @@ const Modal = () => {
                   )}
                   {/* 모임 마감 모달 */}
                   {type === 'closeMeeting' && <CloseMeeting />}
+                  {/* 모임 취소 모달 */}
+                  {type === 'cancelMeeting' && <CancelMeeting />}
                   {/* 신청 수락 모달 */}
                   {type === 'accept' && <AcceptApplication />}
                   {/* 신청 반려 사유 모달 */}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { applications, modalState, selectedMeeting } from '../../atoms/mypage/atoms';
+import { applications, modalState, selectedMeeting, selectedReservation } from '../../atoms/mypage/atoms';
 import Application from './Application';
 import { Basic, Button } from './Button';
 import Modal from './Modal';
@@ -8,10 +8,13 @@ import Modal from './Modal';
 const MyMeetingCard = ({ data, participant }: any) => {
    const setType = useSetRecoilState(modalState);
    const setSelectedMeeting = useSetRecoilState(selectedMeeting);
+   const setReservationId = useSetRecoilState(selectedReservation);
    const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    const [hasAccordion, setAccordionState] = useState(false);
    const setApplications = useSetRecoilState(applications);
-   let newApplications, confirmedApplications, meetingInfo;
+   let newApplications = [];
+   let confirmedApplications = [];
+   let meetingInfo;
 
    // 참여 모임
    if (participant) {
@@ -23,7 +26,6 @@ const MyMeetingCard = ({ data, participant }: any) => {
       };
       // 만든 모임
    } else {
-      setApplications(data.applications);
       newApplications = data.applications.requests;
       confirmedApplications = data.applications.confirmed;
    }
@@ -34,15 +36,19 @@ const MyMeetingCard = ({ data, participant }: any) => {
    };
 
    const cancelMeeting = () => {
+      console.log(data);
       setType('cancelMeeting');
       setSelectedMeeting({ id: data.meetingId });
+      setReservationId({ id: data.reservationId });
    };
 
    useEffect(() => {
+      console.log('test : ', data);
       if (newApplications.length === 0 && confirmedApplications.length === 0) {
          setAccordionState(false);
       } else if (newApplications.length > 0 || confirmedApplications.length > 0) {
          setAccordionState(true);
+         setApplications(data.applications);
       }
    }, []);
 
@@ -52,7 +58,11 @@ const MyMeetingCard = ({ data, participant }: any) => {
             <h2 className="accordion-header " id={`heading${data.meetingId}`}>
                <div className="left">
                   <div>
-                     <p className={data.isOpen ? 'status open' : 'status closed'}>{data.meetingState}</p>
+                     {participant ? (
+                        <p className={data.isOpen ? 'status open' : 'status closed'}>{data.meetingState}</p>
+                     ) : (
+                        <p className={data.isOpen ? 'status open' : 'status closed'}>{data.meetingState}</p>
+                     )}
                      <p className="category">{data.category}</p>
                      <p className="date">{data.dateTime.startDate}</p>
                   </div>
