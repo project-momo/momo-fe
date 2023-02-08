@@ -15,19 +15,16 @@ const SubModal = ({ hostId }: SubProps) => {
          <List>
             <button onClick={() => setModalOpen(!modalOpen)}>공유하기</button>
          </List>
-         {
-            // && localStorage.getItem('userId') === `${hostId}`
-            isLoginState ? (
-               <>
-                  <List>
-                     <button>게시글 수정</button>
-                  </List>
-                  <List>
-                     <button>게시글 삭제</button>
-                  </List>
-               </>
-            ) : null
-         }
+         {isLoginState && localStorage.getItem('userId') === `${hostId}` ? (
+            <>
+               <List>
+                  <button>게시글 수정</button>
+               </List>
+               <List>
+                  <button>게시글 삭제</button>
+               </List>
+            </>
+         ) : null}
 
          {myPost}
       </ModalWarp>
