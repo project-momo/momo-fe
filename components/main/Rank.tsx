@@ -12,7 +12,6 @@ interface ImgProps {
    imgprops: string;
 }
 const Rank = ({ rankNum, imgLink, title, meetingId }: RankProps) => {
-   console.log(imgLink);
    return (
       <RankLi>
          <Link href={`/sub/${meetingId}`}>
