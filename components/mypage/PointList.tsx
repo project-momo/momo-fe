@@ -1,11 +1,23 @@
-import { useRecoilValue } from 'recoil';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { myPoint } from '../../atoms/mypage/atoms';
 import List from './List';
 import { BasicWrapper } from './mypage.style';
 
 const PointList = () => {
-   const pointList = useRecoilValue(myPoint);
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const [pointList, setPointList] = useRecoilState(myPoint);
+
+   useEffect(() => {
+      // 통신
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+      axios.get(API_URI + '/mypage/point/details').then(res => {
+         console.log(res);
+         setPointList(res.data.content);
+      });
+   }, []);
 
    return (
       <PointListWrapper>
