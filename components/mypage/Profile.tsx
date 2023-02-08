@@ -1,18 +1,31 @@
 import { BasicWrapper } from './mypage.style';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { myProfile } from '../../atoms/mypage/atoms';
+import axios from 'axios';
+import { useEffect } from 'react';
+interface ImgProps {
+   imgprops: string;
+}
 
 const Profile = () => {
-   const myInfo = useRecoilValue(myProfile);
-   console.log(myInfo);
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
+   const [myInfo, setMyInfo] = useRecoilState(myProfile);
+
+   useEffect(() => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+      axios.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
+   }, []);
+
    return (
       <ProfileWrapper className="half">
          <p className="title">내 정보</p>
          <div className="card-basic">
-            <div className="profile-imgBox">{/* <img src="" alt="" /> */}</div>
+            <div className="profile-imgBox">
+               <Avatar imgprops={myInfo.avatar} />
+            </div>
             <div className="profile-txt">
                <p className="nickname">{myInfo.nickname}</p>
                <p className="email">{myInfo.email}</p>
@@ -38,6 +51,7 @@ const ProfileWrapper = styled(BasicWrapper)`
       border-radius: 50%;
       background-color: lightgray;
       margin-right: 20px;
+      overflow: hidden;
    }
    .profile-txt {
       font-size: 16px;
@@ -58,6 +72,13 @@ const ProfileWrapper = styled(BasicWrapper)`
          }
       }
    }
+`;
+
+const Avatar = styled.div<ImgProps>`
+   width: 100%;
+   height: 100%;
+   background-image: url(${props => `${props.imgprops}`});
+   background-size: cover;
 `;
 
 export default Profile;

@@ -36,14 +36,12 @@ const MyMeetingCard = ({ data, participant }: any) => {
    };
 
    const cancelMeeting = () => {
-      console.log(data);
       setType('cancelMeeting');
       setSelectedMeeting({ id: data.meetingId });
       setReservationId({ id: data.reservationId });
    };
 
    useEffect(() => {
-      console.log('test : ', data);
       if (newApplications.length === 0 && confirmedApplications.length === 0) {
          setAccordionState(false);
       } else if (newApplications.length > 0 || confirmedApplications.length > 0) {

@@ -13,7 +13,6 @@ import CancelMeeting from '../common/Modal/ModalCompo/CancelMeeting';
 
 const Modal = () => {
    const type = useRecoilValue(modalState);
-   console.log(type);
 
    return (
       <ModalWrapper className="modal modal-alert bg-secondary py-5" role="dialog" id="myModal">
