@@ -11,6 +11,7 @@ const RejectApplication = () => {
    const [message, setMessage] = useState('');
 
    const rejectApplication = async () => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       const fetchData = { isAccepted: 'false', message };
       if (message.trim().length === 0) {
          alert('신청 반려 사유를 작성해주세요!');
@@ -21,7 +22,6 @@ const RejectApplication = () => {
          );
          if (res.status === 200) {
             alert('신청 반려하였습니다.');
-            console.log('성공 : ,', res);
          }
       }
    };
