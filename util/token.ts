@@ -38,8 +38,6 @@ api.interceptors.response.use(
       return response;
    },
    async error => {
-      console.log('gjgjgjgjgj');
-      console.log(error, 'gjgjgj');
       const refreshToken = getRefreshToken();
       const originalRequest = error.config;
       // if (error && error.response.status === '' && refreshToken) {
@@ -59,7 +57,6 @@ api.interceptors.response.use(
             }
          })
          .then(res => {
-            console.log('aa');
             alert('재전송중');
             if (res.status === 200) {
                const accessToken = res.data.accessToken;
