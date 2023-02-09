@@ -44,7 +44,7 @@ const Header = ({ OpenModal }: LoginProps) => {
    const logoutFunc = async () => {
       await axios.delete(`${API_URI}/auth/token`, {
          headers: {
-            RefreshToken: localStorage.getItem('AccessToken')
+            RefreshToken: localStorage.getItem('RefreshToken')
          }
       });
       localStorage.removeItem('AccessToken');
@@ -162,7 +162,7 @@ export default Header;
 const Wrapper = styled.div`
    position: fixed;
    height: 55px;
-   width: 100%;
+   width: 100vw;
    background-color: #49515b;
    z-index: 999;
 `;
