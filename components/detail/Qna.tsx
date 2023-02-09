@@ -10,13 +10,14 @@ interface QnaCompoType {
 
 const Qna = ({ qna }: QnaCompoType) => {
    const [toggleWriteAnswer, settoggleWriteAnswer] = useState(false);
+   console.log('Qna : ', qna);
 
    return (
       <QnaUl>
          <FirstLi>
             <FirstList>
                <User>
-                  <UserImg userimg={UserImage}>userImg</UserImg>
+                  <UserImg userimg={qna.questioner.imageUrl}>userImg</UserImg>
                   <UserName>{qna.questioner.nickname}</UserName>
                   <Time>{new Date(qna.createdAt).toLocaleString()}</Time>
                </User>
@@ -28,7 +29,7 @@ const Qna = ({ qna }: QnaCompoType) => {
                      {qna.answers.map(answer => (
                         <CommentWarp key={answer.answerId}>
                            <User>
-                              <UserImg userimg={UserImage}>userImg</UserImg>
+                              <UserImg userimg={answer.answerer.imageUrl}>userImg</UserImg>
                               <UserName>{answer.answerer.nickname}</UserName>
                               <Time>{new Date(answer.createdAt).toLocaleString()}</Time>
                            </User>
@@ -61,12 +62,13 @@ const User = styled.div`
    display: flex;
    align-items: center;
 `;
-const UserImg = styled.span<{ userimg: string }>`
+const UserImg = styled.span<{ userimg: any }>`
    font-size: 0;
    width: 25px;
    height: 25px;
    background-image: url(${p => `${p.userimg}`});
    background-size: cover;
+   border-radius: 50%;
 `;
 const UserName = styled.p`
    font-size: 14px;
