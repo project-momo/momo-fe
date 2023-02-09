@@ -10,6 +10,7 @@ const CloseMeeting = () => {
    const setHostMeetings = useSetRecoilState(mypageHostMeetings);
 
    const closeMeeting = async () => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       const res = await axios.delete(API_URI + `/meetings/${meetingId.id}`);
       if (res.status === 204) {
          alert('모임 모집이 종료되었습니다.');

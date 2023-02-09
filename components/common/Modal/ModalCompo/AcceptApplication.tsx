@@ -22,14 +22,11 @@ const AcceptApplication = () => {
    const acceptApplication = async () => {
       const fetchData = { isAccepted: 'true' };
 
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       const res = await axios.patch(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, fetchData);
       if (res.status === 200) {
          alert('신청을 수락하였습니다.');
          setHostMeetings({ ...hostMeetings, content });
-
-         // console.log('성공 : ,', res);
-         // console.log('filter 전 : ,', hostMeetings);
-         // console.log('수정 후 : ,', { ...hostMeetings, content });
       }
    };
 
