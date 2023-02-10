@@ -34,7 +34,6 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
          else alert('답변 내용을 입력해주세요.');
          return;
       }
-      console.log('onSubmit');
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       axios
          .post(url, { content })
@@ -52,10 +51,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
             value={content}
             onChange={e => setContent(e.target.value)}
             onKeyUp={e => {
-               if (e.code === 'Enter') {
-                  console.log('enter함');
-                  onSubmit();
-               }
+               if (e.keyCode === 13) onSubmit();
             }}
             type={type}
          />
