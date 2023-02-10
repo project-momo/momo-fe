@@ -57,7 +57,7 @@ const Categorys = ({ category, setCategory }: CategorysProps) => {
 
 export default Categorys;
 
-export const CategorysStyle = styled.ul`
+const CategorysStyle = styled.ul`
    background-color: #f0f0f0;
    border-radius: 15px;
    padding: 20px 30px;
