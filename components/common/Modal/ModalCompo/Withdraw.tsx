@@ -86,8 +86,8 @@ const Withdraw = () => {
          amount: point,
          accountInfo: {
             name: myInfo.name,
-            bank: '토스',
-            account: 1234567890123456
+            bank,
+            bankAccount
          }
       };
       axios.patch(API_URI + '/mypage/point/withdrawal', fetchData).then(res => {

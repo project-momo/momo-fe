@@ -80,6 +80,7 @@ const UserImg = styled.span<{ backimg: string }>`
    border-radius: 100%;
    display: block;
    background-image: url(${p => `${p.backimg}`});
+   background-color: #d3dbde;
 `;
 const CardContent = styled.div``;
 const Title = styled.p`
