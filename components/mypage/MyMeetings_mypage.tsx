@@ -40,15 +40,20 @@ const MyMeetings_mypage = () => {
                <p>
                   현재 모집중인 모임<span>{host_openedMeetings.length}개</span>
                </p>
-               <Link href="/meetings" className="seeMore">
-                  더보기
-               </Link>
+               {host_openedMeetings.length > 0 && (
+                  <Link href="/meetings" className="seeMore">
+                     더보기
+                  </Link>
+               )}
             </div>
             {host_openedMeetings.length > 0 ? (
                <MyMeetingCard data={host_openedMeetings[0]} />
             ) : (
                <div className="card-basic empty">
-                  <button>모임 찾아보기</button>
+                  <Link href="/meetings" className="seeMore">
+                     모임 찾아보기
+                  </Link>
+                  {/* <button>모임 찾아보기</button> */}
                </div>
             )}
          </MeetingWrapper>
@@ -59,15 +64,19 @@ const MyMeetings_mypage = () => {
                <p>
                   참여 예정 모임<span>{attending_openedMeetings.length}개</span>
                </p>
-               <Link href="/attending" className="seeMore">
-                  더보기
-               </Link>
+               {attending_openedMeetings.length > 0 && (
+                  <Link href="/attending" className="seeMore">
+                     더보기
+                  </Link>
+               )}
             </div>
             {attending_openedMeetings.length > 0 ? (
                <MyMeetingCard data={attending_openedMeetings[0]} participant />
             ) : (
                <div className="card-basic empty">
-                  <button>모임 찾아보기</button>
+                  <Link href="/" className="seeMore">
+                     모임 찾아보기
+                  </Link>
                </div>
             )}
          </MeetingWrapper>

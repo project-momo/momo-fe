@@ -19,7 +19,7 @@ const Point = ({ myPoint }: any) => {
          axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
          axios.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
       }
-   });
+   }, []);
 
    return (
       <PointWrapper className="half">

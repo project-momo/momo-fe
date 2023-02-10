@@ -50,9 +50,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
             placeholder={type === 'question' ? '궁금한 것이 있다면 질문을 남겨주세요.' : '답변을 남겨주세요.'}
             value={content}
             onChange={e => setContent(e.target.value)}
-            onKeyUp={e => {
-               if (e.keyCode === 13) onSubmit();
-            }}
+            onKeyUp={e => e.keyCode === 13 && onSubmit()}
             type={type}
          />
          <SubmitBtn onClick={onSubmit} type2={type}>
