@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import jwt_decode from 'jwt-decode';
 import { HeaderButton } from './HeaderButton';
 import IconSearch from '../../..//assets/images/icon_search.svg';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -42,11 +43,24 @@ const Header = ({ OpenModal }: LoginProps) => {
       }
    }, []);
    const logoutFunc = async () => {
-      await axios.delete(`${API_URI}/auth/token`, {
-         headers: {
-            RefreshToken: localStorage.getItem('RefreshToken')
-         }
+      axios.defaults.headers.common['RefreshToken'] = localStorage.getItem('RefreshToken');
+      axios.defaults.headers.common['authorization'] = '';
+
+      await axios.delete(`${API_URI}/auth/token`).catch(e => {
+         // if (e.response.status === 401) {
+         console.log('delete 실패', e);
+         // axios.put(`${API_URI}/auth/token`).then(res => {
+         //    if (res.status === 201) {
+         //       console.log('토큰 갱신 결과값 : ', res);
+         //       const decoded = jwt_decode(`${AccessToken}`);
+         //       localStorage.setItem('AccessToken', `${AccessToken}`);
+         //       localStorage.setItem('RefreshToken', `${RefreshToken}`);
+         //       localStorage.setItem('userId', `${decoded.id}`);
+         //    }
+         // });
+         // }
       });
+
       localStorage.removeItem('AccessToken');
       localStorage.removeItem('RefreshToken');
       localStorage.removeItem('userId');
