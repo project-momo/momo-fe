@@ -1,20 +1,27 @@
+import axios from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { applications, modalState, selectedMeeting, selectedReservation } from '../../atoms/mypage/atoms';
+import { setSubDataObject } from '../../atoms/sub/atom';
 import Application from './Application';
 import { Basic, Button } from './Button';
 import Modal from './Modal';
 
 const MyMeetingCard = ({ data, participant }: any) => {
+   const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const setType = useSetRecoilState(modalState);
    const setSelectedMeeting = useSetRecoilState(selectedMeeting);
    const setReservationId = useSetRecoilState(selectedReservation);
+   const setPostData = useSetRecoilState(setSubDataObject);
    const price = data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
    const [hasAccordion, setAccordionState] = useState(false);
    const setApplications = useSetRecoilState(applications);
    let newApplications = [];
    let confirmedApplications = [];
    let meetingInfo;
+   const router = useRouter();
 
    // 참여 모임
    if (participant) {
@@ -38,7 +45,18 @@ const MyMeetingCard = ({ data, participant }: any) => {
    const cancelMeeting = () => {
       setType('cancelMeeting');
       setSelectedMeeting({ id: data.meetingId });
-      setReservationId({ id: data.reservationId });
+      setReservationId({ id: data.application.reservationId });
+   };
+
+   const linkTo = async () => {
+      await axios
+         .get(`${API_URI}/meetings/${data.meetingId}`)
+         .then(res => {
+            console.log(res.data);
+            setPostData(res.data);
+         })
+         .catch(e => console.log(e));
+      router.push(`/meeting/update/${data.meetingId}`);
    };
 
    useEffect(() => {
@@ -77,6 +95,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
                   <p>{data.address.addresses.join(', ')}</p>
                </div>
                <div className="right">
+                  {/* 주최자인 경우*/}
                   {!participant ? (
                      <div
                         data-bs-toggle="collapse"
@@ -87,6 +106,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
                            func={() => setSelectedMeeting({ id: data.meetingId })}
                            text="참가 신청 현황"
                            icon={hasAccordion}
+                           // noApplications={}
                         />
                      </div>
                   ) : (
@@ -102,7 +122,12 @@ const MyMeetingCard = ({ data, participant }: any) => {
 
                   {data.isOpen && (
                      <div>
-                        {!participant && <Basic className="halfWidth">모임 변경</Basic>}
+                        {/* 주최자인 경우*/}
+                        {!participant && (
+                           <Basic className="halfWidth" onClick={linkTo}>
+                              모임 변경
+                           </Basic>
+                        )}
                         {!participant ? (
                            <Basic onClick={closeMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
                               모임 마감
