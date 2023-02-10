@@ -2,6 +2,7 @@ import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
 import { useRecoilValue } from 'recoil';
 import { attendingMeeting_closed, attendingMeeting_opened } from '../../atoms/mypage/selector';
+import Link from 'next/link';
 
 const MyMeetings_attending = () => {
    const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
@@ -22,7 +23,7 @@ const MyMeetings_attending = () => {
                ))
             ) : (
                <div className="card-basic empty">
-                  <button>모임 찾아보기</button>
+                  <Link href={'/'}>모임 찾아보기</Link>
                </div>
             )}
          </MeetingWrapper>
