@@ -1,32 +1,31 @@
 import axios from 'axios';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { mypageHostMeetings, selectedMeeting } from '../../../../atoms/mypage/atoms';
+import { mypageHostMeetings, selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
+import { attendingMeeting_opened } from '../../../../atoms/mypage/selector';
 import { ColorBtn } from './ModalBtn';
 
 const CancelMeeting = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const meetingId = useRecoilValue(selectedMeeting);
-   const reservationId = useRecoilValue(selectedMeeting);
-   const paymentKey = '12345';
+   const reservationId = useRecoilValue(selectedReservation);
    const setHostMeetings = useSetRecoilState(mypageHostMeetings);
-
+   const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
+   const paymentKey = attending_openedMeetings.filter((el: any) => el.meetingId === meetingId.id)[0].application
+      .paymentKey;
    const fetchData = { paymentKey: paymentKey };
 
    const cancelMeeting = async () => {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       axios
-         .delete(API_URI + `/meetings/${meetingId.id}`)
+         .delete(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, { data: fetchData })
          .then(res => {
             if (res.status === 204) {
                alert('모임 취소가 완료되었습니다.');
-               axios
-                  .delete(API_URI + `/meetings/${meetingId}/reservations/${reservationId}`, { data: fetchData })
-                  .then(res => {
-                     setHostMeetings(res.data);
-                  });
+               setHostMeetings(res.data);
             }
          })
-         .catch(err => alert(err.response.data.message));
+         .catch(err => console.log(err));
    };
    return (
       <Wrapper>

@@ -45,9 +45,7 @@ const Detail = ({ userImage, username, location, gu, content, title, hostId }: D
                <Location key={idx}>{el}</Location>
             ))}
          </LocationList>
-         <LocationList>
-            <Location>{location}</Location>
-         </LocationList>
+         <LocationList>{location && <Location>{location}</Location>}</LocationList>
 
          {/* 유진 */}
          <ListTitle>

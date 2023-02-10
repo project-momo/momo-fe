@@ -131,10 +131,10 @@ const Update = () => {
          <CenterSection>
             <Title label="모임 수정하기" marginBottom="20px" />
             <Ul>
-               <Li>
+               {/* <Li>
                   <LiTitle main="카테고리" sub="카테고리를 선택해주세요." error={categoryError} preview={category} />
                   <Categorys category={category} setCategory={setCategory} />
-               </Li>
+               </Li> */}
                <Li>
                   <LiTitle main="제목" error={titleError} />
                   <Input
@@ -155,7 +155,7 @@ const Update = () => {
                   <LiTitle main="태그" sub="1개 이상 선택해주세요." error={tagError} />
                   <Tags tags={tags} handleClickTag={handleClickTag} />
                </Li>
-               <Li>
+               {/* <Li>
                   <LiTitle
                      main="위치"
                      sub="최대 3개까지 선택이 가능 합니다."
@@ -171,7 +171,7 @@ const Update = () => {
                      value={addressInfo}
                      onChange={e => setAddressInfo(e.target.value)}
                   />
-               </Li>
+               </Li> */}
                <Li>
                   <LiTitle main="인원수" error={personnelError} />
                   <NumberInput
@@ -184,10 +184,10 @@ const Update = () => {
                      }}
                   />
                </Li>
-               <Li>
+               {/* <Li>
                   <LiTitle main="가격 설정" error={priceError} />
                   <Price datePolicy={datePolicy} price={price} setPrice={setPrice} />
-               </Li>
+               </Li> */}
                <Button size="bigBold" label="작성 완료" onClick={handleSubmit} />
             </Ul>
          </CenterSection>
