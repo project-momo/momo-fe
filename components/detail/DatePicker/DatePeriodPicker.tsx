@@ -14,7 +14,6 @@ const DatePeriodPicker = ({ startDates, endDate, dayWeeks }: FreeProps) => {
    const weekArray = [1, 2, 3, 4, 5, 6, 7];
    const filterArray = weekArray.filter(el => !dayWeeks.includes(el));
 
-   console.log(filterArray);
    // const [startDateState, setStartDate] = useState(new Date(startDates));
    // const [endDateState, setendDate] = useState(new Date(endDate));
    const activeDate = (date: any) => {
@@ -23,7 +22,7 @@ const DatePeriodPicker = ({ startDates, endDate, dayWeeks }: FreeProps) => {
       const [endYear, endMonth, endDatee] = endDate.split('-').map(Number);
 
       const datee2 = +datee + 1;
-      console.log(datee2);
+
       if (year < startYear) {
          if (month < startMonth) {
             if (datee2 < startDatee) return false;
@@ -31,7 +30,6 @@ const DatePeriodPicker = ({ startDates, endDate, dayWeeks }: FreeProps) => {
          }
          return false;
       }
-      console.log(year > endYear);
       if (year > endYear) {
          return false;
       }

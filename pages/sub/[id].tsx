@@ -9,13 +9,14 @@ import { useEffect, useState } from 'react';
 import ModalDetail from '../../components/detail/ModalDetail';
 import styled from 'styled-components';
 import ShareModal from '../../components/common/Modal/ModalCompo/ShareModal';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
 // import { api } from '../../util/token';
 import { qnaListState } from '../../atoms/qna/atom';
 import axios from 'axios';
 // import axios from 'axios';
+import { isLogin } from '../../atoms/atom';
 
 const Sub = () => {
    const { query } = useRouter();
@@ -24,6 +25,7 @@ const Sub = () => {
    const [subData, setSubData] = useRecoilState(setSubDataObject);
    const [error, setError] = useState(false);
    const setQnaList = useSetRecoilState(qnaListState);
+   const loginState = useRecoilValue(isLogin);
 
    const getData = async () => {
       if (query.id) {
@@ -39,6 +41,11 @@ const Sub = () => {
    useEffect(() => {
       getData();
    }, [query.id]);
+
+   const LoginCheck = () => {
+      loginState ? setIsModalOpen(!isModalOpen) : alert('로그인 후 이용 가능합니다.');
+      // loginState ? setIsModalOpen(!isModalOpen) : setIsModalOpen(!isModalOpen);
+   };
 
    return (
       <>
@@ -80,9 +87,10 @@ const Sub = () => {
                   imgLink={IconPrice}
                   childrens={
                      <Price
+                        datePolicy={subData.dateTime.datePolicy}
                         open={subData.meetingState}
                         price={subData.price}
-                        OpenModal={() => setIsModalOpen(!isModalOpen)}
+                        OpenModal={LoginCheck}
                      />
                   }
                />

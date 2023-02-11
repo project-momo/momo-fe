@@ -9,7 +9,6 @@ const RankList = () => {
    useEffect(() => {
       api.get(`/ranks`).then(el => {
          setRankList(el.data);
-         console.log(el);
       });
    }, []);
    return (

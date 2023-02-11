@@ -52,7 +52,6 @@ const MyMeetingCard = ({ data, participant }: any) => {
       await axios
          .get(`${API_URI}/meetings/${data.meetingId}`)
          .then(res => {
-            console.log(res.data);
             setPostData(res.data);
          })
          .catch(e => console.log(e));

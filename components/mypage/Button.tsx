@@ -11,8 +11,6 @@ export const Button = (props: any) => {
    const [isActive, setActive] = useState(false);
 
    const btnHandler = () => {
-      console.log(props);
-
       if (props.modal) {
          setType('applicationStatus');
          setMeetingInfo(props.meetingInfo);
