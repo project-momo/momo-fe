@@ -61,7 +61,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
 
    useEffect(() => {
       if (newApplications.length === 0 && confirmedApplications.length === 0) {
-         setAccordionState(false);
+         setAccordionState(true);
       } else if (newApplications.length > 0 || confirmedApplications.length > 0) {
          setAccordionState(true);
          setApplications(data.applications);

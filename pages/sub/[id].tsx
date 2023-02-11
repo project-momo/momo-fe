@@ -14,6 +14,7 @@ import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
 import { api } from '../../util/token';
 import { qnaListState } from '../../atoms/qna/atom';
+// import axios from 'axios';
 
 const Sub = () => {
    const { query } = useRouter();
@@ -37,7 +38,6 @@ const Sub = () => {
    useEffect(() => {
       getData();
    }, [query.id]);
-   console.log(subData);
 
    return (
       <>

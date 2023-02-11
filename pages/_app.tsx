@@ -24,12 +24,15 @@ function MyApp({ Component, pageProps }: AppProps) {
    };
    useEffect(() => {
       const token = localStorage.getItem('AccessToken');
-
       if (token) {
          axios.defaults.headers.common['Authorization'] = token;
       }
       typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
    }, []);
+
+   useEffect(() => {
+      console.log('실행될때마다');
+   });
 
    return (
       <>
