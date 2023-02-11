@@ -147,9 +147,9 @@ const MainList = () => {
                );
             })
          ) : nowSelectCategory !== 'search' ? (
-            <p>해당하는 카테고리의 모임이 없습니다.</p>
+            <p className="no-result">해당하는 카테고리의 모임이 없습니다.</p>
          ) : (
-            <p>검색 결과가 없습니다.</p>
+            <p className="no-result">검색 결과가 없습니다.</p>
          )}
       </CardList>
    );
@@ -167,5 +167,11 @@ const CardList = styled.div`
    }
    .card_wrap:nth-child(3n) {
       margin-left: 16px;
+   }
+   .no-result {
+      margin: 50px auto;
+      text-align: center;
+      font-weight: 600;
+      color: #183c7a;
    }
 `;
