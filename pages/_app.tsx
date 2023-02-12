@@ -24,7 +24,6 @@ function MyApp({ Component, pageProps }: AppProps) {
    };
    useEffect(() => {
       const token = localStorage.getItem('AccessToken');
-
       if (token) {
          axios.defaults.headers.common['Authorization'] = token;
       }

@@ -24,6 +24,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
 
    const setQnaList = useSetRecoilState(qnaListState);
    const [content, setContent] = useState('');
+   const loginState = useRecoilValue(isLogin);
 
    const onSubmit = () => {
       if (!isLoginState) {

@@ -26,7 +26,7 @@ const Price = ({ datePolicy, price, setPrice }: PriceProps) => {
                type="number"
                disabled={pricePolicy === 'FREE' && true}
                min={0}
-               value={price}
+               value={price === 0 ? '무료' : price}
                onChange={(e: { target: { value: SetStateAction<string | number> } }) => setPrice(e.target.value)}
             />
          </label>

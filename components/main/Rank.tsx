@@ -58,5 +58,6 @@ const RankImg = styled.div<ImgProps>`
    background-image: url(${props => `${props.imgprops}`});
    background-position: 100% 100%;
    background-size: cover;
+   background-color: #d3dbde;
    margin: 0 5px;
 `;

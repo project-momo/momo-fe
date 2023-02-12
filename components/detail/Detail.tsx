@@ -45,7 +45,11 @@ const Detail = ({ userImage, username, location, gu, content, title, hostId }: D
                <Location key={idx}>{el}</Location>
             ))}
          </LocationList>
-         <LocationList>{location && <Location>{location}</Location>}</LocationList>
+         {location !== '' ? (
+            <LocationList>
+               <Location>{location}</Location>
+            </LocationList>
+         ) : null}
 
          {/* 유진 */}
          <ListTitle>
@@ -90,6 +94,7 @@ const UserCard = styled.div<{ backImg: string }>`
    margin-bottom: 13px;
    div {
       background-image: url(${p => `${p.backImg}`});
+      background-color: #d3dbde;
       background-position: cover;
       border-radius: 30px;
       background-size: cover;

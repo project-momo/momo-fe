@@ -52,7 +52,6 @@ const MyMeetingCard = ({ data, participant }: any) => {
       await axios
          .get(`${API_URI}/meetings/${data.meetingId}`)
          .then(res => {
-            console.log(res.data);
             setPostData(res.data);
          })
          .catch(e => console.log(e));
@@ -61,7 +60,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
 
    useEffect(() => {
       if (newApplications.length === 0 && confirmedApplications.length === 0) {
-         setAccordionState(false);
+         setAccordionState(true);
       } else if (newApplications.length > 0 || confirmedApplications.length > 0) {
          setAccordionState(true);
          setApplications(data.applications);

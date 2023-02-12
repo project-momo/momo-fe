@@ -11,6 +11,7 @@ import DaySelect from './DaySelect';
 import TimeList from './TimeList';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
 import axios from 'axios';
+
 interface DetailProps {
    title: string;
    price: number;
@@ -79,7 +80,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
    useEffect(() => {
       if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
          api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then((el: any) => {
-            console.log(el);
             if (el) {
                setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
             }
@@ -99,9 +99,24 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
       const tossPayments = await loadTossPayments(clientKey);
 
       if (!isLoginState) {
-         alert('로그인을 진행해주세요');
+         alert('로그인 후 이용 가능합니다.');
       } else {
-         const res = await axios
+         // const res = await axios
+         //    .post(API_URI + `/meetings/${meetingId}/reservations`, {
+         //       dateInfo: {
+         //          reservationDate: dateTime.startDate,
+         //          startTime: dateTime.startTime,
+         //          endTime: dateTime.endTime
+         //       },
+         //       amount: price,
+         //       reservationMemo: memoState
+         //    })
+         //    .then(res => {
+         //       console.log('예약 진행 후 결과 : ', res);
+         //    })
+         //    .catch(e => alert(e.response.data.message));
+
+         axios
             .post(API_URI + `/meetings/${meetingId}/reservations`, {
                dateInfo: {
                   reservationDate: dateTime.startDate,
@@ -111,30 +126,51 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
                amount: price,
                reservationMemo: memoState
             })
+            .then(res => {
+               if (res.status === 201 && res.data.amount > 0) {
+                  const fetchData = {
+                     ...res.data,
+                     successUrl: 'http://localhost:3000/payments/success',
+                     failUrl: 'http://localhost:3000/payments/fail'
+                  };
+                  tossPayments.requestPayment('카드', fetchData).catch(function (error) {
+                     if (error.code === 'USER_CANCEL') {
+                        // 결제 고객이 결제창을 닫았을 때 에러 처리
+                        alert('결제가 취소되었습니다.');
+                     } else if (error.code === 'INVALID_CARD_COMPANY') {
+                        // 유효하지 않은 카드 코드에 대한 에러 처리
+                        alert('유효하지 않은 카드입니다.');
+                     }
+                  });
+               } else {
+                  alert('예약이 완료되었습니다!');
+                  setIsModalOpen(false);
+               }
+            })
             .catch(e => alert(e.response.data.message));
 
-         if (res !== undefined) {
-            if (res.status === 201 && res.data.amount > 0) {
-               // const fetchData = {
-               //    ...res.data,
-               //    successUrl: 'http://localhost:3000/payments/success',
-               //    failUrl: 'http://localhost:3000/payments/failed'
-               // };
+         // if (res !== undefined) {
+         //    if (res.status === 201 && res.data.amount > 0) {
+         //       // const fetchData = {
+         //       //    ...res.data,
+         //       //    successUrl: 'http://localhost:3000/payments/success',
+         //       //    failUrl: 'http://localhost:3000/payments/failed'
+         //       // };
 
-               tossPayments.requestPayment('카드', res.data).catch(function (error) {
-                  if (error.code === 'USER_CANCEL') {
-                     // 결제 고객이 결제창을 닫았을 때 에러 처리
-                     alert('결제가 취소되었습니다.');
-                  } else if (error.code === 'INVALID_CARD_COMPANY') {
-                     // 유효하지 않은 카드 코드에 대한 에러 처리
-                     alert('유효하지 않은 카드입니다.');
-                  }
-               });
-            } else {
-               alert('예약이 완료되었습니다!');
-               setIsModalOpen(false);
-            }
-         }
+         //       tossPayments.requestPayment('카드', res.data).catch(function (error) {
+         //          if (error.code === 'USER_CANCEL') {
+         //             // 결제 고객이 결제창을 닫았을 때 에러 처리
+         //             alert('결제가 취소되었습니다.');
+         //          } else if (error.code === 'INVALID_CARD_COMPANY') {
+         //             // 유효하지 않은 카드 코드에 대한 에러 처리
+         //             alert('유효하지 않은 카드입니다.');
+         //          }
+         //       });
+         //    } else {
+         //       alert('예약이 완료되었습니다!');
+         //       setIsModalOpen(false);
+         //    }
+         // }
       }
    };
 

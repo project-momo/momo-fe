@@ -10,7 +10,6 @@ interface QnaCompoType {
 
 const Qna = ({ qna }: QnaCompoType) => {
    const [toggleWriteAnswer, settoggleWriteAnswer] = useState(false);
-   console.log('Qna : ', qna);
 
    return (
       <QnaUl>
@@ -67,6 +66,7 @@ const UserImg = styled.span<{ userimg: any }>`
    width: 25px;
    height: 25px;
    background-image: url(${p => `${p.userimg}`});
+   background-color: #d3dbde;
    background-size: cover;
    border-radius: 50%;
 `;
