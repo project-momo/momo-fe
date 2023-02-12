@@ -59,7 +59,7 @@ const MainList = () => {
    }, [nowSelectCategory]);
    return (
       <CardList>
-         {loading ? (
+         {loading && nowSelectCategory !== 'search' ? (
             <p>로딩중...</p>
          ) : moimData.length !== 0 ? (
             moimData.map((el: MainProps) => {
@@ -77,8 +77,10 @@ const MainList = () => {
                   />
                );
             })
-         ) : (
+         ) : nowSelectCategory !== 'search' ? (
             <p>해당하는 카테고리의 모임이 없습니다.</p>
+         ) : (
+            <p>검색 결과가 없습니다.</p>
          )}
       </CardList>
    );
