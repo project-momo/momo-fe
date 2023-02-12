@@ -28,6 +28,10 @@ const MainList = () => {
    const nowSelectCategory = useRecoilValue(selectCategory);
    const [selectTags, setSelectTage] = useRecoilState(mainTagListmain);
    const [loading, setLoading] = useState(true);
+   const [page, setPage] = useState(1);
+   const [totalMoim, setTotalMoim] = useState(0);
+   const defaultCount = 18;
+   const [fetching, setFetching] = useState(false);
    const setSearchValue = useSetRecoilState(searchValueAtom);
    // const setCategory = useRecoilValue(nowCategoryState);
    const getMoimData = async () => {
@@ -36,10 +40,12 @@ const MainList = () => {
             .get(
                `${API_URI}/meetings?&category=${nowSelectCategory}${
                   selectTags !== '' ? `&tag=${selectTags}` : ''
-               }&page=1&size=18`
+               }&page=${page}&size=${defaultCount}`
             )
             .then(el => {
                setModimData(el.data.content);
+               setTotalMoim(el.data.pageInfo.totalElements);
+               setFetching(false);
             });
       } catch (error) {
          // setError(error);
@@ -57,9 +63,72 @@ const MainList = () => {
    useEffect(() => {
       setSelectTage('');
    }, [nowSelectCategory]);
+   const throttle = (handler: (...args: any[]) => void, timeout = 300) => {
+      let invokedTime: number;
+      let timer: number;
+      return function (this: any, ...args: any[]) {
+         if (!invokedTime) {
+            handler.apply(this, args);
+            invokedTime = Date.now();
+         } else {
+            clearTimeout(timer);
+            timer = window.setTimeout(() => {
+               if (Date.now() - invokedTime >= timeout) {
+                  handler.apply(this, args);
+                  invokedTime = Date.now();
+               }
+            }, Math.max(timeout - (Date.now() - invokedTime), 0));
+         }
+      };
+   };
+
+   useEffect(() => {
+      const handleScroll = throttle(() => {
+         const { scrollTop } = document.documentElement;
+         const { offsetHeight } = document.body;
+         if (window.innerHeight + scrollTop >= offsetHeight) {
+            setFetching(true);
+         }
+      });
+
+      setFetching(true);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+   }, []);
+
+   useEffect(() => {
+      if (fetching && totalMoim > defaultCount * page) {
+         setPage(page + 1);
+      } else {
+         setFetching(false);
+      }
+   }, [fetching]);
+   useEffect(() => {
+      try {
+         api.get(
+            `${API_URI}/meetings?&category=${nowSelectCategory}${
+               selectTags !== '' ? `&tag=${selectTags}` : ''
+            }&page=${page}&size=${defaultCount}`
+         ).then(el => {
+            setModimData([...moimData, ...el.data.content]);
+            setTotalMoim(el.data.pageInfo.totalElements);
+            setFetching(false);
+         });
+      } catch (error) {
+         // setError(error);
+      } finally {
+         setLoading(false);
+      }
+   }, [page]);
+
+   //    if (moimData === 18) {
+   //       if (false) {
+   //
+   //       }
+   //    }
    return (
       <CardList>
-         {loading ? (
+         {loading && nowSelectCategory !== 'search' ? (
             <p>로딩중...</p>
          ) : moimData.length !== 0 ? (
             moimData.map((el: MainProps) => {
@@ -77,8 +146,10 @@ const MainList = () => {
                   />
                );
             })
-         ) : (
+         ) : nowSelectCategory !== 'search' ? (
             <p>해당하는 카테고리의 모임이 없습니다.</p>
+         ) : (
+            <p>검색 결과가 없습니다.</p>
          )}
       </CardList>
    );

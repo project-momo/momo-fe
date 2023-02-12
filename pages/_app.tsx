@@ -30,10 +30,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       typeof document !== undefined ? require('bootstrap/dist/js/bootstrap') : null;
    }, []);
 
-   useEffect(() => {
-      console.log('실행될때마다');
-   });
-
    return (
       <>
          <Head>

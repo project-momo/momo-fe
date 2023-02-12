@@ -6,8 +6,9 @@ interface PriceProps {
    OpenModal: () => void;
    price: number;
    open: string;
+   datePolicy?: string;
 }
-const Price = ({ OpenModal, price, open }: PriceProps) => {
+const Price = ({ OpenModal, price, open, datePolicy }: PriceProps) => {
    const priceData = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
    const openState = open === '모집 완료' ? true : false;
    return (
@@ -17,8 +18,8 @@ const Price = ({ OpenModal, price, open }: PriceProps) => {
             <AlertIcon icon={IconPrice}>{/* <Alert>시간당 설정된 가격입니다.</Alert> */}</AlertIcon>
          </Title>
          <PriceInfo>
-            <PriceType>시간당 가격</PriceType>
-            <PriceNumber>{priceData}</PriceNumber>
+            <PriceType>{datePolicy === 'ONE_DAY' ? '참가 비용' : '시간당 가격'}</PriceType>
+            <PriceNumber>{price === 0 ? '무료' : priceData}</PriceNumber>
          </PriceInfo>
          <Button
             onClick={OpenModal}

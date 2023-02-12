@@ -80,7 +80,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
    useEffect(() => {
       if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
          api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then((el: any) => {
-            console.log(el);
             if (el) {
                setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
             }
@@ -100,7 +99,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
       const tossPayments = await loadTossPayments(clientKey);
 
       if (!isLoginState) {
-         alert('로그인을 진행해주세요');
+         alert('로그인 후 이용 가능합니다.');
       } else {
          // const res = await axios
          //    .post(API_URI + `/meetings/${meetingId}/reservations`, {
