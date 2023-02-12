@@ -42,8 +42,8 @@ const Sub = () => {
    console.log(subData);
 
    const LoginCheck = () => {
-      // loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');
-      loginState ? setIsModalOpen(!isModalOpen) : setIsModalOpen(!isModalOpen);
+      loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');
+      // loginState ? setIsModalOpen(!isModalOpen) : setIsModalOpen(!isModalOpen);
    };
 
    return (
