@@ -30,6 +30,7 @@ const MainList = () => {
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(1);
    const [totalMoim, setTotalMoim] = useState(0);
+   const defaultCount = 9;
    const [fetching, setFetching] = useState(false);
    const setSearchValue = useSetRecoilState(searchValueAtom);
    // const setCategory = useRecoilValue(nowCategoryState);
@@ -39,7 +40,7 @@ const MainList = () => {
             .get(
                `${API_URI}/meetings?&category=${nowSelectCategory}${
                   selectTags !== '' ? `&tag=${selectTags}` : ''
-               }&page=${page}&size=18`
+               }&page=${page}&size=${defaultCount}`
             )
             .then(el => {
                setModimData(el.data.content);
@@ -87,7 +88,6 @@ const MainList = () => {
          const { offsetHeight } = document.body;
          if (window.innerHeight + scrollTop >= offsetHeight) {
             setFetching(true);
-            console.log('최하단!');
          }
       });
 
@@ -97,12 +97,28 @@ const MainList = () => {
    }, []);
 
    useEffect(() => {
-      if (fetching && totalMoim > 18 * page) setPage(page + 1);
-      else setFetching(false);
+      if (fetching && totalMoim > defaultCount * page) {
+         setPage(page + 1);
+      } else {
+         setFetching(false);
+      }
    }, [fetching]);
    useEffect(() => {
-      if (fetching && totalMoim > 18 * page) getMoimData();
-      else setFetching(false);
+      try {
+         api.get(
+            `${API_URI}/meetings?&category=${nowSelectCategory}${
+               selectTags !== '' ? `&tag=${selectTags}` : ''
+            }&page=${page}&size=${defaultCount}`
+         ).then(el => {
+            setModimData([...moimData, ...el.data.content]);
+            setTotalMoim(el.data.pageInfo.totalElements);
+            setFetching(false);
+         });
+      } catch (error) {
+         // setError(error);
+      } finally {
+         setLoading(false);
+      }
    }, [page]);
 
    //    if (moimData === 18) {
