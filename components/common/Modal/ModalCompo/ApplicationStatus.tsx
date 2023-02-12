@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { meetingInfo } from '../../../../atoms/mypage/atoms';
-import { SquareButton } from '../../../mypage/Button';
+// import { SquareButton } from '../../../mypage/Button';
 
 const ApplicationStatus = () => {
    const info = useRecoilValue(meetingInfo);
@@ -30,8 +30,8 @@ const ApplicationStatus = () => {
             <p className="meeting-address">{info.address.addresses.join(', ')}</p>
          </div>
          <div className="btn-wrapper">
-            <SquareButton>모임 시간 변경</SquareButton>
-            <SquareButton>모임 취소</SquareButton>
+            {/* <SquareButton>모임 시간 변경</SquareButton> */}
+            {/* <SquareButton>모임 취소</SquareButton> */}
          </div>
       </ModalWrapper>
    );
@@ -72,7 +72,7 @@ const ModalWrapper = styled.div`
       flex-direction: row !important;
       justify-content: space-between;
       button {
-         width: 48%;
+         width: 100%;
       }
    }
 `;

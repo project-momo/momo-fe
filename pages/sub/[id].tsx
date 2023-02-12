@@ -39,7 +39,6 @@ const Sub = () => {
    useEffect(() => {
       getData();
    }, [query.id]);
-   console.log(subData);
 
    const LoginCheck = () => {
       loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');

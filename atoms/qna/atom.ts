@@ -32,4 +32,4 @@ interface AnswererType {
    imageUrl: null;
 }
 
-export const qnaListState = atom<QnaType[]>({ key: `qnaState/${v1()}`, default: [] });
+export const qnaListState = atom<QnaType[]>({ key: `qnaListState/${v1()}`, default: [] });

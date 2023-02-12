@@ -43,8 +43,18 @@ export const Button = ({ size, backgroundColor, priceLabel, label, disabled, onC
                <span>모집이 마감되었습니다.</span>
             ) : (
                <>
-                  {' '}
-                  <span className={styles.price}>{priceLabel}</span> 원 <br /> 결제하고 시작하기{' '}
+                  {priceLabel !== '0' ? (
+                     <>
+                        <span className={styles.price}>{priceLabel !== '0' && priceLabel + '원'}</span>
+                        <br />
+                        결제하고 시작하기
+                     </>
+                  ) : (
+                     <>
+                        <span className={styles.price}>{priceLabel !== '0' && priceLabel + '원'}</span>
+                        참여하기
+                     </>
+                  )}
                </>
             )
          ) : (

@@ -18,23 +18,13 @@ const Succeess = () => {
             if (res.status == 200 && res.data.method === '카드') {
                alert('예약이 완료되었습니다!');
                route.push('/attending');
-               // window.alert({
-               //    position: 'center',
-               //    icon: 'success',
-               //    text: '예약이 완료되었습니다!',
-               //    showConfirmButton: false,
-               //    timer: 1500
-               // });
             }
-
-            console.log('성공 페이지에서 : ', res);
          })
          .catch(err => {
             console.log('성공 페이지에서 에러 : ', err);
-            // route.push('/payment/failed');
          });
    }, []);
-   return <h1>결제 성공 페이지</h1>;
+   return <></>;
 };
 
 export default Succeess;

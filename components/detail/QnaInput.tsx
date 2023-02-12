@@ -14,7 +14,7 @@ interface QnaInputType {
 
 const QnaInput = ({ type, qid }: QnaInputType) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
-
+   const isLoginState = useRecoilValue(isLogin);
    const { meetingId } = useRecoilValue(setSubDataObject);
 
    const url =
@@ -27,6 +27,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
    const loginState = useRecoilValue(isLogin);
 
    const onSubmit = () => {
+<<<<<<< HEAD
       if (loginState) {
          if (content === '') {
             if (type === 'question') alert('질문 내용을 입력해주세요.');
@@ -44,6 +45,24 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
       } else {
          alert('로그인을 진행해주세요.');
       }
+=======
+      if (!isLoginState) {
+         return alert('로그인 후 이용 가능합니다.');
+      }
+      if (content.trim() === '') {
+         if (type === 'question') alert('질문 내용을 입력해주세요.');
+         else alert('답변 내용을 입력해주세요.');
+         return;
+      }
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+      axios
+         .post(url, { content })
+         .then(res => {
+            setQnaList(res.data);
+            setContent('');
+         })
+         .catch(err => console.log('에러', err));
+>>>>>>> 4047cbe7c98702a86dc76959461cb5c87a517c6e
    };
 
    return (
@@ -52,9 +71,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
             placeholder={type === 'question' ? '궁금한 것이 있다면 질문을 남겨주세요.' : '답변을 남겨주세요.'}
             value={content}
             onChange={e => setContent(e.target.value)}
-            onKeyDown={e => {
-               if (e.code === 'Enter') onSubmit();
-            }}
+            onKeyUp={e => e.keyCode === 13 && onSubmit()}
             type={type}
          />
          <SubmitBtn onClick={onSubmit} type2={type}>

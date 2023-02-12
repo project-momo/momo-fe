@@ -14,6 +14,7 @@ if (typeof window !== 'undefined') {
 
 console.log(axios.defaults.headers.common.Authorization);
 const parseJwt = (token: any) => {
+   console.log('split 전 token : ', token);
    const base64Url = token.split('.')[1];
    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
    const jsonPayload = decodeURIComponent(
@@ -38,30 +39,33 @@ api.interceptors.response.use(
       return response;
    },
    async error => {
-      console.log('gjgjgjgjgj');
-      console.log(error, 'gjgjgj');
       const refreshToken = getRefreshToken();
       const originalRequest = error.config;
       // if (error && error.response.status === '' && refreshToken) {
       const instance = axios.create();
       instance.defaults.headers.post['Content-Type'] = 'application/json';
-      instance.defaults.headers.common['refreshtoken'] = refreshToken;
+      instance.defaults.headers.common['RefreshToken'] = refreshToken;
       delete originalRequest.headers.Authorization;
       delete instance.defaults.headers.common['Authorization'];
-      return instance
-         .put(`https://momo-api.shop/auth/token`, {
-            transformRequest: (data: any, headers: any) => {
-               delete headers.common['Authorization'];
-               return data;
-            },
-            headers: {
-               RefreshToken: refreshToken
-            }
-         })
+      // return instance
+      //    .put(`https://momo-api.shop/auth/token`, {
+      //       transformRequest: (data: any, headers: any) => {
+      //          delete headers.common['Authorization'];
+      //          return data;
+      //       },
+      //       headers: {
+      //          RefreshToken: refreshToken
+      //       }
+      //    })
+      delete axios.defaults.headers.common['Authorization'];
+      axios.defaults.headers.common['RefreshToken'] = localStorage.getItem('RefreshToken');
+      return axios
+         .put(`${API_URI}/auth/token`)
          .then(res => {
-            console.log('aa');
+            console.log('리프레쉬 토큰 보냄 : ', res);
             alert('재전송중');
             if (res.status === 200) {
+               console.log('성공! : ', res);
                const accessToken = res.data.accessToken;
                const refreshToken = res.data.refreshToken;
                parseJwt(accessToken);
@@ -78,7 +82,7 @@ api.interceptors.response.use(
          .catch(err => {
             alert('로그인을 다시 진행해주세요');
             // window.location.href = '/';
-            err;
+            console.log('리프레쉬 토큰 요청 실패 : ', err);
 
             // localStorage.removeItem('AccessToken');
             // localStorage.removeItem('RefreshToken');

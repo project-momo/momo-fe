@@ -12,7 +12,6 @@ interface ImgProps {
    imgprops: string;
 }
 const Rank = ({ rankNum, imgLink, title, meetingId }: RankProps) => {
-   console.log(imgLink);
    return (
       <RankLi>
          <Link href={`/sub/${meetingId}`}>
@@ -59,5 +58,6 @@ const RankImg = styled.div<ImgProps>`
    background-image: url(${props => `${props.imgprops}`});
    background-position: 100% 100%;
    background-size: cover;
+   background-color: #d3dbde;
    margin: 0 5px;
 `;
