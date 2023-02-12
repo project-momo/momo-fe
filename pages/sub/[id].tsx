@@ -9,11 +9,12 @@ import { useEffect, useState } from 'react';
 import ModalDetail from '../../components/detail/ModalDetail';
 import styled from 'styled-components';
 import ShareModal from '../../components/common/Modal/ModalCompo/ShareModal';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
 import { api } from '../../util/token';
 import { qnaListState } from '../../atoms/qna/atom';
+import { isLogin } from '../../atoms/atom';
 
 const Sub = () => {
    const { query } = useRouter();
@@ -22,6 +23,7 @@ const Sub = () => {
    const [subData, setSubData] = useRecoilState(setSubDataObject);
    const [error, setError] = useState(false);
    const setQnaList = useSetRecoilState(qnaListState);
+   const loginState = useRecoilValue(isLogin);
 
    const getData = async () => {
       if (query.id) {
@@ -38,6 +40,10 @@ const Sub = () => {
       getData();
    }, [query.id]);
    console.log(subData);
+
+   const LoginCheck = () => {
+      loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');
+   };
 
    return (
       <>
@@ -77,13 +83,7 @@ const Sub = () => {
                <RightBox
                   label="모임에 참여하기"
                   imgLink={IconPrice}
-                  childrens={
-                     <Price
-                        open={subData.meetingState}
-                        price={subData.price}
-                        OpenModal={() => setIsModalOpen(!isModalOpen)}
-                     />
-                  }
+                  childrens={<Price open={subData.meetingState} price={subData.price} OpenModal={LoginCheck} />}
                />
             </RightSection>
          </SubWrap>

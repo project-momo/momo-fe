@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { isLogin } from '../../atoms/atom';
 import { qnaListState } from '../../atoms/qna/atom';
 import { setSubDataObject } from '../../atoms/sub/atom';
 import IconCommentAdd from './../../assets/images/icon_cmment_add.svg';
@@ -23,21 +24,26 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
 
    const setQnaList = useSetRecoilState(qnaListState);
    const [content, setContent] = useState('');
+   const loginState = useRecoilValue(isLogin);
 
    const onSubmit = () => {
-      if (content === '') {
-         if (type === 'question') alert('질문 내용을 입력해주세요.');
-         else alert('답변 내용을 입력해주세요.');
-         return;
-      }
+      if (loginState) {
+         if (content === '') {
+            if (type === 'question') alert('질문 내용을 입력해주세요.');
+            else alert('답변 내용을 입력해주세요.');
+            return;
+         }
 
-      axios
-         .post(url, { content })
-         .then(res => {
-            setQnaList(res.data);
-            setContent('');
-         })
-         .catch(err => console.log('에러', err));
+         axios
+            .post(url, { content })
+            .then(res => {
+               setQnaList(res.data);
+               setContent('');
+            })
+            .catch(err => console.log('에러', err));
+      } else {
+         alert('로그인을 진행해주세요.');
+      }
    };
 
    return (
