@@ -39,6 +39,7 @@ export const Tag = ({ label, ...props }: TagProps) => {
 const TagCompo = styled.li`
    display: inline-block;
    font-size: 16px;
+   font-weight: 600;
    padding: 5px 10px;
    border-radius: 30px;
    margin: 15px 10px 15px 0;

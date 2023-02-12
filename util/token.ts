@@ -14,7 +14,6 @@ if (typeof window !== 'undefined') {
 
 console.log(axios.defaults.headers.common.Authorization);
 const parseJwt = (token: any) => {
-   console.log('split 전 token : ', token);
    const base64Url = token.split('.')[1];
    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
    const jsonPayload = decodeURIComponent(
@@ -63,11 +62,11 @@ api.interceptors.response.use(
          .put(`${API_URI}/auth/token`)
          .then(res => {
             console.log('리프레쉬 토큰 보냄 : ', res);
-            alert('재전송중');
+            // alert('재전송중');
             if (res.status === 200) {
-               console.log('성공! : ', res);
-               const accessToken = res.data.accessToken;
-               const refreshToken = res.data.refreshToken;
+               console.log('성공! : ', res.headers);
+               const accessToken: any = res.headers.accesstoken;
+               const refreshToken: any = res.headers.refreshtoken;
                parseJwt(accessToken);
                localStorage.setItem('AccessToken', accessToken);
                axios.defaults.headers.common['Authorization'] = `${accessToken}`;
@@ -75,8 +74,11 @@ api.interceptors.response.use(
                localStorage.setItem('RefreshToken', refreshToken);
                // setRefreshToken(refreshToken);
                // 새로 받은 토큰 저장 및 원래 요청 다시 보내기
+               console.log('원래 요청 : ', originalRequest);
                originalRequest.headers['Authorization'] = `${accessToken}`;
                return axios(originalRequest);
+               // const test = axios(originalRequest).catch(e => console.log('err : ', e));
+               // console.log(test);
             }
          })
          .catch(err => {

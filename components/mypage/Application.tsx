@@ -42,7 +42,9 @@ const Application = ({ data, confirmed }: any) => {
                      aria-expanded="true"
                      aria-controls={`collapse-detail${uuid}`}>
                      {data.message && '전달 사항'}
-                     <FontAwesomeIcon className={isActive ? 'icon active' : 'icon'} icon={faChevronDown} />
+                     {data.message && (
+                        <FontAwesomeIcon className={isActive ? 'icon active' : 'icon'} icon={faChevronDown} />
+                     )}
                   </button>
                </div>
                {!confirmed ? (

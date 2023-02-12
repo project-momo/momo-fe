@@ -8,6 +8,7 @@ import { setSubDataObject } from '../../atoms/sub/atom';
 import Application from './Application';
 import { Basic, Button } from './Button';
 import Modal from './Modal';
+import { EmptyBox } from './mypage.style';
 
 const MyMeetingCard = ({ data, participant }: any) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -166,6 +167,9 @@ const MyMeetingCard = ({ data, participant }: any) => {
                               <Application data={application} key={index} confirmed />
                            ))}
                         </div>
+                     )}
+                     {newApplications.length === 0 && confirmedApplications.length === 0 && (
+                        <EmptyBox>참가 신청 내역이 없습니다.</EmptyBox>
                      )}
                   </div>
                </div>

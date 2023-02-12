@@ -251,3 +251,11 @@ export const MeetingWrapper = styled(BasicWrapper)`
       }
    }
 `;
+
+export const EmptyBox = styled.div`
+   padding: 10px 15px;
+   background-color: #f0f0f0;
+   font-size: 15px;
+   font-weight: 700;
+   color: #636363;
+`;
