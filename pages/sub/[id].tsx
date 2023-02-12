@@ -42,7 +42,8 @@ const Sub = () => {
    console.log(subData);
 
    const LoginCheck = () => {
-      loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');
+      // loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');
+      loginState ? setIsModalOpen(!isModalOpen) : setIsModalOpen(!isModalOpen);
    };
 
    return (
@@ -83,7 +84,14 @@ const Sub = () => {
                <RightBox
                   label="모임에 참여하기"
                   imgLink={IconPrice}
-                  childrens={<Price open={subData.meetingState} price={subData.price} OpenModal={LoginCheck} />}
+                  childrens={
+                     <Price
+                        datePolicy={subData.dateTime.datePolicy}
+                        open={subData.meetingState}
+                        price={subData.price}
+                        OpenModal={LoginCheck}
+                     />
+                  }
                />
             </RightSection>
          </SubWrap>
