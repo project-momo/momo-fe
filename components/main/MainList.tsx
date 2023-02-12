@@ -30,7 +30,7 @@ const MainList = () => {
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(1);
    const [totalMoim, setTotalMoim] = useState(0);
-   const defaultCount = 9;
+   const defaultCount = 18;
    const [fetching, setFetching] = useState(false);
    const setSearchValue = useSetRecoilState(searchValueAtom);
    // const setCategory = useRecoilValue(nowCategoryState);
