@@ -25,7 +25,7 @@ export const TitleMain = () => {
    const loginState = useRecoilValue(isLogin);
    const router = useRouter();
    const LoginCheck = () => {
-      loginState ? router.push('/meeting/create') : alert('로그인을 진행해주세요.');
+      loginState ? router.push('/meeting/create') : alert('로그인 후 이용 가능합니다.');
       // return loginState ? '/meeting/create' : '/';
    };
    return (

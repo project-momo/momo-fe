@@ -27,25 +27,6 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
    const loginState = useRecoilValue(isLogin);
 
    const onSubmit = () => {
-<<<<<<< HEAD
-      if (loginState) {
-         if (content === '') {
-            if (type === 'question') alert('질문 내용을 입력해주세요.');
-            else alert('답변 내용을 입력해주세요.');
-            return;
-         }
-
-         axios
-            .post(url, { content })
-            .then(res => {
-               setQnaList(res.data);
-               setContent('');
-            })
-            .catch(err => console.log('에러', err));
-      } else {
-         alert('로그인을 진행해주세요.');
-      }
-=======
       if (!isLoginState) {
          return alert('로그인 후 이용 가능합니다.');
       }
@@ -62,7 +43,6 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
             setContent('');
          })
          .catch(err => console.log('에러', err));
->>>>>>> 4047cbe7c98702a86dc76959461cb5c87a517c6e
    };
 
    return (

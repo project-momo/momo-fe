@@ -41,7 +41,7 @@ const Sub = () => {
    }, [query.id]);
 
    const LoginCheck = () => {
-      loginState ? setIsModalOpen(!isModalOpen) : alert('로그인을 진행해주세요.');
+      loginState ? setIsModalOpen(!isModalOpen) : alert('로그인 후 이용 가능합니다.');
       // loginState ? setIsModalOpen(!isModalOpen) : setIsModalOpen(!isModalOpen);
    };
 
