@@ -80,7 +80,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
    useEffect(() => {
       if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
          api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then((el: any) => {
-            console.log(el);
             if (el) {
                setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
             }

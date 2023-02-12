@@ -14,7 +14,6 @@ const PointList = () => {
       // 통신
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       axios.get(API_URI + '/mypage/point/details').then(res => {
-         console.log(res);
          setPointList(res.data.content);
       });
    }, []);
