@@ -12,8 +12,10 @@ import ShareModal from '../../components/common/Modal/ModalCompo/ShareModal';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
-import { api } from '../../util/token';
+// import { api } from '../../util/token';
 import { qnaListState } from '../../atoms/qna/atom';
+import axios from 'axios';
+// import axios from 'axios';
 import { isLogin } from '../../atoms/atom';
 
 const Sub = () => {
@@ -27,7 +29,7 @@ const Sub = () => {
 
    const getData = async () => {
       if (query.id) {
-         await api
+         await axios
             .get(`/meetings/${query.id}`)
             .then(res => {
                setSubData(res.data);
