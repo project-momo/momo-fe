@@ -19,7 +19,7 @@ const Price = ({ OpenModal, price, open, datePolicy }: PriceProps) => {
          </Title>
          <PriceInfo>
             <PriceType>{datePolicy === 'ONE_DAY' ? '참가 비용' : '시간당 가격'}</PriceType>
-            <PriceNumber>{priceData}</PriceNumber>
+            <PriceNumber>{price === 0 ? '무료' : priceData}</PriceNumber>
          </PriceInfo>
          <Button
             onClick={OpenModal}
