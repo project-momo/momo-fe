@@ -85,7 +85,6 @@ const Header = ({ OpenModal }: LoginProps) => {
 
    const keyEventSearch = (e: any) => {
       if (e.keyCode == 13) {
-         console.log('작동');
          postSearch();
       }
    };
