@@ -128,12 +128,13 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
             })
             .then(res => {
                if (res.status === 201 && res.data.amount > 0) {
-                  const fetchData = {
-                     ...res.data,
-                     successUrl: 'http://localhost:3000/payments/success',
-                     failUrl: 'http://localhost:3000/payments/fail'
-                  };
-                  tossPayments.requestPayment('카드', fetchData).catch(function (error) {
+                  console.log('유료 예약 성공시 : ', res);
+                  // const fetchData = {
+                  //    ...res.data,
+                  //    successUrl: 'https://momo-fe-two.vercel.app/payments/success',
+                  //    failUrl: 'https://momo-fe-two.vercel.app/payments/fail'
+                  // };
+                  tossPayments.requestPayment('카드', res.data).catch(function (error) {
                      if (error.code === 'USER_CANCEL') {
                         // 결제 고객이 결제창을 닫았을 때 에러 처리
                         alert('결제가 취소되었습니다.');
@@ -143,6 +144,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
                      }
                   });
                } else {
+                  console.log('무료 예약 성공시 : ', res);
                   alert('예약이 완료되었습니다!');
                   setIsModalOpen(false);
                }
