@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { api } from '../../util/token';
 
 interface LocationProps {
    si: string;
@@ -25,8 +25,7 @@ const Location = ({ si, gu, handleClickSi, handleClickGu }: LocationProps) => {
    const [locationDummy, SetlocationDummy] = useState<LocationDummyType[]>([]);
 
    useEffect(() => {
-      axios
-         .get(`${API_URI}/addresses`)
+      api.get(`${API_URI}/addresses`)
          .then(res => {
             SetlocationDummy(res.data);
          })

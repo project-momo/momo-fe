@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { myPoint } from '../../atoms/mypage/atoms';
+import { api } from '../../util/token';
 import List from './List';
 import { BasicWrapper } from './mypage.style';
 
@@ -12,8 +12,7 @@ const PointList = () => {
 
    useEffect(() => {
       // 통신
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios.get(API_URI + '/mypage/point/details').then(res => {
+      api.get(API_URI + '/mypage/point/details').then(res => {
          setPointList(res.data.content);
       });
    }, []);
