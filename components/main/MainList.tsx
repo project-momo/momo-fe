@@ -104,20 +104,22 @@ const MainList = () => {
       }
    }, [fetching]);
    useEffect(() => {
-      try {
-         api.get(
-            `${API_URI}/meetings?&category=${nowSelectCategory}${
-               selectTags !== '' ? `&tag=${selectTags}` : ''
-            }&page=${page}&size=${defaultCount}`
-         ).then(el => {
-            setModimData([...moimData, ...el.data.content]);
-            setTotalMoim(el.data.pageInfo.totalElements);
-            setFetching(false);
-         });
-      } catch (error) {
-         // setError(error);
-      } finally {
-         setLoading(false);
+      if (fetching && totalMoim > defaultCount * page) {
+         try {
+            api.get(
+               `${API_URI}/meetings?&category=${nowSelectCategory}${
+                  selectTags !== '' ? `&tag=${selectTags}` : ''
+               }&page=${page}&size=${defaultCount}`
+            ).then(el => {
+               setModimData([...moimData, ...el.data.content]);
+               setTotalMoim(el.data.pageInfo.totalElements);
+               setFetching(false);
+            });
+         } catch (error) {
+            // setError(error);
+         } finally {
+            setLoading(false);
+         }
       }
    }, [page]);
 

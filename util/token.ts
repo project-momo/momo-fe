@@ -61,33 +61,36 @@ api.interceptors.response.use(
       return axios
          .put(`${API_URI}/auth/token`)
          .then(res => {
-            console.log('리프레쉬 토큰 보냄 : ', res);
-            // alert('재전송중');
             if (res.status === 200) {
-               console.log('성공! : ', res.headers);
-               const accessToken: any = res.headers.accesstoken;
-               const refreshToken: any = res.headers.refreshtoken;
-               parseJwt(accessToken);
-               localStorage.setItem('AccessToken', accessToken);
-               axios.defaults.headers.common['Authorization'] = `${accessToken}`;
-               api.defaults.headers.common['Authorization'] = `${accessToken}`;
-               localStorage.setItem('RefreshToken', refreshToken);
-               // setRefreshToken(refreshToken);
-               // 새로 받은 토큰 저장 및 원래 요청 다시 보내기
-               console.log('원래 요청 : ', originalRequest);
-               originalRequest.headers['Authorization'] = `${accessToken}`;
+               const accessToken = res.headers.accesstoken;
+               const refreshToken = res.headers.refreshtoken;
+
+               if (accessToken && refreshToken) {
+                  localStorage.setItem('AccessToken', accessToken);
+                  axios.defaults.headers.common['Authorization'] = `${accessToken}`;
+                  api.defaults.headers.common['Authorization'] = `${accessToken}`;
+                  localStorage.setItem('RefreshToken', refreshToken);
+                  // setRefreshToken(refreshToken);
+                  // 새로 받은 토큰 저장 및 원래 요청 다시 보내기
+                  originalRequest.headers['Authorization'] = `${accessToken}`;
+               }
+
                return axios(originalRequest);
                // const test = axios(originalRequest).catch(e => console.log('err : ', e));
                // console.log(test);
             }
          })
          .catch(err => {
-            alert('로그인을 다시 진행해주세요');
+            // alert('로그인을 다시 진행해주세요');
             // window.location.href = '/';
-            console.log('리프레쉬 토큰 요청 실패 : ', err);
-
-            // localStorage.removeItem('AccessToken');
-            // localStorage.removeItem('RefreshToken');
+            // console.log('리프레쉬 토큰 요청 실패 : ', err, err.response.data.status);
+            // eslint-disable-next-line no-constant-condition
+            if (err.response.data.status === 401) {
+               window.location.href = '/';
+               localStorage.removeItem('AccessToken');
+               localStorage.removeItem('RefreshToken');
+               localStorage.removeItem('userId');
+            }
             // removeRefreshToken();
             // window.location.href = '/';
          });
