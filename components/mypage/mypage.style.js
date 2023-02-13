@@ -92,6 +92,9 @@ export const MeetingWrapper = styled(BasicWrapper)`
             font-size: 18px;
             margin: 10px 0;
             padding: 0;
+            &:hover {
+               color: black;
+            }
          }
          .title + p {
             font-size: 15px;

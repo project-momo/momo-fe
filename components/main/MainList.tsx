@@ -131,7 +131,7 @@ const MainList = () => {
    return (
       <CardList>
          {loading && nowSelectCategory !== 'search' ? (
-            <p>로딩중...</p>
+            <p className="loading">로딩중...</p>
          ) : moimData.length !== 0 ? (
             moimData.map((el: MainProps) => {
                const priceString = el.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -170,6 +170,7 @@ const CardList = styled.div`
    .card_wrap:nth-child(3n) {
       margin-left: 16px;
    }
+   .loading,
    .no-result {
       margin: 50px auto;
       text-align: center;
