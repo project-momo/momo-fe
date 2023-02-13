@@ -46,6 +46,12 @@ export const Li = styled.li`
       padding-left: 9px;
    }
 `;
+export const Img = styled.img`
+   width: 20px;
+   height: 20px;
+   background-image: url(${props => props.src});
+   background-size: contain;
+`;
 
 export const Category = () => {
    const [nowCategoryState, setNowCategoryState] = useRecoilState(selectCategory);
@@ -67,7 +73,7 @@ export const Category = () => {
             <Li>
                <button onClick={() => categoryMoveOnClick('')} className={isActive('') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAll} alt="All" />
+                  <Img src={IconAll} alt="All" />
                   <p>전체</p>
                </button>
             </Li>
@@ -76,7 +82,7 @@ export const Category = () => {
                   onClick={() => categoryMoveOnClick('LIFESTYLE')}
                   className={isActive('LIFESTYLE') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconLifestyle} alt="Lifestyle" />
+                  <Img src={IconLifestyle} alt="Lifestyle" />
                   <p>라이프스타일</p>
                </button>
             </Li>
@@ -84,7 +90,7 @@ export const Category = () => {
                <button onClick={() => categoryMoveOnClick('EDU')} className={isActive('EDU') ? 'active' : ''}>
                   {' '}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconEdu} alt="edu" />
+                  <Img src={IconEdu} alt="edu" />
                   <p>교육</p>
                </button>
             </Li>
@@ -92,35 +98,35 @@ export const Category = () => {
                <button onClick={() => categoryMoveOnClick('MEDIA')} className={isActive('MEDIA') ? 'active' : ''}>
                   {' '}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconMedia} alt="MEDIA" />
+                  <Img src={IconMedia} alt="MEDIA" />
                   <p>미디어</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('DEVELOP')} className={isActive('DEVELOP') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconDevelop} alt="DEVELOP" />
+                  <Img src={IconDevelop} alt="DEVELOP" />
                   <p>개발</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('FINANCE')} className={isActive('FINANCE') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconFinance} alt="FINANCE" />
+                  <Img src={IconFinance} alt="FINANCE" />
                   <p>금융</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('SOCIAL')} className={isActive('SOCIAL') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconSocial} alt="SOCIAL" />
+                  <Img src={IconSocial} alt="SOCIAL" />
                   <p>소셜</p>
                </button>
             </Li>
             <Li>
                <button onClick={() => categoryMoveOnClick('AI')} className={isActive('AI') ? 'active' : ''}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={IconAi} alt="AI" />
+                  <Img src={IconAi} alt="AI" />
                   <p>인공지능</p>
                </button>
             </Li>
