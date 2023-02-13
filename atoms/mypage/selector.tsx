@@ -28,11 +28,29 @@ export const attendingMeeting_opened = selector({
    }
 });
 
+// export const attendingMeeting_closed = selector({
+//    key: 'attendingMeeting_closed',
+
+//    get: ({ get }) => {
+//       const meetings = get(mypageAttendingMeetings);
+//       return meetings.content.filter((meeting: any) => meeting.isOpen === false);
+//    }
+// });
+
+export const attendingMeeting_state = selector({
+   key: 'attendingMeeting_state',
+
+   get: ({ get }) => {
+      const meetings = get(mypageAttendingMeetings);
+      return meetings.content.filter((meeting: any) => meeting.application.reservationState !== '참여 완료');
+   }
+});
+
 export const attendingMeeting_closed = selector({
    key: 'attendingMeeting_closed',
 
    get: ({ get }) => {
       const meetings = get(mypageAttendingMeetings);
-      return meetings.content.filter((meeting: any) => meeting.isOpen === false);
+      return meetings.content.filter((meeting: any) => meeting.application.reservationState === '참여 완료');
    }
 });
