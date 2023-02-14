@@ -40,6 +40,46 @@ const Sub = () => {
       getData();
    }, [query.id]);
 
+   const date = new Date();
+   const startDate = new Date(subData.dateTime.startDate);
+   const dayOver = date >= startDate;
+
+   useEffect(() => {
+      return setSubData({
+         address: {
+            addressInfo: '',
+            addresses: []
+         },
+         addressIds: [],
+         category: '',
+         content: '',
+         host: {
+            email: '',
+            imageUrl: '',
+            nickname: '',
+            userId: 0
+         },
+         isOpen: true,
+         meetingState: '',
+         price: 0,
+         title: '',
+         questions: [],
+         tags: [],
+         personnel: 1,
+         meetingId: 0,
+         dateTime: {
+            datePolicy: '',
+            startDate: '',
+            endDate: '',
+            startTime: '',
+            endTime: '',
+            maxTime: 0,
+            dayWeeks: [],
+            dates: []
+         }
+      });
+   }, []);
+
    const LoginCheck = () => {
       loginState ? setIsModalOpen(!isModalOpen) : alert('로그인 후 이용 가능합니다.');
       // loginState ? setIsModalOpen(!isModalOpen) : setIsModalOpen(!isModalOpen);
@@ -86,7 +126,7 @@ const Sub = () => {
                   childrens={
                      <Price
                         datePolicy={subData.dateTime.datePolicy}
-                        open={subData.meetingState}
+                        open={dayOver && subData.dateTime.datePolicy !== 'FREE' ? '모집 완료' : subData.meetingState}
                         price={subData.price}
                         OpenModal={LoginCheck}
                      />

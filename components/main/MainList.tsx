@@ -104,20 +104,22 @@ const MainList = () => {
       }
    }, [fetching]);
    useEffect(() => {
-      try {
-         api.get(
-            `${API_URI}/meetings?&category=${nowSelectCategory}${
-               selectTags !== '' ? `&tag=${selectTags}` : ''
-            }&page=${page}&size=${defaultCount}`
-         ).then(el => {
-            setModimData([...moimData, ...el.data.content]);
-            setTotalMoim(el.data.pageInfo.totalElements);
-            setFetching(false);
-         });
-      } catch (error) {
-         // setError(error);
-      } finally {
-         setLoading(false);
+      if (fetching && totalMoim > defaultCount * page) {
+         try {
+            api.get(
+               `${API_URI}/meetings?&category=${nowSelectCategory}${
+                  selectTags !== '' ? `&tag=${selectTags}` : ''
+               }&page=${page}&size=${defaultCount}`
+            ).then(el => {
+               setModimData([...moimData, ...el.data.content]);
+               setTotalMoim(el.data.pageInfo.totalElements);
+               setFetching(false);
+            });
+         } catch (error) {
+            // setError(error);
+         } finally {
+            setLoading(false);
+         }
       }
    }, [page]);
 
@@ -129,7 +131,7 @@ const MainList = () => {
    return (
       <CardList>
          {loading && nowSelectCategory !== 'search' ? (
-            <p>로딩중...</p>
+            <p className="loading">로딩중...</p>
          ) : moimData.length !== 0 ? (
             moimData.map((el: MainProps) => {
                const priceString = el.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -147,9 +149,9 @@ const MainList = () => {
                );
             })
          ) : nowSelectCategory !== 'search' ? (
-            <p>해당하는 카테고리의 모임이 없습니다.</p>
+            <p className="no-result">해당하는 카테고리의 모임이 없습니다.</p>
          ) : (
-            <p>검색 결과가 없습니다.</p>
+            <p className="no-result">검색 결과가 없습니다.</p>
          )}
       </CardList>
    );
@@ -167,5 +169,12 @@ const CardList = styled.div`
    }
    .card_wrap:nth-child(3n) {
       margin-left: 16px;
+   }
+   .loading,
+   .no-result {
+      margin: 50px auto;
+      text-align: center;
+      font-weight: 600;
+      color: #183c7a;
    }
 `;

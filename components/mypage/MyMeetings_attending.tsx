@@ -1,11 +1,13 @@
 import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
 import { useRecoilValue } from 'recoil';
-import { attendingMeeting_closed, attendingMeeting_opened } from '../../atoms/mypage/selector';
+import { attendingMeeting_closed, attendingMeeting_opened, attendingMeeting_state } from '../../atoms/mypage/selector';
 import Link from 'next/link';
 
 const MyMeetings_attending = () => {
-   const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
+   // const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
+   // const attending_closedMeetings = useRecoilValue(attendingMeeting_closed);
+   const attending_openedMeetings = useRecoilValue(attendingMeeting_state);
    const attending_closedMeetings = useRecoilValue(attendingMeeting_closed);
 
    return (
@@ -28,11 +30,11 @@ const MyMeetings_attending = () => {
             )}
          </MeetingWrapper>
 
-         {/* 모집 종료된 모임 */}
+         {/* 참여 완료된 모임 */}
          <MeetingWrapper>
             <div className="title">
                <p>
-                  모집 종료된 모임<span>{attending_closedMeetings.length}개</span>
+                  참여 완료된 모임<span>{attending_closedMeetings.length}개</span>
                </p>
             </div>
             {attending_closedMeetings.length > 0 ? (

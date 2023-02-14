@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
+import { api } from '../../../../util/token';
 import { ColorBtn } from './ModalBtn';
 
 const RejectApplication = () => {
@@ -11,15 +11,11 @@ const RejectApplication = () => {
    const [message, setMessage] = useState('');
 
    const rejectApplication = async () => {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       const fetchData = { isAccepted: 'false', message };
       if (message.trim().length === 0) {
          alert('신청 반려 사유를 작성해주세요!');
       } else {
-         const res = await axios.patch(
-            API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`,
-            fetchData
-         );
+         const res = await api.patch(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, fetchData);
          if (res.status === 200) {
             alert('신청 반려하였습니다.');
          }

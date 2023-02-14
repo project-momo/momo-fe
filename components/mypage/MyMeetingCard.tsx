@@ -1,13 +1,14 @@
-import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { applications, modalState, selectedMeeting, selectedReservation } from '../../atoms/mypage/atoms';
 import { setSubDataObject } from '../../atoms/sub/atom';
+import { api } from '../../util/token';
 import Application from './Application';
 import { Basic, Button } from './Button';
 import Modal from './Modal';
+import { EmptyBox } from './mypage.style';
 
 const MyMeetingCard = ({ data, participant }: any) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -49,7 +50,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
    };
 
    const linkTo = async () => {
-      await axios
+      await api
          .get(`${API_URI}/meetings/${data.meetingId}`)
          .then(res => {
             setPostData(res.data);
@@ -74,14 +75,18 @@ const MyMeetingCard = ({ data, participant }: any) => {
                <div className="left">
                   <div>
                      {participant ? (
-                        <p className={data.isOpen ? 'status open' : 'status closed'}>{data.meetingState}</p>
+                        <p className={data.isOpen ? 'status open' : 'status closed'}>
+                           {data.application.reservationState}
+                        </p>
                      ) : (
                         <p className={data.isOpen ? 'status open' : 'status closed'}>{data.meetingState}</p>
                      )}
                      <p className="category">{data.category}</p>
                      <p className="date">{data.dateTime.startDate}</p>
                   </div>
-                  <button className="title">{data.title}</button>
+                  <Link href={`/sub/${data.meetingId}`} className="title">
+                     {data.title}
+                  </Link>
                   <p>{data.content}</p>
                </div>
                <div className="center">
@@ -123,15 +128,17 @@ const MyMeetingCard = ({ data, participant }: any) => {
                      <div>
                         {/* 주최자인 경우*/}
                         {!participant && (
-                           <Basic className="halfWidth" onClick={linkTo}>
-                              모임 변경
-                           </Basic>
+                           <>
+                              <Basic className="halfWidth" onClick={linkTo}>
+                                 모임 변경
+                              </Basic>
+                              <Basic onClick={closeMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
+                                 모임 마감
+                              </Basic>
+                           </>
                         )}
-                        {!participant ? (
-                           <Basic onClick={closeMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
-                              모임 마감
-                           </Basic>
-                        ) : (
+                        {/* 참여자인 경우*/}
+                        {participant && data.application.reservationState !== '참여 완료' && (
                            <Basic onClick={cancelMeeting} data-bs-toggle="modal" data-bs-target="#myModal">
                               모임 취소
                            </Basic>
@@ -166,6 +173,9 @@ const MyMeetingCard = ({ data, participant }: any) => {
                               <Application data={application} key={index} confirmed />
                            ))}
                         </div>
+                     )}
+                     {newApplications.length === 0 && confirmedApplications.length === 0 && (
+                        <EmptyBox>참가 신청 내역이 없습니다.</EmptyBox>
                      )}
                   </div>
                </div>

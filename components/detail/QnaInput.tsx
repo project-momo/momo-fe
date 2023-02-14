@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { isLogin } from '../../atoms/atom';
 import { qnaListState } from '../../atoms/qna/atom';
 import { setSubDataObject } from '../../atoms/sub/atom';
+import { api } from '../../util/token';
 import IconCommentAdd from './../../assets/images/icon_cmment_add.svg';
 
 interface QnaInputType {
@@ -35,9 +35,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
          else alert('답변 내용을 입력해주세요.');
          return;
       }
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios
-         .post(url, { content })
+      api.post(url, { content })
          .then(res => {
             setQnaList(res.data);
             setContent('');
