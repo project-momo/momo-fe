@@ -14,6 +14,14 @@ const GlobalStyle = createGlobalStyle`
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
+  body::-webkit-scrollbar{
+    width: 15px;
+    background-color: rgba(0,0,0,0.1);
+  }
+  body::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 15px;
+  }
   a {
     color: black;
     text-decoration: none;

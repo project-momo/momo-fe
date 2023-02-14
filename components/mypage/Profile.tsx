@@ -54,7 +54,7 @@ const ProfileWrapper = styled(BasicWrapper)`
    }
    .profile-txt {
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       flex: 1;
    }
    .edit {
