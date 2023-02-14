@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { mypageAttendingMeetings, selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
 import { attendingMeeting_opened } from '../../../../atoms/mypage/selector';
+import { api } from '../../../../util/token';
 import { ColorBtn } from './ModalBtn';
 
 const CancelMeeting = () => {
@@ -13,7 +13,7 @@ const CancelMeeting = () => {
    const [attendingMeetings, setAttendingMeetings] = useRecoilState(mypageAttendingMeetings);
    const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
    const filtered = attending_openedMeetings.filter((el: any) => el.meetingId !== meetingId.id);
-   let paymentKey: any;
+   let paymentKey: string;
 
    useEffect(() => {
       paymentKey = attending_openedMeetings.filter((el: any) => el.meetingId === meetingId.id)[0].application
@@ -23,9 +23,7 @@ const CancelMeeting = () => {
    const cancelMeeting = () => {
       const fetchData = { paymentKey: paymentKey };
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios
-         .delete(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, { data: fetchData })
+      api.delete(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, { data: fetchData })
          .then(res => {
             if (res.status === 204) {
                alert('모임 취소가 완료되었습니다.');

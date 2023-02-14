@@ -15,8 +15,8 @@ import Price from '../../components/create/Price';
 import LiTitle from '../../components/create/LiTitle';
 import Location from '../../components/create/Location';
 import { Button } from '../../components/common/Button';
-import axios from 'axios';
 import { useRouter } from 'next/router';
+import { api } from '../../util/token';
 
 const Create = () => {
    const router = useRouter();
@@ -203,8 +203,7 @@ const Create = () => {
          return;
       }
 
-      axios
-         .post(`${API_URI}/meetings`, data)
+      api.post(`${API_URI}/meetings`, data)
          .then(() => {
             router.push('/');
          })

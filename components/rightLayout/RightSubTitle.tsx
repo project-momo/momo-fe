@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Img } from '../common/Category';
 interface RightSubTitleProps {
    label: string;
    imgLink: string;
@@ -8,7 +9,7 @@ export const RightSubTitle = ({ label, imgLink }: RightSubTitleProps) => {
    return (
       <div>
          <Text>
-            <img src={imgLink} alt={'SubtitleImg'} />
+            <Img src={imgLink} alt={'SubtitleImg'} />
             {label}
          </Text>
       </div>

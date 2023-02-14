@@ -7,11 +7,11 @@ import Price from '../../../components/create/Price';
 import LiTitle from '../../../components/create/LiTitle';
 import Location from '../../../components/create/Location';
 import { Button } from '../../../components/common/Button';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { setSubDataObject } from '../../../atoms/sub/atom';
 import { Input, Li, NumberInput, TextArea, Ul } from '../create';
+import { api } from '../../../util/token';
 
 const Update = () => {
    const router = useRouter();
@@ -118,8 +118,7 @@ const Update = () => {
          return;
       }
 
-      axios
-         .patch(`${API_URI}/meetings/${query.id}`, inputData)
+      api.patch(`${API_URI}/meetings/${query.id}`, inputData)
          .then(() => {
             router.push(`/sub/${query.id}`);
          })
