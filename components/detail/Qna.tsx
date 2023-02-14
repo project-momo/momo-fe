@@ -66,7 +66,7 @@ const UserImg = styled.span<{ userimg: any }>`
    width: 25px;
    height: 25px;
    background-image: url(${p => `${p.userimg}`});
-   background-color: #d3dbde;
+   background-color: #e6eaeb;
    background-size: cover;
    border-radius: 50%;
 `;

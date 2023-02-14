@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { mypageHostMeetings, selectedMeeting } from '../../../../atoms/mypage/atoms';
-import { api } from '../../../../util/token';
 import { ColorBtn } from './ModalBtn';
 
 const CloseMeeting = () => {
@@ -10,15 +10,18 @@ const CloseMeeting = () => {
    const setHostMeetings = useSetRecoilState(mypageHostMeetings);
 
    const closeMeeting = async () => {
-      const res = await api.delete(API_URI + `/meetings/${meetingId.id}`);
-      if (res.status === 204) {
-         alert('모임 모집이 종료되었습니다.');
-         api.get(API_URI + '/mypage/meetings/hosts?page=1&size=20')
-            .then(res => {
-               setHostMeetings(res.data);
-            })
-            .catch(err => console.log(err));
-      }
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+      axios
+         .delete(API_URI + `/meetings/${meetingId.id}`)
+         .then(res => {
+            if (res.status === 204) {
+               alert('모임 모집이 종료되었습니다.');
+               axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20').then(res => {
+                  setHostMeetings(res.data);
+               });
+            }
+         })
+         .catch(e => alert(e.response.data.message));
    };
    return (
       <Wrapper>
