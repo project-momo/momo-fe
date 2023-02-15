@@ -1,12 +1,10 @@
 import { MeetingWrapper } from './mypage.style';
 import MyMeetingCard from './MyMeetingCard';
 import { useRecoilValue } from 'recoil';
-import { attendingMeeting_closed, attendingMeeting_opened, attendingMeeting_state } from '../../atoms/mypage/selector';
+import { attendingMeeting_closed, attendingMeeting_state } from '../../atoms/mypage/selector';
 import Link from 'next/link';
 
 const MyMeetings_attending = () => {
-   // const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
-   // const attending_closedMeetings = useRecoilValue(attendingMeeting_closed);
    const attending_openedMeetings = useRecoilValue(attendingMeeting_state);
    const attending_closedMeetings = useRecoilValue(attendingMeeting_closed);
 
