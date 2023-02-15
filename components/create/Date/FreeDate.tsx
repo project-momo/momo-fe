@@ -15,8 +15,8 @@ const FreeDate = ({ dates, setDates, dpSetting }: FreeDateProps) => {
          shouldCloseOnSelect={false}
          highlightDates={[...dates.map(date => new Date(new Date(date).setDate(new Date(date).getDate() - 1)))]}
          onChange={(selectedDate: any) => {
-            if (dates.map(date => new Date(date)).includes(selectedDate)) console.log('야야');
-            setDates([...dates, selectedDate.setDate(selectedDate.getDate() + 1)]);
+            if (dates.map(date => new Date(date)).includes(selectedDate))
+               setDates([...dates, selectedDate.setDate(selectedDate.getDate() + 1)]);
          }}
          customInput={
             <div className="react-datepicker__inputDiv-container">
