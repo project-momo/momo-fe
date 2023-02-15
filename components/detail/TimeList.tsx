@@ -37,4 +37,8 @@ const List = styled.div`
       background-color: #b4cfff;
       color: #052253;
    }
+   &.disabled {
+      background-color: #d9d9d9;
+      color: #979797;
+   }
 `;
