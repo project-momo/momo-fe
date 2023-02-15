@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import Categorys from '../../components/create/Categorys';
@@ -56,6 +56,8 @@ const Create = () => {
    const [personnelError, setPersonnelError] = useState('');
    const [priceError, setPriceError] = useState('');
 
+   const contentRef = useRef<HTMLTextAreaElement>(null);
+
    const handleClickTag = (value: string) => {
       if (tags.includes(value)) {
          setTags([...tags.filter(tag => tag !== value)]);
@@ -100,7 +102,7 @@ const Create = () => {
    const data = {
       category,
       title,
-      content,
+      content: contentRef.current?.innerHTML,
       tags,
       address: { addressIds: gu, addressInfo },
       personnel: datePolicy === 'FREE' ? 1 : Number(personnel),
@@ -230,6 +232,7 @@ const Create = () => {
                <Li>
                   <LiTitle main="내용" error={contentError} />
                   <TextArea
+                     ref={contentRef}
                      placeholder="모임 내용을 입력해주세요."
                      value={content}
                      onChange={e => setContent(e.target.value)}
