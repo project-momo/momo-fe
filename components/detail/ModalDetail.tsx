@@ -114,6 +114,11 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
             })
             .then(res => {
                if (res.status === 201 && res.data.amount > 0) {
+                  // const fetchData = {
+                  //    ...res.data,
+                  //    successUrl: 'http://localhost:3000/payments/success',
+                  //    failUrl: 'http://localhost:3000/payments/fail'
+                  // };
                   tossPayments.requestPayment('카드', res.data).catch(function (error) {
                      if (error.code === 'USER_CANCEL') {
                         // 결제 고객이 결제창을 닫았을 때 에러 처리

@@ -33,5 +33,6 @@ const LiTtileStyle = styled.div<ErrorType>`
    > span:nth-child(2) {
       margin-left: 20px;
       color: ${props => (props.preview ? '#444BFF' : props.error && 'red')};
+      font-weight: 600;
    }
 `;

@@ -12,7 +12,7 @@ if (typeof window !== 'undefined') {
    }
 }
 
-console.log(axios.defaults.headers.common.Authorization);
+// console.log(axios.defaults.headers.common.Authorization);
 const parseJwt = (token: any) => {
    const base64Url = token.split('.')[1];
    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

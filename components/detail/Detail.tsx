@@ -112,11 +112,15 @@ const MoreIcon = styled.img`
    right: 20px;
 `;
 
-const Content = styled.p`
+const Content = styled.pre`
+   width: 100%;
    font-size: 15px;
    line-height: 1.5;
    font-weight: 400;
+   margin-top: 15px;
    margin-bottom: 35px;
+   word-break: keep-all;
+   font-family: IBM Plex Sans KR;
 `;
 
 const ListTitle = styled.p`

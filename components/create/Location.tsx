@@ -115,10 +115,12 @@ const LocationStyle = styled.ul`
    li button.selectedSi {
       background-color: #d4e6ff;
       color: #6a6ff2;
+      font-weight: 600;
       transition: background-color 0.2s ease-in-out;
    }
    li button.selectedGu {
       color: #6a6ff2;
+      font-weight: 600;
    }
 
    > span {
