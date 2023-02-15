@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { mypageHostMeetings, selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
+import { mypageAttendingMeetings, selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
 import { attendingMeeting_opened } from '../../../../atoms/mypage/selector';
 import { ColorBtn } from './ModalBtn';
 
@@ -9,20 +10,26 @@ const CancelMeeting = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const meetingId = useRecoilValue(selectedMeeting);
    const reservationId = useRecoilValue(selectedReservation);
-   const setHostMeetings = useSetRecoilState(mypageHostMeetings);
+   const [attendingMeetings, setAttendingMeetings] = useRecoilState(mypageAttendingMeetings);
    const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
-   const paymentKey = attending_openedMeetings.filter((el: any) => el.meetingId === meetingId.id)[0].application
-      .paymentKey;
-   const fetchData = { paymentKey: paymentKey };
+   const filtered = attending_openedMeetings.filter((el: any) => el.meetingId !== meetingId.id);
+   let paymentKey: any;
 
-   const cancelMeeting = async () => {
+   useEffect(() => {
+      paymentKey = attending_openedMeetings.filter((el: any) => el.meetingId === meetingId.id)[0].application
+         .paymentKey;
+   }, []);
+
+   const cancelMeeting = () => {
+      const fetchData = { paymentKey: paymentKey };
+
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       axios
          .delete(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, { data: fetchData })
          .then(res => {
             if (res.status === 204) {
                alert('모임 취소가 완료되었습니다.');
-               setHostMeetings(res.data);
+               setAttendingMeetings({ ...attendingMeetings, content: filtered });
             }
          })
          .catch(err => console.log(err));
