@@ -4,8 +4,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Link from 'next/link';
 import { attendingMeeting_opened, hostMeeting_opened } from '../../atoms/mypage/selector';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { mypageAttendingMeetings, mypageHostMeetings } from '../../atoms/mypage/atoms';
+import { api } from '../../util/token';
 
 const MyMeetings_mypage = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -15,21 +15,8 @@ const MyMeetings_mypage = () => {
    const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
 
    useEffect(() => {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      // eslint-disable-next-line import/no-named-as-default-member
-      axios
-         .all([
-            axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20'),
-            axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20')
-         ])
-         .then(
-            // eslint-disable-next-line import/no-named-as-default-member
-            axios.spread((res1, res2) => {
-               setHostMeetings(res1.data);
-               setAttendingMeetings(res2.data);
-            })
-         )
-         .catch(err => console.log(err));
+      api.get(API_URI + '/mypage/meetings/hosts?page=1&size=20').then(res => setHostMeetings(res.data));
+      api.get(API_URI + '/mypage/meetings/participants?page=1&size=20').then(res => setAttendingMeetings(res.data));
    }, []);
 
    return (

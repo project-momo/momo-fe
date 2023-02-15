@@ -10,7 +10,6 @@ import { Button } from '../common/Button';
 import DaySelect from './DaySelect';
 import TimeList from './TimeList';
 import { loadTossPayments } from '@tosspayments/payment-sdk';
-import axios from 'axios';
 
 interface DetailProps {
    title: string;
@@ -101,19 +100,18 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
       if (!isLoginState) {
          alert('로그인 후 이용 가능합니다.');
       } else {
-         axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-         axios
-            .post(API_URI + `/meetings/${meetingId}/reservations`, {
-               dateInfo: {
-                  reservationDate: dateTime.startDate,
-                  startTime: dateTime.startTime,
-                  endTime: dateTime.endTime
-               },
-               amount: price,
-               reservationMemo: memoState
-            })
+         api.post(API_URI + `/meetings/${meetingId}/reservations`, {
+            dateInfo: {
+               reservationDate: dateTime.startDate,
+               startTime: dateTime.startTime,
+               endTime: dateTime.endTime
+            },
+            amount: price,
+            reservationMemo: memoState
+         })
             .then(res => {
                if (res.status === 201 && res.data.amount > 0) {
+                  // console.log(res);
                   // const fetchData = {
                   //    ...res.data,
                   //    successUrl: 'http://localhost:3000/payments/success',

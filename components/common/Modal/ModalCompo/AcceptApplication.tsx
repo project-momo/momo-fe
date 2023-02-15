@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { mypageHostMeetings, selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
+import { api } from '../../../../util/token';
 import { ColorBtn } from './ModalBtn';
 
 const AcceptApplication = () => {
@@ -22,8 +22,7 @@ const AcceptApplication = () => {
    const acceptApplication = async () => {
       const fetchData = { isAccepted: 'true' };
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      const res = await axios.patch(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, fetchData);
+      const res = await api.patch(API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`, fetchData);
       if (res.status === 200) {
          alert('신청을 수락하였습니다.');
          setHostMeetings({ ...hostMeetings, content });
