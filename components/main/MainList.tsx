@@ -17,6 +17,7 @@ interface MainProps {
    };
    price: number;
    meetingId: number;
+   meetingState: string;
 }
 // interface CategoryProps {
 //    category?: string;
@@ -30,7 +31,7 @@ const MainList = () => {
    const [loading, setLoading] = useState(true);
    const [page, setPage] = useState(1);
    const [totalMoim, setTotalMoim] = useState(0);
-   const defaultCount = 18;
+   const defaultCount = 12;
    const [fetching, setFetching] = useState(false);
    const setSearchValue = useSetRecoilState(searchValueAtom);
    // const setCategory = useRecoilValue(nowCategoryState);
@@ -46,6 +47,7 @@ const MainList = () => {
                setModimData(el.data.content);
                setTotalMoim(el.data.pageInfo.totalElements);
                setFetching(false);
+               document.documentElement.scrollTop = 0;
             });
       } catch (error) {
          // setError(error);
@@ -59,10 +61,13 @@ const MainList = () => {
          getMoimData();
          setSearchValue('');
       }
+      setPage(1);
    }, [nowSelectCategory, selectTags]);
+
    useEffect(() => {
       setSelectTage('');
    }, [nowSelectCategory]);
+
    const throttle = (handler: (...args: any[]) => void, timeout = 300) => {
       let invokedTime: number;
       let timer: number;
@@ -103,8 +108,9 @@ const MainList = () => {
          setFetching(false);
       }
    }, [fetching]);
+
    useEffect(() => {
-      if (fetching && totalMoim > defaultCount * page) {
+      if (fetching && totalMoim > defaultCount) {
          try {
             api.get(
                `${API_URI}/meetings?&category=${nowSelectCategory}${
@@ -120,14 +126,11 @@ const MainList = () => {
          } finally {
             setLoading(false);
          }
+      } else {
+         getMoimData();
       }
    }, [page]);
 
-   //    if (moimData === 18) {
-   //       if (false) {
-   //
-   //       }
-   //    }
    return (
       <CardList>
          {loading && nowSelectCategory !== 'search' ? (
@@ -145,6 +148,7 @@ const MainList = () => {
                      content={el.content}
                      locate={el.address.addresses}
                      price={priceString}
+                     meetingState={el.meetingState}
                   />
                );
             })
