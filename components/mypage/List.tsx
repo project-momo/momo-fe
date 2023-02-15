@@ -1,7 +1,7 @@
 interface ListProps {
    data: {
       amount: string;
-      message: string;
+      description: string;
       date: string;
       state: string;
       type: string;
@@ -13,14 +13,14 @@ const List = ({ data }: ListProps) => {
    return (
       <div className="list">
          <p className="message">
-            {data.message}
+            {data.description}
             <span className="date">{data.date}</span>
          </p>
          <p className={data.state === 'plus' ? 'status plus' : 'status minus'}>
             {data.state === 'DEDUCT' ? '출금' : '적립'}
          </p>
          <p className="point">
-            {data.state === 'plus' ? '+' : '-'}
+            {data.state === 'DEDUCT' ? '-' : '+'}
             {price}원
          </p>
       </div>
