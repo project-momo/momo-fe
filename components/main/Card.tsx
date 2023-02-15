@@ -29,7 +29,7 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId, m
             </CardContent>
             <MoreInfo>
                <p>
-                  <span>{shortLocate}</span>
+                  <span>{shortLocate === '전체' ? locate[0] : shortLocate}</span>
                   {price === '0' ? <span> | 무료 </span> : <span> | {price}원 </span>}
                </p>
             </MoreInfo>
