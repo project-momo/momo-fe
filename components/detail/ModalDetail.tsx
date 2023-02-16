@@ -153,6 +153,8 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
          return alert('로그인 후 이용 가능합니다.');
       } else if (localStorage.getItem('userId') === `${hostId}`) {
          return alert('자신이 등록한 모임은 신청할 수 없습니다.');
+      } else if (!lastfreeDate && !startTimeSet) {
+         return alert('날짜와 시간을 모두 선택해주세요.');
       } else {
          const freeSubmit = {
             dateInfo: {
