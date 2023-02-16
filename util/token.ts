@@ -8,7 +8,7 @@ export const api = axios.create({
 
 if (typeof window !== 'undefined') {
    if (localStorage.getItem('AccessToken') !== null) {
-      axios.defaults.headers.common['Authorization'] = `${localStorage.getItem('AccessToken')}`;
+      api.defaults.headers.common['Authorization'] = `${localStorage.getItem('AccessToken')}`;
    }
 }
 

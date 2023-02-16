@@ -40,9 +40,10 @@ const Sub = () => {
       getData();
    }, [query.id]);
 
-   const date = new Date();
-   const startDate = new Date(subData.dateTime.startDate);
-   const dayOver = date >= startDate;
+   const date = new Date().setHours(0, 0, 0, 0);
+   const startDate = new Date(subData.dateTime.startDate).setHours(0, 0, 0, 0);
+   const dayOver = date > startDate;
+   // const dayOver = false;
 
    useEffect(() => {
       return setSubData({
@@ -92,6 +93,7 @@ const Sub = () => {
                CloseModal={() => setIsModalOpen(!isModalOpen)}
                childrens={
                   <ModalDetail
+                     hostId={subData.host.userId}
                      setIsModalOpen={setIsModalOpen}
                      meetingId={subData.meetingId}
                      dateTime={subData.dateTime}
