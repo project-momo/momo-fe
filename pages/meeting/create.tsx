@@ -203,7 +203,6 @@ const Create = () => {
          return;
       }
 
-      console.log('#1', data);
       api.post(`${API_URI}/meetings`, data)
          .then(() => {
             router.push('/');
