@@ -15,7 +15,7 @@ import { freeDate } from '../../atoms/sub/atom';
 
 interface DetailProps {
    title: string;
-   hostId: string;
+   hostId: number;
    price: number;
    meetingId: number;
    dateTime: {
@@ -143,7 +143,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
       const API_URI = process.env.NEXT_PUBLIC_API_URI;
       const clientKey: any = process.env.NEXT_PUBLIC_CLIENT_KEY;
       const tossPayments = await loadTossPayments(clientKey);
-      console.log(hostId, 'hostid', localStorage.getItem('userId') === hostId);
+      console.log(hostId, 'hostid', localStorage.getItem('userId') === `${hostId}`);
       if (!isLoginState) {
          return alert('로그인 후 이용 가능합니다.');
       } else if (localStorage.getItem('userId') === `${hostId}`) {
