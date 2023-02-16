@@ -116,7 +116,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
    const freeDateState = useRecoilValue(freeDate);
    const [lastfreeDate, setLastFreedate] = useState('');
 
-   console.log(lastfreeDate, 'date상태가??');
+   console.log(freeDayObject, 'date상태가??');
 
    useEffect(() => {
       if (freeDateState) {
@@ -238,12 +238,14 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
    const [completeReser, setCompletaeReser] = useState<any>([]);
    useEffect(() => {
       if (lastfreeDate && datePolicy === 'FREE') {
+         const completeArr = [];
          for (const key in freeDayObject) {
             if (freeDayObject[key].dateTime.split('T')[0] === lastfreeDate && freeDayObject[key].currentStaff !== 0) {
-               console.log(freeDayObject[key].dateTime.split('T')[0]);
-               setCompletaeReser([...completeReser, freeDayObject[key].time.split(':')[0]]);
+               console.log(freeDayObject[key].time.split(':')[0], '막힌날');
+               completeArr.push(freeDayObject[key].time.split(':')[0]);
             }
          }
+         setCompletaeReser(completeArr);
       }
    }, [lastfreeDate]);
 
