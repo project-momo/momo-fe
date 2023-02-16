@@ -44,7 +44,6 @@ const Sub = () => {
    const startDate = new Date(subData.dateTime.startDate).setHours(0, 0, 0, 0);
    const dayOver = date > startDate;
    // const dayOver = false;
-   console.log(dayOver, date, startDate, subData.dateTime.startDate);
 
    useEffect(() => {
       return setSubData({
