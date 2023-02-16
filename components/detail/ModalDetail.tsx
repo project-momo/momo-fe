@@ -51,8 +51,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
    const [startTimeSet, endTimeSet] = clickTime;
    const [nearbyCompleteTime, setNearbyCompleteTime] = useState<any>();
 
-   console.log(nearbyCompleteTime, 'rkRKdns');
-
    const TimeListSetting = (el: number) => {
       if (!freeDateState) {
          return alert('날짜를 먼저 선택해주세요.');
@@ -99,7 +97,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
       if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
          api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then((el: any) => {
             if (el && el.data.length !== 0) {
-               console.log(el);
                setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
             }
          });
@@ -121,8 +118,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
    const [freeDateState, setFreeDateState] = useRecoilState(freeDate);
    const [lastfreeDate, setLastFreedate] = useState<any>('');
 
-   console.log(freeDayObject, 'date상태가??');
-
    useEffect(() => {
       if (freeDateState) {
          const year = freeDateState.getFullYear();
@@ -138,22 +133,16 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
       setMemoState(e.target.value);
    };
    const amountTime = endTimeSet ? endTimeSet + 1 - startTimeSet : 1;
-   // console.log({
-   //    reservationDate: lastfreeDate,
-   //    startTime: `${startTimeSet}:00`,
-   //    endTime: endTimeSet ? `${endTimeSet + 1}:00` : `${startTimeSet + 1}:00`,
-   //    amountTime
-   // });
+
    const submitMoim = async () => {
       const API_URI = process.env.NEXT_PUBLIC_API_URI;
       const clientKey: any = process.env.NEXT_PUBLIC_CLIENT_KEY;
       const tossPayments = await loadTossPayments(clientKey);
-      console.log(hostId, 'hostid', localStorage.getItem('userId') === `${hostId}`);
       if (!isLoginState) {
          return alert('로그인 후 이용 가능합니다.');
       } else if (localStorage.getItem('userId') === `${hostId}`) {
          return alert('자신이 등록한 모임은 신청할 수 없습니다.');
-      } else if (!lastfreeDate && !startTimeSet) {
+      } else if (!lastfreeDate || startTimeSet === -1) {
          return alert('날짜와 시간을 모두 선택해주세요.');
       } else {
          const freeSubmit = {
@@ -210,7 +199,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
          const completeArr = [];
          for (const key in freeDayObject) {
             if (freeDayObject[key].dateTime.split('T')[0] === lastfreeDate && freeDayObject[key].currentStaff !== 0) {
-               console.log(freeDayObject[key].time.split(':')[0], '막힌날');
                completeArr.push(freeDayObject[key].time.split(':')[0]);
             }
          }
@@ -218,8 +206,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
       }
    }, [lastfreeDate]);
 
-   console.log(completeReser, '예약완료된 시간~~~', arrayList);
-   console.log(nearbyCompleteTime, 'daffewfa');
    useEffect(() => {
       for (let i = startTimeSet; i < startTimeSet + dateTime.maxTime; i++) {
          if (completeReser.indexOf(`${i}`) !== -1) {
