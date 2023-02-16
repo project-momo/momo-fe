@@ -4,7 +4,7 @@ import MyMeetings_attending from '../../components/mypage/MyMeetings_attending';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { mypageAttendingMeetings } from '../../atoms/mypage/atoms';
-import axios from 'axios';
+import { api } from '../../util/token';
 
 const Attending = () => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -12,9 +12,7 @@ const Attending = () => {
 
    useEffect(() => {
       // 통신
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios
-         .get(API_URI + '/mypage/meetings/participants?page=1&size=20')
+      api.get(API_URI + '/mypage/meetings/participants?page=1&size=20')
          .then(res => {
             setAttendingMeetings(res.data);
          })

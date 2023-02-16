@@ -79,7 +79,7 @@ const MyMeetingCard = ({ data, participant }: any) => {
                            {data.application.reservationState}
                         </p>
                      ) : (
-                        <p className={data.isOpen ? 'status open' : 'status closed'}>{data.meetingState}</p>
+                        <p className={data.isOpen ? 'status open' : 'status closed'}>{data.detailState}</p>
                      )}
                      <p className="category">{data.category}</p>
                      <p className="date">{data.dateTime.startDate}</p>
@@ -90,13 +90,25 @@ const MyMeetingCard = ({ data, participant }: any) => {
                   <p>{data.content}</p>
                </div>
                <div className="center">
-                  <p className="rate">
-                     {data.dateTime.datePolicy === 'HOUR' && '시간당'}
-                     {data.dateTime.datePolicy === 'DAY' && '종일'}
-                     {data.dateTime.datePolicy === 'FREE' && '자유'}
-                     <span>{data.price === 0 ? '무료' : price + '원'}</span>
-                  </p>
-                  <p>{data.address.addresses.join(', ')}</p>
+                  {participant ? (
+                     <p className="rate paid">
+                        {data.price !== 0 && '결제 완료'}
+                        <span>
+                           {data.price === 0
+                              ? '무료'
+                              : data.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',') + '원'}
+                        </span>
+                     </p>
+                  ) : (
+                     <p className="rate">
+                        {data.dateTime.datePolicy === 'HOUR' && data.price !== 0 && '시간당'}
+                        {data.dateTime.datePolicy === 'DAY' && '종일'}
+                        {data.dateTime.datePolicy === 'FREE' && data.price !== 0 && '시간당 '}
+                        <span>{data.price === 0 ? '무료' : price + '원'}</span>
+                     </p>
+                  )}
+
+                  <p className="address">{data.address.addresses.join(', ')}</p>
                </div>
                <div className="right">
                   {/* 주최자인 경우*/}

@@ -17,7 +17,7 @@ interface MainProps {
    };
    price: number;
    meetingId: number;
-   meetingState: string;
+   detailState: string;
 }
 // interface CategoryProps {
 //    category?: string;
@@ -148,7 +148,7 @@ const MainList = () => {
                      content={el.content}
                      locate={el.address.addresses}
                      price={priceString}
-                     meetingState={el.meetingState}
+                     detailState={el.detailState}
                   />
                );
             })

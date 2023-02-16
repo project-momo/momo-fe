@@ -10,10 +10,10 @@ interface CardProps {
    locate: string[];
    price: string;
    meetingId: number;
-   meetingState: string;
+   detailState: string;
 }
 
-const Card = ({ username, userImage, title, content, locate, price, meetingId, meetingState }: CardProps) => {
+const Card = ({ username, userImage, title, content, locate, price, meetingId, detailState }: CardProps) => {
    const shortLocate = locate.length !== 0 ? locate[0].split(' ')[1] : '';
    return (
       <CardWrap className="card_wrap">
@@ -21,7 +21,7 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId, m
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>
-               <MeetingState>{meetingState === '모집 완료' && meetingState}</MeetingState>
+               <MeetingState>{detailState !== '모집 중' && detailState}</MeetingState>
             </UserCard>
             <CardContent>
                <Title>{title}</Title>
@@ -29,7 +29,7 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId, m
             </CardContent>
             <MoreInfo>
                <p>
-                  <span>{shortLocate}</span>
+                  <span>{shortLocate === '전체' ? locate[0] : shortLocate}</span>
                   {price === '0' ? <span> | 무료 </span> : <span> | {price}원 </span>}
                </p>
             </MoreInfo>

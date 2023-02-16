@@ -168,6 +168,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
          api.post(API_URI + `/meetings/${meetingId}/reservations`, datePolicy === 'FREE' ? freeSubmit : defaultSubmit)
             .then(res => {
                if (res.status === 201 && res.data.amount > 0) {
+                  // console.log(res);
                   // const fetchData = {
                   //    ...res.data,
                   //    successUrl: 'http://localhost:3000/payments/success',

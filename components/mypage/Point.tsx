@@ -5,7 +5,7 @@ import Modal from './Modal';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { modalState, myProfile } from '../../atoms/mypage/atoms';
 import { useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../../util/token';
 
 const Point = ({ myPoint }: any) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -16,8 +16,7 @@ const Point = ({ myPoint }: any) => {
 
    useEffect(() => {
       if (myPoint) {
-         axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-         axios.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
+         api.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
       }
    }, []);
 

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { myProfile } from '../../atoms/mypage/atoms';
 import { useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../../util/token';
 interface ImgProps {
    imgprops: string;
 }
@@ -15,8 +15,7 @@ const Profile = () => {
    const [myInfo, setMyInfo] = useRecoilState(myProfile);
 
    useEffect(() => {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
+      api.get(API_URI + '/mypage/profile').then((res): any => setMyInfo(res.data));
    }, []);
 
    return (

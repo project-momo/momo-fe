@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { myProfile } from '../../../../atoms/mypage/atoms';
+import { api } from '../../../../util/token';
 import { SquareButton } from '../../../mypage/Button';
 import QuickBtn from './QuickBtn';
 
@@ -94,9 +94,7 @@ const Withdraw = () => {
       //       account: 1234567890123456
       //    }
       // };
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios
-         .patch(API_URI + '/mypage/point/withdrawal', fetchData)
+      api.patch(API_URI + '/mypage/point/withdrawal', fetchData)
          .then(res => {
             if (res.status === 200) {
                alert('인출 요청이 완료되었습니다.');
