@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Link from 'next/link';
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -8,6 +7,7 @@ interface SubProps {
    hostId: number;
 }
 import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
+import { api } from '../../util/token';
 
 const SubModal = ({ hostId }: SubProps) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
@@ -19,8 +19,7 @@ const SubModal = ({ hostId }: SubProps) => {
 
    const handleDeleteMeeting = () => {
       if (confirm('모임을 마감하시겠습니까?')) {
-         axios
-            .delete(`${API_URI}/meetings/${subObject.meetingId}`)
+         api.delete(`${API_URI}/meetings/${subObject.meetingId}`)
             .then(() => setSubDateObject({ ...subObject, meetingState: '모집 완료' }))
             .catch(err => console.log('에러', err));
       }

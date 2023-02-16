@@ -66,6 +66,7 @@ const TagsStyle = styled.ul`
    > li button.selected {
       background-color: #d4e6ff;
       color: #6a6ff2;
+      font-weight: 600;
    }
    > li:not(:last-child) {
       margin-right: 15px;

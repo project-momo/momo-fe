@@ -68,6 +68,7 @@ const CategorysStyle = styled.ul`
       margin: 8px 0;
       button.selected {
          color: #444bff;
+         font-weight: 600;
       }
    }
 `;

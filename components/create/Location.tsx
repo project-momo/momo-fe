@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { api } from '../../util/token';
 
 interface LocationProps {
    si: string;
@@ -25,8 +25,7 @@ const Location = ({ si, gu, handleClickSi, handleClickGu }: LocationProps) => {
    const [locationDummy, SetlocationDummy] = useState<LocationDummyType[]>([]);
 
    useEffect(() => {
-      axios
-         .get(`${API_URI}/addresses`)
+      api.get(`${API_URI}/addresses`)
          .then(res => {
             SetlocationDummy(res.data);
          })
@@ -116,10 +115,12 @@ const LocationStyle = styled.ul`
    li button.selectedSi {
       background-color: #d4e6ff;
       color: #6a6ff2;
+      font-weight: 600;
       transition: background-color 0.2s ease-in-out;
    }
    li button.selectedGu {
       color: #6a6ff2;
+      font-weight: 600;
    }
 
    > span {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Title } from '../../components/common/Title';
 import { CenterSection } from '../../styles/style';
 import Categorys from '../../components/create/Categorys';
@@ -15,8 +15,8 @@ import Price from '../../components/create/Price';
 import LiTitle from '../../components/create/LiTitle';
 import Location from '../../components/create/Location';
 import { Button } from '../../components/common/Button';
-import axios from 'axios';
 import { useRouter } from 'next/router';
+import { api } from '../../util/token';
 
 const Create = () => {
    const router = useRouter();
@@ -55,6 +55,8 @@ const Create = () => {
    const [maxTimeError, setMaxTimeError] = useState('');
    const [personnelError, setPersonnelError] = useState('');
    const [priceError, setPriceError] = useState('');
+
+   const contentRef = useRef<HTMLTextAreaElement>(null);
 
    const handleClickTag = (value: string) => {
       if (tags.includes(value)) {
@@ -100,7 +102,7 @@ const Create = () => {
    const data = {
       category,
       title,
-      content,
+      content: contentRef.current?.innerHTML,
       tags,
       address: { addressIds: gu, addressInfo },
       personnel: datePolicy === 'FREE' ? 1 : Number(personnel),
@@ -203,8 +205,7 @@ const Create = () => {
          return;
       }
 
-      axios
-         .post(`${API_URI}/meetings`, data)
+      api.post(`${API_URI}/meetings`, data)
          .then(() => {
             router.push('/');
          })
@@ -231,6 +232,7 @@ const Create = () => {
                <Li>
                   <LiTitle main="내용" error={contentError} />
                   <TextArea
+                     ref={contentRef}
                      placeholder="모임 내용을 입력해주세요."
                      value={content}
                      onChange={e => setContent(e.target.value)}

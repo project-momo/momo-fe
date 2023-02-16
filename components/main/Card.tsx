@@ -10,17 +10,18 @@ interface CardProps {
    locate: string[];
    price: string;
    meetingId: number;
+   meetingState: string;
 }
 
-const Card = ({ username, userImage, title, content, locate, price, meetingId }: CardProps) => {
+const Card = ({ username, userImage, title, content, locate, price, meetingId, meetingState }: CardProps) => {
    const shortLocate = locate.length !== 0 ? locate[0].split(' ')[1] : '';
-   // console.log(locate);
    return (
       <CardWrap className="card_wrap">
          <Link href={`/sub/${meetingId}`}>
             <UserCard>
                <UserImg backimg={userImage}></UserImg>
                <UserName>{username}</UserName>
+               <MeetingState>{meetingState === '모집 완료' && meetingState}</MeetingState>
             </UserCard>
             <CardContent>
                <Title>{title}</Title>
@@ -29,7 +30,7 @@ const Card = ({ username, userImage, title, content, locate, price, meetingId }:
             <MoreInfo>
                <p>
                   <span>{shortLocate}</span>
-                  {price === '0' ? null : <span> | {price}원 </span>}
+                  {price === '0' ? <span> | 무료 </span> : <span> | {price}원 </span>}
                </p>
             </MoreInfo>
          </Link>
@@ -44,10 +45,12 @@ const CardWrap = styled.div`
    a {
       padding: 15px 17px;
       width: 100%;
+      height: 261px;
       background: #ffffff;
       border-radius: 15px;
       cursor: pointer;
-      display: block;
+      display: flex;
+      flex-direction: column;
       transition: 0.3s;
    }
    a:hover {
@@ -80,14 +83,23 @@ const UserImg = styled.span<{ backimg: string }>`
    border-radius: 100%;
    display: block;
    background-image: url(${p => `${p.backimg}`});
-   background-color: #d3dbde;
+   background-color: #e6eaeb;
 `;
-const CardContent = styled.div``;
+const MeetingState = styled.span`
+   font-weight: 600;
+   font-size: 14px;
+   flex: 1;
+   text-align: right;
+   color: #656464;
+`;
+const CardContent = styled.div`
+   flex: 1;
+`;
 const Title = styled.p`
    font-size: 16px;
    font-weight: 700;
    line-height: 24px;
-   height: 48px;
+   max-height: 48px;
    text-overflow: ellipsis;
    overflow: hidden;
    word-break: break-word;
@@ -113,5 +125,6 @@ const Content = styled.p`
 const MoreInfo = styled.div`
    & p span {
       color: #444bff;
+      font-weight: 600;
    }
 `;

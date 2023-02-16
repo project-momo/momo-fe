@@ -11,11 +11,11 @@ const RejectApplication = () => {
    const [message, setMessage] = useState('');
 
    const rejectApplication = async () => {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       const fetchData = { isAccepted: 'false', message };
       if (message.trim().length === 0) {
          alert('신청 반려 사유를 작성해주세요!');
       } else {
+         axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
          const res = await axios.patch(
             API_URI + `/meetings/${meetingId.id}/reservations/${reservationId.id}`,
             fetchData

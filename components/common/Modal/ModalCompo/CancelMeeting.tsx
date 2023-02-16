@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { mypageAttendingMeetings, selectedMeeting, selectedReservation } from '../../../../atoms/mypage/atoms';
-import { attendingMeeting_opened } from '../../../../atoms/mypage/selector';
+import { attendingMeeting_state } from '../../../../atoms/mypage/selector';
 import { ColorBtn } from './ModalBtn';
 
 const CancelMeeting = () => {
@@ -11,13 +11,17 @@ const CancelMeeting = () => {
    const meetingId = useRecoilValue(selectedMeeting);
    const reservationId = useRecoilValue(selectedReservation);
    const [attendingMeetings, setAttendingMeetings] = useRecoilState(mypageAttendingMeetings);
-   const attending_openedMeetings = useRecoilValue(attendingMeeting_opened);
+   const attending_openedMeetings = useRecoilValue(attendingMeeting_state);
    const filtered = attending_openedMeetings.filter((el: any) => el.meetingId !== meetingId.id);
-   let paymentKey: any;
+   let paymentKey: string;
 
    useEffect(() => {
       paymentKey = attending_openedMeetings.filter((el: any) => el.meetingId === meetingId.id)[0].application
          .paymentKey;
+
+      return () => {
+         paymentKey = '';
+      };
    }, []);
 
    const cancelMeeting = () => {
@@ -30,9 +34,12 @@ const CancelMeeting = () => {
             if (res.status === 204) {
                alert('모임 취소가 완료되었습니다.');
                setAttendingMeetings({ ...attendingMeetings, content: filtered });
+               axios.get(API_URI + '/mypage/meetings/participants?page=1&size=20').then(res => {
+                  setAttendingMeetings(res.data);
+               });
             }
          })
-         .catch(err => console.log(err));
+         .catch(err => alert(err.response.data.message));
    };
    return (
       <Wrapper>

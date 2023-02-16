@@ -154,21 +154,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
       } else if (localStorage.getItem('userId') === `${hostId}`) {
          return alert('자신이 등록한 모임은 신청할 수 없습니다.');
       } else {
-         // const res = await axios
-         //    .post(API_URI + `/meetings/${meetingId}/reservations`, {
-         //       dateInfo: {
-         //          reservationDate: dateTime.startDate,
-         //          startTime: dateTime.startTime,
-         //          endTime: dateTime.endTime
-         //       },
-         //       amount: price,
-         //       reservationMemo: memoState
-         //    })
-         //    .then(res => {
-         //       console.log('예약 진행 후 결과 : ', res);
-         //    })
-         //    .catch(e => alert(e.response.data.message));
-
          const freeSubmit = {
             dateInfo: {
                reservationDate: lastfreeDate,
@@ -192,11 +177,10 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
          api.post(API_URI + `/meetings/${meetingId}/reservations`, datePolicy === 'FREE' ? freeSubmit : defaultSubmit)
             .then(res => {
                if (res.status === 201 && res.data.amount > 0) {
-                  console.log('유료 예약 성공시 : ', res);
                   // const fetchData = {
                   //    ...res.data,
-                  //    successUrl: 'https://momo-fe-two.vercel.app/payments/success',
-                  //    failUrl: 'https://momo-fe-two.vercel.app/payments/fail'
+                  //    successUrl: 'http://localhost:3000/payments/success',
+                  //    failUrl: 'http://localhost:3000/payments/fail'
                   // };
                   tossPayments.requestPayment('카드', res.data).catch(function (error) {
                      if (error.code === 'USER_CANCEL') {
@@ -208,7 +192,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
                      }
                   });
                } else {
-                  console.log('무료 예약 성공시 : ', res);
                   alert('예약이 완료되었습니다!');
                   setIsModalOpen(false);
                   setLastFreedate('');
@@ -216,29 +199,6 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
                }
             })
             .catch(e => alert(e.response.data.message));
-
-         // if (res !== undefined) {
-         //    if (res.status === 201 && res.data.amount > 0) {
-         //       // const fetchData = {
-         //       //    ...res.data,
-         //       //    successUrl: 'http://localhost:3000/payments/success',
-         //       //    failUrl: 'http://localhost:3000/payments/failed'
-         //       // };
-
-         //       tossPayments.requestPayment('카드', res.data).catch(function (error) {
-         //          if (error.code === 'USER_CANCEL') {
-         //             // 결제 고객이 결제창을 닫았을 때 에러 처리
-         //             alert('결제가 취소되었습니다.');
-         //          } else if (error.code === 'INVALID_CARD_COMPANY') {
-         //             // 유효하지 않은 카드 코드에 대한 에러 처리
-         //             alert('유효하지 않은 카드입니다.');
-         //          }
-         //       });
-         //    } else {
-         //       alert('예약이 완료되었습니다!');
-         //       setIsModalOpen(false);
-         //    }
-         // }
       }
    };
 

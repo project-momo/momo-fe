@@ -4,8 +4,8 @@ import { BasicWrapper } from './mypage.style';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { myProfile } from '../../atoms/mypage/atoms';
-import axios from 'axios';
 import { useEffect } from 'react';
+import axios from 'axios';
 interface ImgProps {
    imgprops: string;
 }
@@ -55,7 +55,7 @@ const ProfileWrapper = styled(BasicWrapper)`
    }
    .profile-txt {
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       flex: 1;
    }
    .edit {

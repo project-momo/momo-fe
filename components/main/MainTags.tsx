@@ -9,7 +9,7 @@ import { Tag } from '../common/Tag';
 
 const MainTags = () => {
    const nowSelectCategory = useRecoilValue(selectCategory);
-   const labelList = ['멘토링', '온라인', '오프라인', '스터디', '모임', '5인이상'];
+   const labelList = ['멘토링', '온라인', '오프라인', '스터디', '모임', '5인 이상'];
    return (
       <MainTagWrap>
          <SubTitle label={nowSelectCategory !== 'search' ? '지금 올라오는 모임' : '검색 결과'} labelMore="" />

@@ -11,16 +11,17 @@ const CloseMeeting = () => {
 
    const closeMeeting = async () => {
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      const res = await axios.delete(API_URI + `/meetings/${meetingId.id}`);
-      if (res.status === 204) {
-         alert('모임 모집이 종료되었습니다.');
-         axios
-            .get(API_URI + '/mypage/meetings/hosts?page=1&size=20')
-            .then(res => {
-               setHostMeetings(res.data);
-            })
-            .catch(err => console.log(err));
-      }
+      axios
+         .delete(API_URI + `/meetings/${meetingId.id}`)
+         .then(res => {
+            if (res.status === 204) {
+               alert('모임 모집이 종료되었습니다.');
+               axios.get(API_URI + '/mypage/meetings/hosts?page=1&size=20').then(res => {
+                  setHostMeetings(res.data);
+               });
+            }
+         })
+         .catch(e => alert(e.response.data.message));
    };
    return (
       <Wrapper>

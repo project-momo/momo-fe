@@ -14,8 +14,6 @@ import { setIsShareModalOpen, setSubDataObject } from '../../atoms/sub/atom';
 import { useRouter } from 'next/router';
 import { api } from '../../util/token';
 import { qnaListState } from '../../atoms/qna/atom';
-// import axios from 'axios';
-// import axios from 'axios';
 import { isLogin } from '../../atoms/atom';
 
 const Sub = () => {

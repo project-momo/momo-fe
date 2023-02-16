@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { isLogin } from '../../atoms/atom';
 import { qnaListState } from '../../atoms/qna/atom';
 import { setSubDataObject } from '../../atoms/sub/atom';
+import { api } from '../../util/token';
 import IconCommentAdd from './../../assets/images/icon_cmment_add.svg';
 
 interface QnaInputType {
@@ -16,6 +16,7 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
    const API_URI = process.env.NEXT_PUBLIC_API_URI;
    const isLoginState = useRecoilValue(isLogin);
    const { meetingId } = useRecoilValue(setSubDataObject);
+   const [typing, setTyping] = useState(true);
 
    const url =
       type === 'question'
@@ -27,22 +28,25 @@ const QnaInput = ({ type, qid }: QnaInputType) => {
    const loginState = useRecoilValue(isLogin);
 
    const onSubmit = () => {
+      if (!typing) return;
       if (!isLoginState) {
          return alert('로그인 후 이용 가능합니다.');
       }
       if (content.trim() === '') {
-         if (type === 'question') alert('질문 내용을 입력해주세요.');
-         else alert('답변 내용을 입력해주세요.');
-         return;
+         if (type === 'question') return alert('질문 내용을 입력해주세요.');
+         return alert('답변 내용을 입력해주세요.');
       }
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-      axios
-         .post(url, { content })
+      setContent('');
+      api.post(url, { content })
          .then(res => {
             setQnaList(res.data);
-            setContent('');
+            setTyping(false);
          })
          .catch(err => console.log('에러', err));
+
+      setTimeout(() => {
+         setTyping(true);
+      }, 700);
    };
 
    return (

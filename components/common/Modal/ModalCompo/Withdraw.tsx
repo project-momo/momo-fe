@@ -68,8 +68,6 @@ const Withdraw = () => {
 
    // 출금하기
    const withdraw = () => {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
-
       const inputPoint = Number(point.toString().replace('원', '').split(',').join(''));
       if (inputPoint === 0) {
          return alert('출금할 적립금을 입력해주세요.');
@@ -77,28 +75,38 @@ const Withdraw = () => {
          return alert('입금받을 은행을 선택해주세요.');
       } else if (bankAccount === '') {
          return alert('입금 계좌번호를 입력해주세요.');
-      } else {
-         alert('완료!');
       }
 
       // 통신
       const fetchData = {
          amount: point,
          accountInfo: {
-            name: myInfo.name,
+            name: myInfo.nickname,
             bank,
-            bankAccount
+            account: bankAccount
          }
       };
-      axios.patch(API_URI + '/mypage/point/withdrawal', fetchData).then(res => {
-         if (res.status === 200) {
-            alert('인출 요청이 완료되었습니다.');
-            setMyInfo({ ...myInfo, point: res.data.withdrawal.currentPoint });
-            setPoint('0');
-            setBank('');
-            setBankAccount('');
-         }
-      });
+      // const fetchData = {
+      //    amount: point,
+      //    accountInfo: {
+      //       name: '강지원',
+      //       bank: '토스',
+      //       account: 1234567890123456
+      //    }
+      // };
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
+      axios
+         .patch(API_URI + '/mypage/point/withdrawal', fetchData)
+         .then(res => {
+            if (res.status === 200) {
+               alert('인출 요청이 완료되었습니다.');
+               setMyInfo({ ...myInfo, point: res.data.withdrawal.currentPoint });
+               setPoint('0');
+               setBank('');
+               setBankAccount('');
+            }
+         })
+         .catch(err => alert(err.response.data.message));
    };
 
    return (

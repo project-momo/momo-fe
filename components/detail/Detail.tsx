@@ -94,7 +94,7 @@ const UserCard = styled.div<{ backImg: string }>`
    margin-bottom: 13px;
    div {
       background-image: url(${p => `${p.backImg}`});
-      background-color: #d3dbde;
+      background-color: #e6eaeb;
       background-position: cover;
       border-radius: 30px;
       background-size: cover;
@@ -112,11 +112,15 @@ const MoreIcon = styled.img`
    right: 20px;
 `;
 
-const Content = styled.p`
+const Content = styled.pre`
+   width: 100%;
    font-size: 15px;
    line-height: 1.5;
    font-weight: 400;
+   margin-top: 15px;
    margin-bottom: 35px;
+   word-break: keep-all;
+   font-family: IBM Plex Sans KR;
 `;
 
 const ListTitle = styled.p`

@@ -12,6 +12,7 @@ const Succeess = () => {
       const amount = new URL(window.location.href).searchParams.get('amount');
 
       // GET /payments/success?paymentKey=PAYMENT_KEY&orderId=ORDER_ID&amount=10000
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('AccessToken');
       axios
          .get(API_URI + `/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`)
          .then(res => {
