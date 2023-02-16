@@ -115,12 +115,21 @@ export const MeetingWrapper = styled(BasicWrapper)`
          align-items: flex-end;
          margin-right: 25px;
          height: 108px;
-         p {
-            font-size: 15px;
+         .rate {
+            font-size: 14px;
+            font-weight: 600;
             span {
-               font-size: 16px;
+               margin-left: 10px;
+               font-size: 17px;
                font-weight: 600;
             }
+            &.paid {
+               color: #8672fb;
+            }
+         }
+         .address {
+            font-size: 15px;
+            margin-top: 5px;
          }
       }
 
