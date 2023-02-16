@@ -36,7 +36,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
 
    const startNum = +dateTime.startTime.split(':')[0];
    const endNum = +dateTime.endTime.split(':')[0];
-   const arrayList = Array(endNum - startNum + 1)
+   const arrayList = Array(endNum - startNum)
       .fill(0)
       .map((_, i) => startNum + i);
    // const dpSetting = {
