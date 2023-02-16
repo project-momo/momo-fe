@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { isLogin } from '../../atoms/atom';
 import { api } from '../../util/token';
@@ -110,11 +110,16 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
             }
          });
       }
+
+      return () => {
+         setLastFreedate('');
+         setFreeDateState(null);
+      };
    }, []);
 
    const [memoState, setMemoState] = useState('');
-   const freeDateState = useRecoilValue(freeDate);
-   const [lastfreeDate, setLastFreedate] = useState('');
+   const [freeDateState, setFreeDateState] = useRecoilState(freeDate);
+   const [lastfreeDate, setLastFreedate] = useState<any>('');
 
    console.log(freeDayObject, 'date상태가??');
 
@@ -206,6 +211,8 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
                   console.log('무료 예약 성공시 : ', res);
                   alert('예약이 완료되었습니다!');
                   setIsModalOpen(false);
+                  setLastFreedate('');
+                  setFreeDateState(null);
                }
             })
             .catch(e => alert(e.response.data.message));
@@ -237,7 +244,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId
 
    const [completeReser, setCompletaeReser] = useState<any>([]);
    useEffect(() => {
-      if (lastfreeDate && datePolicy === 'FREE') {
+      if (lastfreeDate !== '' && datePolicy === 'FREE') {
          const completeArr = [];
          for (const key in freeDayObject) {
             if (freeDayObject[key].dateTime.split('T')[0] === lastfreeDate && freeDayObject[key].currentStaff !== 0) {
