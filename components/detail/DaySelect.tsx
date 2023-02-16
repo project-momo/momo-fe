@@ -18,16 +18,10 @@ interface SelectProps {
       dates: string[];
    };
 }
-const DaySelect = ({ datePolicy, dateTime, meetingId }: SelectProps) => {
+const DaySelect = ({ datePolicy, dateTime }: SelectProps) => {
    const [year, month, date] = dateTime.startDate.toString().split('-');
    const [yearOver, monthOver, dateOver] = dateTime.endDate.toString().split('-');
-   const freeDateState = useRecoilValue(freeDate);
-   useEffect(() => {
-      if (freeDateState !== null) {
-         console.log(freeDateState.toISOString().split('T')[0]);
-         api.get(`/meetings/${meetingId}/reservations/dates/2023-02-15`).then(el => console.log(el));
-      }
-   }, [freeDateState]);
+
    const weekObject = {
       7: '일',
       1: '월',
