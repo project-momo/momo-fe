@@ -96,6 +96,7 @@ const Sub = () => {
                CloseModal={() => setIsModalOpen(!isModalOpen)}
                childrens={
                   <ModalDetail
+                     hostId={subData.host.userId}
                      setIsModalOpen={setIsModalOpen}
                      meetingId={subData.meetingId}
                      dateTime={subData.dateTime}

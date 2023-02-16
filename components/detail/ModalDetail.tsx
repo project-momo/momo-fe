@@ -15,6 +15,7 @@ import { freeDate } from '../../atoms/sub/atom';
 
 interface DetailProps {
    title: string;
+   hostId: string;
    price: number;
    meetingId: number;
    dateTime: {
@@ -29,7 +30,7 @@ interface DetailProps {
    };
    setIsModalOpen: any;
 }
-const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: DetailProps) => {
+const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen, hostId }: DetailProps) => {
    const datePolicy = dateTime.datePolicy;
    const isLoginState = useRecoilValue(isLogin);
 
@@ -97,7 +98,8 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
    useEffect(() => {
       if (datePolicy === 'ONE_DAY' || datePolicy === 'PERIOD') {
          api.get(`/meetings/${meetingId}/reservations/dates/${dateTime.startDate}`).then((el: any) => {
-            if (el) {
+            if (el && el.data.length !== 0) {
+               console.log(el);
                setOndayPersonal([el.data[0].currentStaff, el.data[0].personnel]);
             }
          });
@@ -141,9 +143,11 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
       const API_URI = process.env.NEXT_PUBLIC_API_URI;
       const clientKey: any = process.env.NEXT_PUBLIC_CLIENT_KEY;
       const tossPayments = await loadTossPayments(clientKey);
-
+      console.log(hostId, 'hostid', localStorage.getItem('userId') === hostId);
       if (!isLoginState) {
-         alert('로그인 후 이용 가능합니다.');
+         return alert('로그인 후 이용 가능합니다.');
+      } else if (localStorage.getItem('userId') === `${hostId}`) {
+         return alert('자신이 등록한 모임은 신청할 수 없습니다.');
       } else {
          // const res = await axios
          //    .post(API_URI + `/meetings/${meetingId}/reservations`, {
@@ -163,8 +167,8 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
          const freeSubmit = {
             dateInfo: {
                reservationDate: lastfreeDate,
-               startTime: startTimeSet,
-               endTime: endTimeSet
+               startTime: `${startTimeSet}:00`,
+               endTime: endTimeSet ? `${endTimeSet + 1}:00` : `${startTimeSet + 1}:00`
             },
             amount: price * amountTime,
             reservationMemo: memoState
@@ -180,11 +184,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
             reservationMemo: memoState
          };
 
-         axios
-            .post(
-               API_URI + `/meetings/${meetingId}/reservations`,
-               datePolicy === 'FREE' ? { freeSubmit } : { defaultSubmit }
-            )
+         api.post(API_URI + `/meetings/${meetingId}/reservations`, datePolicy === 'FREE' ? freeSubmit : defaultSubmit)
             .then(res => {
                if (res.status === 201 && res.data.amount > 0) {
                   console.log('유료 예약 성공시 : ', res);
@@ -237,7 +237,7 @@ const ModalDetail = ({ title, dateTime, price, meetingId, setIsModalOpen }: Deta
 
    const [completeReser, setCompletaeReser] = useState<any>([]);
    useEffect(() => {
-      if (lastfreeDate) {
+      if (lastfreeDate && datePolicy === 'FREE') {
          for (const key in freeDayObject) {
             if (freeDayObject[key].dateTime.split('T')[0] === lastfreeDate && freeDayObject[key].currentStaff !== 0) {
                console.log(freeDayObject[key].dateTime.split('T')[0]);
