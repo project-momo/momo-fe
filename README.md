@@ -3,7 +3,7 @@
 모임 예약 플랫폼
 
 ## 배포링크
-https://momo-deploy.site/attending
+https://momo-deploy.site
 
 ## 🗓️ 프로젝트 기간
 
