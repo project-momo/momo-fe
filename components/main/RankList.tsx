@@ -8,7 +8,7 @@ const RankList = () => {
    const [rankList, setRankList] = useState<any>([]);
    useEffect(() => {
       api.get(`/ranks`).then(el => {
-         setRankList(el.data);
+         setRankList(el?.data);
       });
    }, []);
    return (
